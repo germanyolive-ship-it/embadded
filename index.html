@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Embedded Systems — الشرح التأسيسي الكامل</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Fira+Code:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #070b14;
@@ -30,11 +30,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Cairo', sans-serif;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.9;
-  font-size: 16px;
+  line-height: 2;
+  font-size: 16.5px;
   overflow-x: hidden;
 }
 
@@ -413,7 +413,7 @@ tr:hover td { background: rgba(56,189,248,0.03); }
   top: 12px; left: 16px;
   font-size: 0.7rem;
   color: var(--text-muted);
-  font-family: 'Cairo', sans-serif;
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
   letter-spacing: 0.05em;
 }
 .ck { color: #7aa2f7; }
@@ -626,7 +626,7 @@ tr:hover td { background: rgba(56,189,248,0.03); }
 
   /* Grids */
   .compare-grid { grid-template-columns: 1fr; gap: 12px; }
-  .cheat-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cheat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
 
   /* Tables */
   .table-wrap { border-radius: 10px; }
@@ -777,6 +777,8 @@ tr:hover td { background: rgba(56,189,248,0.03); }
       <a href="#s13" class="toc-item"><span class="toc-num">13</span> Arduino Programming</a>
       <a href="#s14" class="toc-item"><span class="toc-num">14</span> أنماط الأسئلة وTraps</a>
       <a href="#s15" class="toc-item"><span class="toc-num">15</span> Cheat Sheet النهائي</a>
+      <a href="#s16" class="toc-item"><span class="toc-num">16</span> CISC vs RISC & Processor Types</a>
+      <a href="#s17" class="toc-item"><span class="toc-num">17</span> IC Technologies & SoC & Moore's Law</a>
     </div>
   </div>
 </div>
@@ -2162,6 +2164,348 @@ tr:hover td { background: rgba(56,189,248,0.03); }
     <p>في الأسئلة الصعبة التي تجد فيها أكثر من إجابة صحيحة، ابحث عن "All of the Above". إذا رأيت نفيًا مثل "NOT" أو "INCORRECT" أو "EXCEPT" — تذكر أن الإجابة المطلوبة هي الجملة <strong>الغلطة</strong>.</p>
     <p>اقرأ كل اختيار بعناية — كلمة واحدة ممكن تعكس المعنى كاملاً (مثلاً: "Synchronous" بدل "Asynchronous").</p>
     <p>لو في سؤال عن خاصية أفضل — اسأل نفسك: "أفضل في إيه؟ في unit cost؟ في NRE cost؟ في time to market؟" — السياق هو اللي بيحدد الإجابة.</p>
+  </div>
+</div>
+
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION 16 ==================== -->
+<div class="section" id="s16">
+  <div class="section-header">
+    <div class="section-badge">16</div>
+    <div class="section-meta">
+      <div class="section-title">🏛️ CISC vs RISC & Processor Architecture Types</div>
+      <div class="section-sub">أنواع المعالجات من حيث مجموعة التعليمات والتخصص</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚔️</span> CISC vs RISC — الفرق الجوهري</div>
+    <p>الفرق بين CISC وRISC هو في <span class="hl">فلسفة تصميم مجموعة التعليمات (Instruction Set Architecture)</span>. كل منهما له مزايا وعيوب حسب التطبيق.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الخاصية</th><th>CISC</th><th>RISC</th></tr></thead>
+        <tbody>
+          <tr><td>الاسم</td><td>Complex Instruction Set Computer</td><td>Reduced Instruction Set Computer</td></tr>
+          <tr><td>تعليمات الـ Hardware</td><td class="no">كثيرة ومعقدة (Hundreds)</td><td class="yes">قليلة وبسيطة (Dozens)</td></tr>
+          <tr><td>تعقيد الـ Hardware</td><td class="no">عالٍ جداً</td><td class="yes">منخفض</td></tr>
+          <tr><td>عدد Cycles لكل Instruction</td><td class="no">متعدد (Multi-clock)</td><td class="yes">واحد في الغالب (Single-clock)</td></tr>
+          <tr><td>حجم الكود</td><td class="yes">صغير (تعليمات أقوى)</td><td class="no">أكبر نسبياً</td></tr>
+          <tr><td>Pipelining</td><td class="no">صعب (instructions غير منتظمة الطول)</td><td class="yes">سهل ومثالي (uniform timing)</td></tr>
+          <tr><td>Registers</td><td>قليلة — الذاكرة تُستخدم أكثر</td><td class="yes">كثيرة — Registers أسرع من RAM</td></tr>
+          <tr><td>Transistors</td><td class="no">للتعليمات المعقدة</td><td class="yes">للـ Memory Registers (أفيد)</td></tr>
+          <tr><td>السرعة الفعلية</td><td>أبطأ عادةً لكل تعليمة</td><td class="yes">أسرع لكل تعليمة</td></tr>
+          <tr><td>أمثلة</td><td>Intel x86, x86-64 (PC, Server)</td><td>ARM, AVR (ATmega), MIPS, RISC-V</td></tr>
+          <tr><td>الاستخدام</td><td>General-purpose PCs, Servers</td><td>Embedded, Mobile, Microcontrollers</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-info">
+      <div class="callout-head">💡 ملاحظة مهمة</div>
+      <p>الـ Arduino Uno بيستخدم ATmega328P وده <strong>RISC Architecture</strong>. الـ ARM processors (اللي في هواتفنا وـ ESP32) كمان RISC. الـ Intel x86 في الكمبيوتر هو CISC.</p>
+    </div>
+
+    <h4>VLIW — Very Long Instruction Word</h4>
+    <p>تقنية لتوازي تعليمات متعددة مستقلة في تعليمة واحدة طويلة جداً — الـ Compiler هو اللي بيقرر التوازي (مش الـ Hardware زي SIMD).</p>
+    <p>مثال: تعليمة VLIW واحدة بتنفذ في نفس الوقت: <span class="hl-blue">F=a+b</span> و <span class="hl-blue">c=e/g</span> و <span class="hl-blue">d=x&amp;y</span> و <span class="hl-blue">w=z*h</span> — كل ده دفعة واحدة!</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الخاصية</th><th>CISC</th><th>RISC</th><th>VLIW</th></tr></thead>
+        <tbody>
+          <tr><td>من يقرر التوازي؟</td><td>Hardware</td><td>Hardware (Superscalar)</td><td class="hi">Compiler</td></tr>
+          <tr><td>تعقيد الـ Hardware</td><td class="no">عالٍ</td><td>متوسط</td><td class="yes">منخفض نسبياً</td></tr>
+          <tr><td>تعقيد الـ Compiler</td><td>منخفض</td><td>متوسط</td><td class="no">عالٍ جداً</td></tr>
+          <tr><td>أمثلة</td><td>Intel x86</td><td>ARM, AVR</td><td>TI TMS320C6x DSP</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🧩</span> أنواع المعالجات حسب درجة التخصص</div>
+    <p>في الـ Embedded Systems، المعالجات بتتصنف في 3 فئات رئيسية حسب مدى تخصصها للمهمة:</p>
+
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>1. General-Purpose Processor (GPP)</h4>
+        <p>معالج قابل للبرمجة لأي تطبيق — المرونة الأعلى.</p>
+        <p><strong>مميزات:</strong> Program Memory عامة، Register File كبير، General ALU.</p>
+        <p><strong>فوائد:</strong> Low NRE cost، High Flexibility، سريع في التطوير.</p>
+        <p><strong>عيوب:</strong> Power أعلى، Size أكبر، مش أمثل للمهام المتخصصة.</p>
+        <p><strong>أمثلة:</strong> Intel Pentium, ARM Cortex-A, MIPS</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>2. Application-Specific Processor (ASP)</h4>
+        <p>معالج مُحسَّن لفئة معينة من التطبيقات — توازن بين العمومية والتخصص.</p>
+        <p><strong>مميزات:</strong> Program Memory + Optimized Datapath + Special Functional Units.</p>
+        <p><strong>فوائد:</strong> Some Flexibility + Good Performance + Better Power/Size.</p>
+        <p><strong>أمثلة:</strong> DSP Processors (TMS320), Network Processors</p>
+      </div>
+      <div class="compare-card green">
+        <h4>3. Single-Purpose Processor</h4>
+        <p>دائرة رقمية مصممة لتنفيذ برنامج واحد بالضبط — <strong>لا توجد Program Memory</strong>.</p>
+        <p><strong>مميزات:</strong> يحتوي فقط على المكونات اللازمة للبرنامج الواحد.</p>
+        <p><strong>فوائد:</strong> أسرع أداء، أقل استهلاك للطاقة، أصغر حجماً.</p>
+        <p><strong>يُعرف أيضاً بـ:</strong> Coprocessor, Accelerator, Peripheral</p>
+        <p><strong>أمثلة:</strong> USB Controller, Graphics Accelerator, CRC Engine</p>
+      </div>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-head">⚠️ Trap مهمة</div>
+      <p>الـ Single-Purpose Processor ليس بالضرورة "مبرمَج" — هو <strong>دائرة هاردوير ثابتة</strong> تنفذ وظيفة محددة. لا يحتاج Program Memory ولا Compiler ولا Code. مثال: USB Controller على الـ PCB هو Single-Purpose Processor.</p>
+    </div>
+
+    <h4>ASSP — Application-Specific System Processor</h4>
+    <p><span class="hl-blue">ASSP</span> هو نوع خاص — معالج متخصص في مهام محددة ويُستخدم كوحدة معالجة إضافية بدلاً من الـ Embedded Software. بيوفر حل أسرع وأكفأ مقارنةً بتشغيل نفس المهمة على GPP. <strong>أمثلة:</strong> IIM7100، W3100A (معالجات TCP/IP متخصصة).</p>
+
+    <div class="numbox" style="margin-top:20px;">
+      <div class="numbox-title">📊 مقارنة أنواع المعالجات</div>
+      <div class="num-row"><span class="num-label">الأعلى مرونة</span><span class="num-val">GPP (General-Purpose)</span></div>
+      <div class="num-row"><span class="num-label">أفضل توازن مرونة/أداء</span><span class="num-val">ASP / DSP</span></div>
+      <div class="num-row"><span class="num-label">الأعلى أداء للمهمة الواحدة</span><span class="num-val">Single-Purpose Processor</span></div>
+      <div class="num-row"><span class="num-label">الأسرع في الوصول للسوق (Time to Market)</span><span class="num-val">GPP</span></div>
+      <div class="num-row"><span class="num-label">الأقل استهلاكاً للطاقة (للمهمة الواحدة)</span><span class="num-val">Single-Purpose / ASIC</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔄</span> DSP Pipeline & Advanced Features</div>
+    <p>الـ DSP processors بتستخدم Pipeline عميقة لتحقيق throughput عالٍ. مثال على TMS320C6x بيمر بـ 3 stages رئيسية:</p>
+
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Fetch Stage</h4>
+        <p><strong>PG:</strong> Program Address Generate</p>
+        <p><strong>PS:</strong> Program Address Send</p>
+        <p><strong>PW:</strong> Program ready Wait</p>
+        <p><strong>PR:</strong> Program Receive</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>Decode Stage</h4>
+        <p><strong>DP:</strong> Dispatch</p>
+        <p><strong>DC:</strong> Decode</p>
+      </div>
+      <div class="compare-card green">
+        <h4>Execute Stage</h4>
+        <p>من <strong>6 لـ 10 phases</strong> حسب نوع التعليمة.</p>
+        <p>Pipeline عميقة = throughput أعلى.</p>
+      </div>
+    </div>
+
+    <h4>Zero-Overhead Looping</h4>
+    <p>دعم هاردوير للـ Loops بعدد ثابت من التكرارات — <span class="hl">بدون أي branching</span>، بدون pipeline stalls، بدون branch prediction. الـ Hardware loop counters وloop buffers بتتكفل بكل ده.</p>
+
+    <h4>Hardware Circular Addressing (Ring Buffer)</h4>
+    <p>دعم هاردوير لـ <span class="hl">Ring Buffer</span> — Fixed-Length Queue تُستخدم في Digital Filtering (مثال FIR Filter: y[n] = a₀x[n] + a₁x[n-1] + … + aₖx[n-k]). بيحتاج على الأقل مؤشرَين: Head وTail.</p>
+
+    <h4>Saturation Arithmetic — حساب الإشباع</h4>
+    <p>عند تجاوز الحد الأقصى — النتيجة تثبت عند الحد بدل Overflow. <span class="hl-blue">مثال (1 signed byte):</span> 64 + 69 = <span class="hl">127</span> (مش 133). -127 – 5 = <span class="hl">-128</span>. مهم في الـ Audio لتجنب التشويش.</p>
+
+    <div class="callout callout-warn">
+      <div class="callout-head">⚠️ تأثير على الرياضيات</div>
+      <p>Saturation Arithmetic تكسر قوانين الجبر! مثال: (64 + 70) – 25 = <strong>122</strong> ≠ 64 + (70 – 25) = <strong>109</strong>. الـ Associativity والـ Distributivity غير مضمونة.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION 17 ==================== -->
+<div class="section" id="s17">
+  <div class="section-header">
+    <div class="section-badge">17</div>
+    <div class="section-meta">
+      <div class="section-title">🏗️ IC Technologies & SoC & Moore's Law & Development Process</div>
+      <div class="section-sub">تقنيات التصنيع، الشريحة المتكاملة، قانون مور، وعملية تطوير النظام</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚙️</span> IC Technologies — 3 أنواع رئيسية لتصنيع الشرائح</div>
+    <p>الـ IC Technology بتحدد <span class="hl">كيف يتصنع الـ Chip</span> — وبتأثر على التكلفة والأداء وسرعة الوصول للسوق.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card red">
+        <h4>A. Full-Custom / VLSI</h4>
+        <p>كل طبقات الـ IC مُحسَّنة يدوياً:</p>
+        <p>• Placing transistors بدقة متناهية</p>
+        <p>• Sizing transistors للأداء الأمثل</p>
+        <p>• Routing wires بأقصر مسار</p>
+        <p><strong>✅ مميزات:</strong> أفضل أداء، أصغر حجم، أقل طاقة.</p>
+        <p><strong>❌ عيوب:</strong> NRE ~$300,000+، وقت تطوير طويل جداً.</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>B. Semi-Custom ASIC</h4>
+        <p>الطبقات السفلى جاهزة — المصمم يتحكم في الـ Routing فقط.</p>
+        <p>نوعان: <strong>Gate Array</strong> و <strong>Standard Cell</strong></p>
+        <p><strong>✅ مميزات:</strong> أداء جيد، NRE أقل ($10k–$100k).</p>
+        <p><strong>❌ عيوب:</strong> أسابيع لأشهر للتطوير.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>C. PLD / FPGA</h4>
+        <p>كل الطبقات موجودة — المصمم يبرمج الـ Connections فقط.</p>
+        <p>أشهر نوع: <strong>FPGA (Field-Programmable Gate Array)</strong></p>
+        <p><strong>✅ مميزات:</strong> NRE منخفض جداً، متاح فوراً، Reprogrammable!</p>
+        <p><strong>❌ عيوب:</strong> أكبر حجماً، أغلى/unit (~$30)، Power أعلى.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الخاصية</th><th>Full-Custom VLSI</th><th>Semi-Custom ASIC</th><th>PLD / FPGA</th></tr></thead>
+        <tbody>
+          <tr><td>NRE Cost</td><td class="no">~$300,000+</td><td class="hi">$10k – $100k</td><td class="yes">منخفض جداً</td></tr>
+          <tr><td>Unit Cost (mass)</td><td class="yes">الأرخص</td><td class="yes">رخيص</td><td class="no">~$30/unit</td></tr>
+          <tr><td>Time to Market</td><td class="no">شهور – سنين</td><td class="hi">أسابيع – شهور</td><td class="yes">شبه فوري</td></tr>
+          <tr><td>الأداء</td><td class="hi">الأعلى</td><td class="hi">عالٍ</td><td>متوسط</td></tr>
+          <tr><td>الحجم</td><td class="yes">الأصغر</td><td class="yes">صغير</td><td class="no">الأكبر</td></tr>
+          <tr><td>استهلاك الطاقة</td><td class="yes">الأقل</td><td class="yes">قليل</td><td class="no">الأعلى</td></tr>
+          <tr><td>Reprogrammable؟</td><td class="no">لأ</td><td class="no">لأ</td><td class="yes">نعم!</td></tr>
+          <tr><td>مثالي لـ</td><td>Mass Production ملايين</td><td>Medium Volume</td><td>Prototyping & Low Volume</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-danger">
+      <div class="callout-head">⚠️ Trap — NRE Cost vs Unit Cost</div>
+      <p>❌ الغلط الشائع: "ASIC الأرخص دايماً" → <strong>غير صحيح دايماً!</strong></p>
+      <p>✅ <strong>ASIC unit cost</strong> (سعر الوحدة في الإنتاج الضخم) هو الأرخص. لكن <strong>ASIC NRE cost</strong> (تكلفة التصميم الأولي) هو الأغلى بكتير.</p>
+      <p>📌 لو بتنتج مليون وحدة → ASIC أرخص إجمالاً. لو بتنتج 100 وحدة → FPGA/PLD أرخص بكتير.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔮</span> Moore's Law — قانون مور</div>
+    <p>قانون مور هو ملاحظة تاريخية رصدها <span class="hl-blue">Gordon E. Moore</span> (مؤسس Intel) عام 1965:</p>
+
+    <div class="callout callout-purple">
+      <div class="callout-head">📌 قانون مور</div>
+      <p>عدد الترانزستورات التي يمكن وضعها على الشريحة المتكاملة بنفس التكلفة <strong>يتضاعف كل عامين تقريباً</strong> — منذ اختراع الدائرة المتكاملة عام 1958.</p>
+    </div>
+
+    <p>هذا التضاعف المستمر أدى لتحسين أسي في: <span class="hl">Processing Speed</span> و <span class="hl">Memory Capacity</span> و <span class="hl">Power Efficiency</span> وانخفاض <span class="hl">Cost per Transistor</span>.</p>
+
+    <div class="callout callout-info">
+      <div class="callout-head">💡 واقع اليوم</div>
+      <p>في السنوات الأخيرة تباطأت وتيرة قانون مور بسبب الحدود الفيزيائية (نحن عند 2-3 نانومتر!). المصنّعون يلجأون لـ 3D Stacking وتقنيات جديدة لمواصلة التطوير. قانون مور لم يمُت — لكنه تباطأ.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">💎</span> SoC — System-on-Chip</div>
+    <p><span class="hl-blue">SoC</span> هو تكامل كل مكونات النظام الإلكتروني في شريحة واحدة — CPU وRAM وROM وI/O وGPU ووحدات الاتصال — كلها on-chip.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>مكونات الـ SoC النموذجي</h4>
+        <p>• Digital: CPU, DSP, GPU</p>
+        <p>• Analog: ADC, DAC, PLL</p>
+        <p>• Mixed-signal circuits</p>
+        <p>• RF (Radio-Frequency) circuits</p>
+        <p>• Memory: RAM, ROM, Flash</p>
+        <p>• I/O: USB, UART, SPI, I²C, Wi-Fi</p>
+      </div>
+      <div class="compare-card green">
+        <h4>مزايا SoC</h4>
+        <p>• <strong>حجم أصغر</strong> — كل شيء on-chip</p>
+        <p>• <strong>طاقة أقل</strong> — لا كابلات طويلة بين chips</p>
+        <p>• <strong>أداء أعلى</strong> — latency منخفض</p>
+        <p>• <strong>تكلفة أقل</strong> — في الإنتاج الضخم</p>
+        <p>• <strong>موثوقية أعلى</strong> — وصلات أقل = أعطال أقل</p>
+      </div>
+    </div>
+
+    <p><strong>أمثلة شهيرة:</strong> <span class="hl-blue">ESP32</span> (CPU + Wi-Fi + BT + ADC + كل الـ Peripherals). <span class="hl-blue">Apple M4</span> (CPU + GPU + Neural Engine + Memory Controller). <span class="hl-blue">Raspberry Pi BCM2711</span> (ARM CPU + GPU).</p>
+
+    <div class="callout callout-info">
+      <div class="callout-head">💡 SiP vs SoC</div>
+      <p><strong>SoC:</strong> كل المكونات على نفس الـ Silicon Die — أصغر حجماً وأكفأ.</p>
+      <p><strong>SiP (System-in-Package):</strong> عدة Dies منفصلة في Package واحدة — أرخص في التطوير، لكن أكبر قليلاً من SoC.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🛠️</span> Development Process — خطوات بناء Embedded System</div>
+    <p>أي Embedded System بيمر بـ 6 خطوات رئيسية من الفكرة للمنتج النهائي:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>المرحلة</th><th>التفاصيل</th><th>أدوات شائعة</th></tr></thead>
+        <tbody>
+          <tr><td class="hi">1</td><td><strong>Requirements</strong></td><td>جمع متطلبات العميل — إيه اللي النظام لازم يعمله؟ القيود (وقت، طاقة، حجم، تكلفة)؟ المستخدمون مش دايماً مهندسين.</td><td>Word, SRS Documents</td></tr>
+          <tr><td class="hi">2</td><td><strong>Select MCU & Hardware</strong></td><td>اختيار المعالج المناسب (8/16/32-bit)، DSP إذا احتجت، تحديد الـ Sensors والـ Actuators.</td><td>Datasheets, Comparison Charts</td></tr>
+          <tr><td class="hi">3</td><td><strong>Design Hardware</strong></td><td>رسم Schematic → تصميم PCB Layout → أنظمة القوة والاتصال.</td><td>Orcad, Proteus, Eagle, KiCad</td></tr>
+          <tr><td class="hi">4</td><td><strong>Write Software Code</strong></td><td>رسم Flowchart → كتابة الكود → Compilation → HEX File.</td><td>Arduino IDE, Keil, RIDE, MASM</td></tr>
+          <tr><td class="hi">5</td><td><strong>Program & Test Prototype</strong></td><td>تحميل الـ HEX على الـ MCU، اختبار الـ Prototype، Debugging، تصحيح الأخطاء.</td><td>JTAG, Serial Monitor, Oscilloscope</td></tr>
+          <tr><td class="hi">6</td><td><strong>Production</strong></td><td>بداية الإنتاج الضخم، مراقبة الجودة، الصيانة والتحديثات.</td><td>PCB Manufacturing, SMT Assembly</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4>اختيار الـ Microcontroller — معايير القرار</h4>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>8-bit MCU</h4>
+        <p>للتطبيقات البسيطة: عمليات حسابية بسيطة، قليل من I/O Pins، استهلاك طاقة منخفض جداً.</p>
+        <p><strong>أمثلة:</strong> 8051, PIC16xx, AVR ATmega</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>16-bit MCU</h4>
+        <p>للتطبيقات المتوسطة: دقة أعلى، أداء حسابي أفضل، تطبيقات صناعية بسيطة.</p>
+        <p><strong>أمثلة:</strong> MSP430, C166, MB90890</p>
+      </div>
+      <div class="compare-card green">
+        <h4>32-bit MCU</h4>
+        <p>للتطبيقات المتقدمة: Floating Point، RTOS، Networking، Graphics. يدعم 8 و16-bit أيضاً.</p>
+        <p><strong>أمثلة:</strong> ARM Cortex-M/A/R, ESP32, LPC2148</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔩</span> Other Hardware Components المهمة</div>
+    <p>بجانب الـ MCU، أي Embedded System بيحتاج مكونات هاردوير إضافية لازمة:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>المكوّن</th><th>الوظيفة</th><th>أهمية</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Power Source</strong></td><td>مصدر الطاقة — بطارية أو مشترك كهربائي</td><td>أساسي</td></tr>
+          <tr><td><strong>Clock Oscillator</strong></td><td>توليد نبضات الساعة (Clock Signal) — يحدد سرعة CPU</td><td>أساسي</td></tr>
+          <tr><td><strong>Real-Time Clock (RTC)</strong></td><td>يحتفظ بالوقت والتاريخ حتى عند انقطاع الطاقة (له بطارية مستقلة)</td><td>مهم لأنظمة التوقيت</td></tr>
+          <tr><td><strong>Reset Circuit</strong></td><td>يضمن بداية تشغيل نظيفة عند Power-up</td><td>مهم للموثوقية</td></tr>
+          <tr><td><strong>Watchdog Timer</strong></td><td>لو البرنامج "تجمّد" → Reset تلقائياً. يُعاد تعيينه بواسطة البرنامج كل فترة محددة.</td><td class="hi">حرج في الأنظمة الخطرة</td></tr>
+          <tr><td><strong>ADC / DAC</strong></td><td>ADC: Analog→Digital. DAC: Digital→Analog. للتعامل مع العالم الحقيقي.</td><td>أساسي</td></tr>
+          <tr><td><strong>Interrupt Handler</strong></td><td>دائرة تتحكم في أولويات الـ Interrupts واستجاباتها</td><td>مهم جداً</td></tr>
+          <tr><td><strong>LCD / LED Display</strong></td><td>واجهة إخراج بصرية للمستخدم</td><td>حسب التطبيق</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-danger">
+      <div class="callout-head">⚠️ Watchdog Timer — خط الدفاع الأخير</div>
+      <p>الـ Watchdog Timer هو "حارس" النظام. لو البرنامج دخل في Loop لانهائية أو "تجمّد" — الـ CPU مش بيقدر يعمل Reset لنفسه. الـ Watchdog بيعمل Reset تلقائياً بعد مرور وقت محدد بدون "Kick" من البرنامج. في Pacemakers وأنظمة الطيران — هو خط الدفاع الأخير.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📐</span> Layered Architecture of an Embedded System</div>
+    <p>الـ Embedded System بناء متعدد الطبقات — من التطبيق أعلاه للـ Hardware في القاع:</p>
+
+    <div class="numbox">
+      <div class="numbox-title">🔺 من الأعلى للأسفل (Application → Hardware)</div>
+      <div class="num-row"><span class="num-label">Layer 6 — Application Software</span><span class="num-val">البرنامج الذي يحقق وظيفة النظام</span></div>
+      <div class="num-row"><span class="num-label">Layer 5 — Middleware / Libraries</span><span class="num-val">TCP/IP Stack, File System, Drivers API</span></div>
+      <div class="num-row"><span class="num-label">Layer 4 — RTOS / OS (إن وُجد)</span><span class="num-val">Task Scheduling, Memory Management</span></div>
+      <div class="num-row"><span class="num-label">Layer 3 — HAL (Hardware Abstraction Layer)</span><span class="num-val">يخفي تفاصيل الـ Hardware عن الـ Software</span></div>
+      <div class="num-row"><span class="num-label">Layer 2 — BSP (Board Support Package)</span><span class="num-val">Drivers للـ Peripherals والـ Board الخاصة</span></div>
+      <div class="num-row"><span class="num-label">Layer 1 — Hardware</span><span class="num-val">MCU, Sensors, Actuators, Memory, Peripherals</span></div>
+    </div>
   </div>
 </div>
 
