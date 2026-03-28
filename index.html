@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Embedded Systems — الشرح التأسيسي الكامل</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Fira+Code:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #070b14;
@@ -30,11 +30,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Cairo', sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 2;
-  font-size: 16.5px;
+  line-height: 1.9;
+  font-size: 16px;
   overflow-x: hidden;
 }
 
@@ -413,7 +413,7 @@ tr:hover td { background: rgba(56,189,248,0.03); }
   top: 12px; left: 16px;
   font-size: 0.7rem;
   color: var(--text-muted);
-  font-family: 'IBM Plex Sans Arabic', sans-serif;
+  font-family: 'Cairo', sans-serif;
   letter-spacing: 0.05em;
 }
 .ck { color: #7aa2f7; }
@@ -626,7 +626,7 @@ tr:hover td { background: rgba(56,189,248,0.03); }
 
   /* Grids */
   .compare-grid { grid-template-columns: 1fr; gap: 12px; }
-  .cheat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cheat-grid { grid-template-columns: 1fr; gap: 12px; }
 
   /* Tables */
   .table-wrap { border-radius: 10px; }
@@ -737,6 +737,22 @@ tr:hover td { background: rgba(56,189,248,0.03); }
   .section-title { font-size: 1.1rem; }
   .card { padding: 12px 11px; }
 }
+
+/* Section 17 cheat sheet enhancements */
+#s17 .cheat-grid {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+#s17 .num-row {
+  flex-wrap: wrap;
+}
+#s17 .num-val {
+  white-space: normal;
+  word-break: break-word;
+}
+@media (max-width: 768px) {
+  #s17 .cheat-grid { grid-template-columns: 1fr; }
+  #s17 .compare-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -776,9 +792,9 @@ tr:hover td { background: rgba(56,189,248,0.03); }
       <a href="#s12" class="toc-item"><span class="toc-num">12</span> FPGA vs ASIC vs DSP vs GPP</a>
       <a href="#s13" class="toc-item"><span class="toc-num">13</span> Arduino Programming</a>
       <a href="#s14" class="toc-item"><span class="toc-num">14</span> أنماط الأسئلة وTraps</a>
-      <a href="#s15" class="toc-item"><span class="toc-num">15</span> Cheat Sheet النهائي</a>
-      <a href="#s16" class="toc-item"><span class="toc-num">16</span> CISC vs RISC & Processor Types</a>
-      <a href="#s17" class="toc-item"><span class="toc-num">17</span> IC Technologies & SoC & Moore's Law</a>
+      <a href="#s15" class="toc-item"><span class="toc-num">15</span> Interrupts & Timers</a>
+      <a href="#s16" class="toc-item"><span class="toc-num">16</span> Power & Watchdog</a>
+      <a href="#s17" class="toc-item"><span class="toc-num">17</span> Cheat Sheet النهائي</a>
     </div>
   </div>
 </div>
@@ -1987,8 +2003,227 @@ tr:hover td { background: rgba(56,189,248,0.03); }
   <div class="section-header">
     <div class="section-badge">15</div>
     <div class="section-meta">
-      <div class="section-title">🎯 Cheat Sheet النهائي</div>
-      <div class="section-sub">كل حاجة مهمة في مكان واحد — للمراجعة السريعة</div>
+      <div class="section-title">⚡ Interrupts & Timers</div>
+      <div class="section-sub">الـ Interrupts والـ Timers — الأداة الأقوى في الـ Embedded</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔔</span> الـ Interrupt يعني إيه؟</div>
+    <p>الـ <span class="hl-blue">Interrupt</span> هو إشارة بتوصل للـ CPU من hardware أو software تقوله: "وقّف اللي بتعمله دلوقتي وافعل الحاجة دي الأول". بعد ما الـ ISR (Interrupt Service Routine) تخلص، الـ CPU بيرجع لنفس النقطة اللي وقف فيها.</p>
+    <div class="callout callout-info">
+      <div class="callout-head">📌 ليه نستخدم Interrupts بدل Polling؟</div>
+      <p>في الـ Polling، الـ CPU بيكون شغال طول الوقت بيسأل: "حصل حاجة؟ حصل حاجة؟" — وده هدر للطاقة والوقت. الـ Interrupt بيخلي الـ CPU يشتغل في حاجة تانية ولما تحصل الحدث يبقى يتعامل معاها فوراً.</p>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-card green">
+        <h4>✅ Interrupt مناسب لـ</h4>
+        <p>• ضغط الزر (event-driven)</p>
+        <p>• استقبال بيانات UART أو I²C</p>
+        <p>• قراءة Encoder أو Sensor بدقة عالية</p>
+        <p>• Emergency Stop / Safety Systems</p>
+        <p>• Watchdog Timeout</p>
+      </div>
+      <div class="compare-card red">
+        <h4>❌ ملاحظات مهمة</h4>
+        <p>• <strong>لا delay() جوّا ISR!</strong> — بيعطّل النظام</p>
+        <p>• <strong>لا Serial.print() كتير</strong> — slow blocking</p>
+        <p>• متغيرات مشتركة لازم تكون <strong>volatile</strong></p>
+        <p>• ISR لازم تكون <strong>قصيرة وسريعة</strong></p>
+        <p>• Nested interrupts غير مدعومة by default في AVR</p>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="cc">// تعريف متغير مشترك بين ISR والـ main loop</span>
+<span class="ck">volatile</span> <span class="ck">bool</span> buttonPressed = <span class="ck">false</span>;
+<span class="ck">volatile</span> <span class="ck">int</span> count = <span class="cn">0</span>;
+
+<span class="cc">// ISR — لازم تكون قصيرة</span>
+<span class="ck">void</span> <span class="cf">handleButton</span>() {
+  buttonPressed = <span class="ck">true</span>;
+  count++;
+  <span class="cc">// ❌ delay(50);  ← لا تعمل كده أبداً</span>
+}
+
+<span class="ck">void</span> <span class="cf">setup</span>() {
+  <span class="cc">// INT0 = pin 2, INT1 = pin 3</span>
+  <span class="cf">attachInterrupt</span>(<span class="cf">digitalPinToInterrupt</span>(<span class="cn">2</span>), handleButton, RISING);
+  <span class="cc">// Modes: RISING, FALLING, CHANGE, LOW</span>
+}
+
+<span class="ck">void</span> <span class="cf">loop</span>() {
+  <span class="ck">if</span> (buttonPressed) {
+    buttonPressed = <span class="ck">false</span>;  <span class="cc">// reset flag</span>
+    <span class="cc">// handle the event here</span>
+  }
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⏲️</span> Timers في ATmega328P</div>
+    <p>الـ ATmega328P فيه <span class="hl">3 Timers</span>: Timer0 و Timer1 و Timer2. كل timer بيعمل حاجة معينة وبيتحكم في PWM pins معينة.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Timer</th><th>Bits</th><th>PWM Pins</th><th>Use in Arduino</th><th>ملاحظة</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Timer0</strong></td><td>8-bit</td><td>5, 6</td><td>millis(), delay(), micros()</td><td class="hi">لا تعدّله — بيأثر على timing</td></tr>
+          <tr><td><strong>Timer1</strong></td><td class="yes">16-bit</td><td>9, 10</td><td>Servo library, دقة عالية</td><td>الأكثر استخداماً للـ CTC</td></tr>
+          <tr><td><strong>Timer2</strong></td><td>8-bit</td><td>3, 11</td><td>tone() function</td><td>tone() بتعطّل PWM على 3,11</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn" style="margin-top:18px;">
+      <div class="callout-head">⚠️ Timer Modes المهمة</div>
+      <p><span class="hl">Normal Mode:</span> بيعدّ من 0 لـ MAX وبعدين بيكرر — أبسط mode.</p>
+      <p><span class="hl">CTC Mode (Clear Timer on Compare Match):</span> بيعدّ لقيمة محددة (OCR) وبعدين بيرجع لصفر — مثالي لتوليد تردد محدد (frequency generation).</p>
+      <p><span class="hl">Fast PWM:</span> بيولّد PWM بأعلى تردد — للـ LED Dimming والموتورات البسيطة.</p>
+      <p><span class="hl">Phase Correct PWM:</span> PWM أنظم وأكثر دقة — للموتورات والـ Audio.</p>
+    </div>
+    <div class="code-block" style="margin-top:16px;">
+<span class="cc">// CTC Mode باستخدام Timer1 لتوليد interrupt كل 1 ثانية</span>
+<span class="ck">void</span> <span class="cf">setup</span>() {
+  cli();                   <span class="cc">// تعطيل جميع الـ interrupts</span>
+  TCCR1A = <span class="cn">0</span>;             <span class="cc">// Clear Timer Control Register A</span>
+  TCCR1B = <span class="cn">0</span>;
+  TCNT1  = <span class="cn">0</span>;             <span class="cc">// Initialize counter to 0</span>
+
+  OCR1A = <span class="cn">15624</span>;          <span class="cc">// Compare value (16MHz/1024/1Hz - 1)</span>
+  TCCR1B |= (<span class="cn">1</span> << WGM12); <span class="cc">// CTC mode</span>
+  TCCR1B |= (<span class="cn">1</span> << CS12) | (<span class="cn">1</span> << CS10); <span class="cc">// Prescaler 1024</span>
+  TIMSK1 |= (<span class="cn">1</span> << OCIE1A); <span class="cc">// Enable compare interrupt</span>
+  sei();                   <span class="cc">// تفعيل جميع الـ interrupts</span>
+}
+
+ISR(TIMER1_COMPA_vect) {
+  <span class="cc">// يتنفذ كل 1 ثانية</span>
+  secondsCount++;
+}
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION 16 ==================== -->
+<div class="section" id="s16">
+  <div class="section-header">
+    <div class="section-badge">16</div>
+    <div class="section-meta">
+      <div class="section-title">🔋 Power Management & Watchdog</div>
+      <div class="section-sub">توفير الطاقة وحماية النظام من الـ Hang</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">💤</span> Sleep Modes في AVR (ATmega328P)</div>
+    <p>الـ Sleep Modes بتخلي الـ MCU يقلل استهلاك الطاقة لما مش محتاج يشتغل. مهمة جداً في الأجهزة التي تعمل على بطارية.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Mode</th><th>CPU</th><th>Peripherals</th><th>استهلاك الطاقة</th><th>Wake-up Sources</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Idle</strong></td><td class="no">OFF</td><td class="yes">ON</td><td>~15 mA</td><td>All interrupts</td></tr>
+          <tr><td><strong>ADC Noise Reduction</strong></td><td class="no">OFF</td><td>ADC ON فقط</td><td>~6.5 mA</td><td>ADC + External INT</td></tr>
+          <tr><td><strong>Power-save</strong></td><td class="no">OFF</td><td>Timer2 فقط</td><td>~1 mA</td><td>Timer2 + External INT</td></tr>
+          <tr><td><strong>Power-down</strong></td><td class="no">OFF</td><td class="no">OFF (كل حاجة)</td><td class="yes">~0.1 µA</td><td>External INT + WDT only</td></tr>
+          <tr><td><strong>Standby</strong></td><td class="no">OFF</td><td>Oscillator ON</td><td>~0.4 mA</td><td>External INT</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="code-block" style="margin-top:16px;">
+<span class="cc">// استخدام Power-Down Mode — أقل استهلاك</span>
+<span class="ck">#include</span> &lt;avr/sleep.h&gt;
+<span class="ck">#include</span> &lt;avr/wdt.h&gt;
+
+<span class="ck">void</span> <span class="cf">enterSleep</span>() {
+  <span class="cf">set_sleep_mode</span>(SLEEP_MODE_PWR_DOWN);
+  <span class="cf">sleep_enable</span>();
+  <span class="cf">sleep_cpu</span>();         <span class="cc">// ← هنا بيدخل النوم</span>
+  <span class="cc">// كود بعد الاستيقاظ هيتنفذ هنا</span>
+  <span class="cf">sleep_disable</span>();
+}
+
+<span class="cc">// الاستيقاظ بـ External Interrupt</span>
+ISR(INT0_vect) {
+  <span class="cc">// مجرد وجود ISR كفيل بالاستيقاظ</span>
+}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🐕</span> Watchdog Timer (WDT) — حارس النظام</div>
+    <p>الـ <span class="hl-blue">Watchdog Timer</span> هو timer مستقل بيشتغل بمصدر clock خاص بيه. لو البرنامج وقف أو عمل Hang ولم يتم "kick the dog" (إعادة ضبط الـ WDT) في الوقت المحدد — الـ WDT بيعيد تشغيل النظام تلقائياً.</p>
+    <div class="compare-grid">
+      <div class="compare-card green">
+        <h4>✅ متى نستخدم WDT؟</h4>
+        <p>• أي نظام حيوي لا يمكن تركه يتعلق (Hang)</p>
+        <p>• Medical devices, Avionics, Industrial control</p>
+        <p>• أي نظام Remote / Unattended</p>
+        <p>• IoT devices في أماكن بعيدة</p>
+      </div>
+      <div class="compare-card red">
+        <h4>⚠️ قواعد استخدام WDT</h4>
+        <p>• <strong>wdt_enable(WDTO_2S)</strong> — تفعيل مع timeout</p>
+        <p>• <strong>wdt_reset()</strong> — اعملها بانتظام في loop</p>
+        <p>• لو نسيت wdt_reset → system resets</p>
+        <p>• <strong>wdt_disable()</strong> في بداية setup() لو مش محتاج</p>
+      </div>
+    </div>
+    <div class="code-block" style="margin-top:16px;">
+<span class="cc">// Watchdog Example — timeout 2 seconds</span>
+<span class="ck">#include</span> &lt;avr/wdt.h&gt;
+
+<span class="ck">void</span> <span class="cf">setup</span>() {
+  <span class="cf">wdt_disable</span>();         <span class="cc">// تعطيل أثناء الإعداد</span>
+  <span class="cc">// ... initial setup code ...</span>
+  <span class="cf">wdt_enable</span>(WDTO_2S);   <span class="cc">// تفعيل مع timeout 2 ثانية</span>
+}
+
+<span class="ck">void</span> <span class="cf">loop</span>() {
+  <span class="cf">wdt_reset</span>();           <span class="cc">// ← "kick the dog" — أهم سطر!</span>
+  <span class="cc">// ... باقي كود الـ loop ...</span>
+  <span class="cc">// لو وقف هنا أكتر من 2 ثانية → system resets تلقائياً</span>
+}
+
+<span class="cc">// Watchdog Timeout Options:</span>
+<span class="cc">// WDTO_15MS, WDTO_30MS, WDTO_60MS, WDTO_120MS</span>
+<span class="cc">// WDTO_250MS, WDTO_500MS, WDTO_1S, WDTO_2S, WDTO_4S, WDTO_8S</span>
+    </div>
+
+    <div class="callout callout-tip" style="margin-top:18px;">
+      <div class="callout-head">💡 ESP32 Power Management</div>
+      <p>الـ ESP32 بيدعم <span class="hl">Deep Sleep</span> باستهلاك ~5-10 µA فقط — مثالي للأجهزة التي تعمل على بطارية. بيصحى بـ: Timer، External GPIO، Touch Pad، أو ULP Co-processor.</p>
+      <p>الكود: <code style="color:var(--accent); font-family:'Fira Code',monospace; font-size:0.88rem;">esp_sleep_enable_timer_wakeup(TIME_IN_US); esp_deep_sleep_start();</code></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📊</span> مقارنة Power Modes في الأجهزة المختلفة</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الجهاز</th><th>Active Current</th><th>Sleep Current</th><th>Deep Sleep</th><th>Wake Sources</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Arduino Uno</strong></td><td>~50 mA (5V)</td><td>~15 mA (Idle)</td><td>~0.1 µA (Power-Down)</td><td>External INT, WDT</td></tr>
+          <tr><td><strong>ESP8266</strong></td><td>~80 mA (TX)</td><td>~20 mA (Modem Sleep)</td><td>~20 µA (Deep Sleep)</td><td>RST pin only</td></tr>
+          <tr><td><strong>ESP32</strong></td><td>~240 mA (WiFi TX)</td><td>~10 mA (Light Sleep)</td><td class="yes">~5-10 µA</td><td>Timer, GPIO, Touch, ULP</td></tr>
+          <tr><td><strong>STM32 (typical)</strong></td><td>~30 mA</td><td>~100 µA (Stop)</td><td>~2 µA (Standby)</td><td>RTC, External INT</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION 17 ==================== -->
+<div class="section" id="s17">
+  <div class="section-header">
+    <div class="section-badge">17</div>
+    <div class="section-meta">
+      <div class="section-title">🎯 Cheat Sheet النهائي الشامل</div>
+      <div class="section-sub">كل حاجة مهمة في مكان واحد — ليلة الامتحان</div>
     </div>
   </div>
 
@@ -2137,13 +2372,118 @@ tr:hover td { background: rgba(56,189,248,0.03); }
         <li>JTAG: <strong>Debug + Program + Boundary Scan</strong></li>
       </ul>
     </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">⚡ Interrupts</div>
+      <ul>
+        <li>ISR: <strong>Interrupt Service Routine</strong></li>
+        <li>ISR يكون <strong>قصير وسريع</strong> دايماً</li>
+        <li>لا delay() جوّا ISR!</li>
+        <li>External INT: <strong>INT0 (pin 2), INT1 (pin 3)</strong></li>
+        <li>Modes: RISING, FALLING, CHANGE, LOW</li>
+        <li>attachInterrupt(digitalPinToInterrupt(pin), ISR, mode)</li>
+        <li>volatile: لازم للمتغيرات المشتركة مع ISR</li>
+        <li>sei() = Enable All Interrupts</li>
+        <li>cli() = Disable All Interrupts</li>
+        <li>Priority: Internal > External</li>
+        <li>Nested Interrupts: مش supported by default في AVR</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">⏲️ Timers (ATmega328P)</div>
+      <ul>
+        <li>Timer0: <strong>8-bit → millis(), delay(), PWM 5,6</strong></li>
+        <li>Timer1: <strong>16-bit → Servo, PWM 9,10</strong></li>
+        <li>Timer2: <strong>8-bit → tone(), PWM 3,11</strong></li>
+        <li>CTC Mode: Compare → Auto Reset (توليد تردد)</li>
+        <li>Fast PWM: أسرع تردد</li>
+        <li>Phase Correct PWM: أنظف للموتورات</li>
+        <li>Prescaler قيم: 1, 8, 64, 256, 1024</li>
+        <li>f_timer = f_cpu / (Prescaler × (TOP+1))</li>
+        <li>OCR = التسجيل اللي بيحدد الـ duty cycle</li>
+        <li>TCNT = العداد الحالي</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">🔋 Power Modes (ATmega)</div>
+      <ul>
+        <li>Idle: CPU stops, peripherals run</li>
+        <li>ADC Noise Reduction: CPU+peripherals stop, ADC runs</li>
+        <li>Power-save: كل حاجة وقفت إلا Timer2</li>
+        <li>Power-down: أقل استهلاك — كل حاجة وقفت</li>
+        <li>Standby: كالـ Power-down + Oscillator runs</li>
+        <li>Wake-up: External INT أو Watchdog أو WDT</li>
+        <li>set_sleep_mode(SLEEP_MODE_PWR_DOWN)</li>
+        <li>sleep_enable() → sleep_cpu() → sleep_disable()</li>
+        <li>LDO Regulator loss → supply ESP32 directly at 3.3V</li>
+        <li>ESP32 Deep Sleep: <strong>~5-10 µA</strong></li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">🐕 Watchdog Timer (WDT)</div>
+      <ul>
+        <li>يعيد تشغيل النظام لو البرنامج وقف</li>
+        <li>wdt_enable(WDTO_2S) → enable 2s timeout</li>
+        <li>wdt_reset() → "kick the dog" — اعمل دي بانتظام</li>
+        <li>wdt_disable() → تعطيل</li>
+        <li>لو نسيت wdt_reset() → system resets</li>
+        <li>Timeout options: 15ms → 8s</li>
+        <li>Interrupt mode: ISR بدل reset</li>
+        <li>ESP32: esp_task_wdt_feed()</li>
+        <li>Critical in: Medical, Aviation, Industrial systems</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">📶 IoT Protocols</div>
+      <ul>
+        <li>MQTT: <strong>Pub/Sub, TCP, port 1883</strong></li>
+        <li>MQTT Broker: <strong>Mosquitto</strong></li>
+        <li>HTTP/REST: <strong>Request/Response, stateless</strong></li>
+        <li>WebSocket: <strong>Full-Duplex, persistent</strong></li>
+        <li>CoAP: <strong>UDP-based, low-power IoT</strong></li>
+        <li>Zigbee: <strong>2.4GHz, mesh, low power</strong></li>
+        <li>Z-Wave: <strong>908MHz, mesh, home automation</strong></li>
+        <li>LoRa: <strong>Long range, low bandwidth, low power</strong></li>
+        <li>BLE: <strong>Short range, ultra-low power</strong></li>
+        <li>NB-IoT: <strong>Cellular IoT, licensed spectrum</strong></li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">📐 ADC / DAC</div>
+      <ul>
+        <li>ADC = Analog to Digital Converter</li>
+        <li>Arduino: <strong>10-bit → 0-1023</strong></li>
+        <li>ESP32: <strong>12-bit → 0-4095</strong></li>
+        <li>Vref Arduino: <strong>5V (default)</strong></li>
+        <li>analogRead(A0) → 0-1023</li>
+        <li>Voltage = (reading / 1023.0) × 5.0</li>
+        <li>DAC = Digital to Analog Converter</li>
+        <li>Arduino: لا يوجد DAC حقيقي</li>
+        <li>ESP32: <strong>2 channels DAC (8-bit)</strong></li>
+        <li>PWM ≠ DAC (PWM تقليدي لأداء داك)</li>
+        <li>Nyquist: f_sample ≥ 2 × f_signal</li>
+      </ul>
+    </div>
+    <div class="cheat-card">
+      <div class="cheat-card-title">🏗️ Von Neumann vs Harvard</div>
+      <ul>
+        <li>Von Neumann: <strong>Bus واحد للبيانات والكود</strong></li>
+        <li>Harvard: <strong>Bus منفصل للبيانات والكود</strong></li>
+        <li>Von Neumann bottleneck: تعارض بين Fetch و Data</li>
+        <li>Harvard: <strong>أسرع (fetch+data في نفس الوقت)</strong></li>
+        <li>ATmega = Harvard Architecture</li>
+        <li>DSP = Harvard</li>
+        <li>x86 = Von Neumann (Modified Harvard)</li>
+        <li>Modified Harvard: كاش منفصل، لكن RAM مشتركة</li>
+        <li>ARM Cortex-M: Modified Harvard</li>
+      </ul>
+    </div>
   </div>
 
   <div class="numbox" style="margin-top:30px;">
     <div class="numbox-title">⚡ الجمل التي يجب حفظها حرفياً</div>
     <div class="num-row"><span class="num-label">تعريف Real-Time</span><span class="num-val">"Predictable, not just Fast"</span></div>
     <div class="num-row"><span class="num-label">Hard RT Consequence</span><span class="num-val">"Catastrophic Failure"</span></div>
-    <div class="num-row"><span class="num-label">Soft RT Consequence</span><span class="num-val">"Performance Degrades"</span></div>
+    <div class="num-row"><span class="num-label">Soft RT Consequence</span><span class="num-val">"Performance Degrades, system continues"</span></div>
     <div class="num-row"><span class="num-label">UART خاصية</span><span class="num-val">"Asynchronous, Full-Duplex, 2 wires, P2P"</span></div>
     <div class="num-row"><span class="num-label">I²C أسلاك</span><span class="num-val">"SDA + SCL = 2 wires, Open-Drain"</span></div>
     <div class="num-row"><span class="num-label">SPI أسلاك</span><span class="num-val">"MOSI, MISO, SCK, SS = 4 wires"</span></div>
@@ -2156,7 +2496,19 @@ tr:hover td { background: rgba(56,189,248,0.03); }
     <div class="num-row"><span class="num-label">Pull-UP detection</span><span class="num-val">"if (!digitalRead(pin)) → pressed"</span></div>
     <div class="num-row"><span class="num-label">DMA advantage</span><span class="num-val">"Transfers data without CPU intervention, reduces CPU overhead"</span></div>
     <div class="num-row"><span class="num-label">JTAG uses</span><span class="num-val">"Debugging + In-System Programming + Boundary Scan Testing"</span></div>
-    <div class="num-row"><span class="num-label">SRAM vs DRAM speed</span><span class="num-val">"SRAM uses flip-flops (no refresh) → faster; DRAM uses capacitors (refresh needed) → slower but denser"</span></div>
+    <div class="num-row"><span class="num-label">SRAM vs DRAM speed</span><span class="num-val">"SRAM = flip-flops, no refresh → faster; DRAM = capacitors, refresh needed"</span></div>
+    <div class="num-row"><span class="num-label">ISR rule #1</span><span class="num-val">"Keep ISR short — no delay(), no Serial.print() ideally"</span></div>
+    <div class="num-row"><span class="num-label">volatile keyword</span><span class="num-val">"Required for variables shared between ISR and main loop"</span></div>
+    <div class="num-row"><span class="num-label">Watchdog purpose</span><span class="num-val">"Reset system if program hangs — must wdt_reset() regularly"</span></div>
+    <div class="num-row"><span class="num-label">CTC Mode</span><span class="num-val">"Clear Timer on Compare Match — used for precise frequency generation"</span></div>
+    <div class="num-row"><span class="num-label">MQTT vs HTTP</span><span class="num-val">"MQTT = Pub/Sub, persistent, lightweight; HTTP = Request/Response, stateless"</span></div>
+    <div class="num-row"><span class="num-label">ESP32 Deep Sleep</span><span class="num-val">"~5-10 µA — ideal for battery-powered IoT"</span></div>
+    <div class="num-row"><span class="num-label">ADC Formula</span><span class="num-val">"Voltage = (analogRead() / 1023.0) × Vref"</span></div>
+    <div class="num-row"><span class="num-label">ATmega Architecture</span><span class="num-val">"Harvard — separate buses for code (Flash) and data (SRAM)"</span></div>
+    <div class="num-row"><span class="num-label">I²C Arbitration</span><span class="num-val">"Occurs in both Address Phase and Data Phase"</span></div>
+    <div class="num-row"><span class="num-label">ASIC NRE Cost</span><span class="num-val">"Unit cost = lowest; NRE (R&D/design) cost = highest"</span></div>
+    <div class="num-row"><span class="num-label">LIN Bus</span><span class="num-val">"Async, Half-Duplex, 1 wire, max 16 slaves, 20kbps"</span></div>
+    <div class="num-row"><span class="num-label">1-Wire (OWI)</span><span class="num-val">"Async, Half-Duplex, 1 wire — power + data on same wire"</span></div>
   </div>
 
   <div class="callout callout-tip" style="margin-top:30px;">
@@ -2165,353 +2517,110 @@ tr:hover td { background: rgba(56,189,248,0.03); }
     <p>اقرأ كل اختيار بعناية — كلمة واحدة ممكن تعكس المعنى كاملاً (مثلاً: "Synchronous" بدل "Asynchronous").</p>
     <p>لو في سؤال عن خاصية أفضل — اسأل نفسك: "أفضل في إيه؟ في unit cost؟ في NRE cost؟ في time to market؟" — السياق هو اللي بيحدد الإجابة.</p>
   </div>
-</div>
 
-
-<div class="divider"></div>
-
-<!-- ==================== SECTION 16 ==================== -->
-<div class="section" id="s16">
-  <div class="section-header">
-    <div class="section-badge">16</div>
-    <div class="section-meta">
-      <div class="section-title">🏛️ CISC vs RISC & Processor Architecture Types</div>
-      <div class="section-sub">أنواع المعالجات من حيث مجموعة التعليمات والتخصص</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">⚔️</span> CISC vs RISC — الفرق الجوهري</div>
-    <p>الفرق بين CISC وRISC هو في <span class="hl">فلسفة تصميم مجموعة التعليمات (Instruction Set Architecture)</span>. كل منهما له مزايا وعيوب حسب التطبيق.</p>
-
+  <!-- Quick Reference Master Table -->
+  <div class="card" style="margin-top:30px;">
+    <div class="card-title"><span class="card-title-icon">📊</span> جدول المقارنة الشامل — Communication Protocols</div>
     <div class="table-wrap">
       <table>
-        <thead><tr><th>الخاصية</th><th>CISC</th><th>RISC</th></tr></thead>
+        <thead><tr><th>Protocol</th><th>Sync</th><th>Duplex</th><th>Wires</th><th>Topology</th><th>Speed</th><th>Error Detection</th><th>Notes</th></tr></thead>
         <tbody>
-          <tr><td>الاسم</td><td>Complex Instruction Set Computer</td><td>Reduced Instruction Set Computer</td></tr>
-          <tr><td>تعليمات الـ Hardware</td><td class="no">كثيرة ومعقدة (Hundreds)</td><td class="yes">قليلة وبسيطة (Dozens)</td></tr>
-          <tr><td>تعقيد الـ Hardware</td><td class="no">عالٍ جداً</td><td class="yes">منخفض</td></tr>
-          <tr><td>عدد Cycles لكل Instruction</td><td class="no">متعدد (Multi-clock)</td><td class="yes">واحد في الغالب (Single-clock)</td></tr>
-          <tr><td>حجم الكود</td><td class="yes">صغير (تعليمات أقوى)</td><td class="no">أكبر نسبياً</td></tr>
-          <tr><td>Pipelining</td><td class="no">صعب (instructions غير منتظمة الطول)</td><td class="yes">سهل ومثالي (uniform timing)</td></tr>
-          <tr><td>Registers</td><td>قليلة — الذاكرة تُستخدم أكثر</td><td class="yes">كثيرة — Registers أسرع من RAM</td></tr>
-          <tr><td>Transistors</td><td class="no">للتعليمات المعقدة</td><td class="yes">للـ Memory Registers (أفيد)</td></tr>
-          <tr><td>السرعة الفعلية</td><td>أبطأ عادةً لكل تعليمة</td><td class="yes">أسرع لكل تعليمة</td></tr>
-          <tr><td>أمثلة</td><td>Intel x86, x86-64 (PC, Server)</td><td>ARM, AVR (ATmega), MIPS, RISC-V</td></tr>
-          <tr><td>الاستخدام</td><td>General-purpose PCs, Servers</td><td>Embedded, Mobile, Microcontrollers</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout callout-info">
-      <div class="callout-head">💡 ملاحظة مهمة</div>
-      <p>الـ Arduino Uno بيستخدم ATmega328P وده <strong>RISC Architecture</strong>. الـ ARM processors (اللي في هواتفنا وـ ESP32) كمان RISC. الـ Intel x86 في الكمبيوتر هو CISC.</p>
-    </div>
-
-    <h4>VLIW — Very Long Instruction Word</h4>
-    <p>تقنية لتوازي تعليمات متعددة مستقلة في تعليمة واحدة طويلة جداً — الـ Compiler هو اللي بيقرر التوازي (مش الـ Hardware زي SIMD).</p>
-    <p>مثال: تعليمة VLIW واحدة بتنفذ في نفس الوقت: <span class="hl-blue">F=a+b</span> و <span class="hl-blue">c=e/g</span> و <span class="hl-blue">d=x&amp;y</span> و <span class="hl-blue">w=z*h</span> — كل ده دفعة واحدة!</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>الخاصية</th><th>CISC</th><th>RISC</th><th>VLIW</th></tr></thead>
-        <tbody>
-          <tr><td>من يقرر التوازي؟</td><td>Hardware</td><td>Hardware (Superscalar)</td><td class="hi">Compiler</td></tr>
-          <tr><td>تعقيد الـ Hardware</td><td class="no">عالٍ</td><td>متوسط</td><td class="yes">منخفض نسبياً</td></tr>
-          <tr><td>تعقيد الـ Compiler</td><td>منخفض</td><td>متوسط</td><td class="no">عالٍ جداً</td></tr>
-          <tr><td>أمثلة</td><td>Intel x86</td><td>ARM, AVR</td><td>TI TMS320C6x DSP</td></tr>
+          <tr><td><strong>UART</strong></td><td class="no">Async</td><td class="yes">Full</td><td>2 (TX,RX)</td><td>P2P</td><td>Up to 115200 bps</td><td>Parity bit</td><td>No clock wire</td></tr>
+          <tr><td><strong>USART</strong></td><td>Async/Sync</td><td class="yes">Full</td><td>2-3</td><td>P2P</td><td>Higher than UART</td><td>Parity bit</td><td>UART + Sync mode</td></tr>
+          <tr><td><strong>SPI</strong></td><td class="yes">Sync</td><td class="yes">Full</td><td>4 (MOSI,MISO,SCK,SS)</td><td>Master/Slave</td><td class="hi">الأسرع (MHz)</td><td class="no">لا يوجد</td><td>SS per slave</td></tr>
+          <tr><td><strong>I²C</strong></td><td class="yes">Sync</td><td class="no">Half</td><td>2 (SDA,SCL)</td><td>Multi-Master/Slave</td><td>100k-3.4MHz</td><td>ACK/NACK</td><td>Open-Drain, Pull-up needed</td></tr>
+          <tr><td><strong>TWI</strong></td><td class="yes">Sync</td><td class="no">Half</td><td>2</td><td>Multi-Master/Slave</td><td>100k-400kHz</td><td>ACK/NACK</td><td class="hi">= I²C (Atmel name)</td></tr>
+          <tr><td><strong>LIN</strong></td><td class="no">Async</td><td class="no">Half</td><td>1</td><td>Master + 16 Slaves</td><td>20 kbps</td><td>Checksum</td><td>Automotive, cheap</td></tr>
+          <tr><td><strong>1-Wire (OWI)</strong></td><td class="no">Async</td><td class="no">Half</td><td>1</td><td>Master/Slave</td><td>16.3 kbps</td><td>CRC</td><td>Power on same wire</td></tr>
+          <tr><td><strong>CAN</strong></td><td class="yes">Sync</td><td class="no">Half</td><td>2 (CAN H/L)</td><td>Multi-Master Bus</td><td>1 Mbps</td><td>CRC + ACK</td><td>Automotive standard</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">🧩</span> أنواع المعالجات حسب درجة التخصص</div>
-    <p>في الـ Embedded Systems، المعالجات بتتصنف في 3 فئات رئيسية حسب مدى تخصصها للمهمة:</p>
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="card-title-icon">⚖️</span> مقارنة شاملة: ASIC vs FPGA vs GPP vs DSP</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الخاصية</th><th>ASIC</th><th>FPGA</th><th>GPP</th><th>DSP</th></tr></thead>
+        <tbody>
+          <tr><td>Power Consumption</td><td class="yes">الأقل ✓✓</td><td>متوسط</td><td class="no">الأعلى</td><td>منخفض</td></tr>
+          <tr><td>Unit Cost (mass)</td><td class="yes">الأرخص ✓✓</td><td class="no">الأغلى</td><td>متوسط</td><td>متوسط</td></tr>
+          <tr><td>NRE / Development Cost</td><td class="no">الأغلى</td><td>متوسط</td><td class="yes">الأرخص ✓</td><td>متوسط</td></tr>
+          <tr><td>Time to Market</td><td class="no">الأبطأ</td><td>متوسط</td><td class="yes">الأسرع ✓✓</td><td>متوسط</td></tr>
+          <tr><td>Reprogrammable</td><td class="no">لا</td><td class="yes">نعم ✓</td><td class="yes">نعم ✓</td><td class="yes">نعم ✓</td></tr>
+          <tr><td>Performance/Speed</td><td class="yes">الأعلى ✓</td><td>عالي</td><td>متوسط</td><td>عالي للـ DSP</td></tr>
+          <tr><td>Flexibility</td><td class="no">منعدمة</td><td class="yes">عالية ✓</td><td class="yes">الأعلى ✓✓</td><td>محدودة</td></tr>
+          <tr><td>Prototyping</td><td class="no">صعب</td><td class="yes">الأفضل ✓</td><td class="yes">سهل ✓</td><td>ممكن</td></tr>
+          <tr><td>Mass Production</td><td class="yes">الأفضل ✓✓</td><td class="no">غير مثالي</td><td>جيد</td><td>جيد</td></tr>
+          <tr><td>Architecture</td><td>Custom</td><td>LUT-based</td><td>Von Neumann</td><td class="hi">Harvard ✓</td></tr>
+          <tr><td>Signal Processing</td><td>جيد</td><td>جيد</td><td>ضعيف</td><td class="yes">الأفضل ✓✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
+  <div class="card" style="margin-top:20px;">
+    <div class="card-title"><span class="card-title-icon">🎓</span> ملخص ليلة الامتحان — أهم 30 نقطة</div>
     <div class="compare-grid">
       <div class="compare-card blue">
-        <h4>1. General-Purpose Processor (GPP)</h4>
-        <p>معالج قابل للبرمجة لأي تطبيق — المرونة الأعلى.</p>
-        <p><strong>مميزات:</strong> Program Memory عامة، Register File كبير، General ALU.</p>
-        <p><strong>فوائد:</strong> Low NRE cost، High Flexibility، سريع في التطوير.</p>
-        <p><strong>عيوب:</strong> Power أعلى، Size أكبر، مش أمثل للمهام المتخصصة.</p>
-        <p><strong>أمثلة:</strong> Intel Pentium, ARM Cortex-A, MIPS</p>
+        <h4>🔴 أهم الـ Traps</h4>
+        <p>• <strong>Pull-UP = LOW when pressed</strong> (معكوس!)</p>
+        <p>• <strong>ESP8266 = 1 ADC فقط (A0), max 1V</strong></p>
+        <p>• <strong>Real-Time = Predictable, مش Fast</strong></p>
+        <p>• <strong>Hard RT failure = Catastrophic</strong></p>
+        <p>• <strong>DSP = Harvard, مش Von Neumann</strong></p>
+        <p>• <strong>TWI = I²C نفس الحاجة</strong></p>
+        <p>• <strong>ASIC = lowest unit cost, highest NRE</strong></p>
+        <p>• <strong>DRAM needs refresh, SRAM لا</strong></p>
+        <p>• <strong>SPI = no error detection</strong></p>
+        <p>• <strong>GPP = fastest time to market</strong></p>
       </div>
+      <div class="compare-card green">
+        <h4>✅ أهم الأرقام</h4>
+        <p>• Arduino ADC: <strong>10-bit (0-1023), 5V ref</strong></p>
+        <p>• ESP32 ADC: <strong>12-bit (0-4095), 18 channels</strong></p>
+        <p>• ESP32 DAC: <strong>8-bit, 2 channels</strong></p>
+        <p>• Arduino clock: <strong>16 MHz</strong></p>
+        <p>• ESP32 clock: <strong>240 MHz</strong></p>
+        <p>• ESP8266 clock: <strong>80-160 MHz</strong></p>
+        <p>• Arduino max pin current: <strong>40 mA</strong></p>
+        <p>• ESP8266 max pin current: <strong>12 mA</strong></p>
+        <p>• I²C modes: <strong>100k, 400k, 1M, 3.4M Hz</strong></p>
+        <p>• LIN max slaves: <strong>16</strong></p>
+      </div>
+    </div>
+    <div class="compare-grid" style="margin-top:12px;">
       <div class="compare-card amber">
-        <h4>2. Application-Specific Processor (ASP)</h4>
-        <p>معالج مُحسَّن لفئة معينة من التطبيقات — توازن بين العمومية والتخصص.</p>
-        <p><strong>مميزات:</strong> Program Memory + Optimized Datapath + Special Functional Units.</p>
-        <p><strong>فوائد:</strong> Some Flexibility + Good Performance + Better Power/Size.</p>
-        <p><strong>أمثلة:</strong> DSP Processors (TMS320), Network Processors</p>
+        <h4>⚡ Interrupts & Timers</h4>
+        <p>• ISR يكون <strong>قصير دايماً</strong></p>
+        <p>• لا <strong>delay()</strong> جوّا ISR</p>
+        <p>• متغيرات مشتركة = <strong>volatile</strong></p>
+        <p>• Timer0: <strong>millis() + PWM 5,6</strong></p>
+        <p>• Timer1: <strong>16-bit + Servo + PWM 9,10</strong></p>
+        <p>• Timer2: <strong>tone() + PWM 3,11</strong></p>
+        <p>• CTC Mode = <strong>precise frequency</strong></p>
+        <p>• Watchdog = <strong>wdt_reset() regularly</strong></p>
       </div>
-      <div class="compare-card green">
-        <h4>3. Single-Purpose Processor</h4>
-        <p>دائرة رقمية مصممة لتنفيذ برنامج واحد بالضبط — <strong>لا توجد Program Memory</strong>.</p>
-        <p><strong>مميزات:</strong> يحتوي فقط على المكونات اللازمة للبرنامج الواحد.</p>
-        <p><strong>فوائد:</strong> أسرع أداء، أقل استهلاك للطاقة، أصغر حجماً.</p>
-        <p><strong>يُعرف أيضاً بـ:</strong> Coprocessor, Accelerator, Peripheral</p>
-        <p><strong>أمثلة:</strong> USB Controller, Graphics Accelerator, CRC Engine</p>
-      </div>
-    </div>
-
-    <div class="callout callout-warn">
-      <div class="callout-head">⚠️ Trap مهمة</div>
-      <p>الـ Single-Purpose Processor ليس بالضرورة "مبرمَج" — هو <strong>دائرة هاردوير ثابتة</strong> تنفذ وظيفة محددة. لا يحتاج Program Memory ولا Compiler ولا Code. مثال: USB Controller على الـ PCB هو Single-Purpose Processor.</p>
-    </div>
-
-    <h4>ASSP — Application-Specific System Processor</h4>
-    <p><span class="hl-blue">ASSP</span> هو نوع خاص — معالج متخصص في مهام محددة ويُستخدم كوحدة معالجة إضافية بدلاً من الـ Embedded Software. بيوفر حل أسرع وأكفأ مقارنةً بتشغيل نفس المهمة على GPP. <strong>أمثلة:</strong> IIM7100، W3100A (معالجات TCP/IP متخصصة).</p>
-
-    <div class="numbox" style="margin-top:20px;">
-      <div class="numbox-title">📊 مقارنة أنواع المعالجات</div>
-      <div class="num-row"><span class="num-label">الأعلى مرونة</span><span class="num-val">GPP (General-Purpose)</span></div>
-      <div class="num-row"><span class="num-label">أفضل توازن مرونة/أداء</span><span class="num-val">ASP / DSP</span></div>
-      <div class="num-row"><span class="num-label">الأعلى أداء للمهمة الواحدة</span><span class="num-val">Single-Purpose Processor</span></div>
-      <div class="num-row"><span class="num-label">الأسرع في الوصول للسوق (Time to Market)</span><span class="num-val">GPP</span></div>
-      <div class="num-row"><span class="num-label">الأقل استهلاكاً للطاقة (للمهمة الواحدة)</span><span class="num-val">Single-Purpose / ASIC</span></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">🔄</span> DSP Pipeline & Advanced Features</div>
-    <p>الـ DSP processors بتستخدم Pipeline عميقة لتحقيق throughput عالٍ. مثال على TMS320C6x بيمر بـ 3 stages رئيسية:</p>
-
-    <div class="compare-grid">
-      <div class="compare-card blue">
-        <h4>Fetch Stage</h4>
-        <p><strong>PG:</strong> Program Address Generate</p>
-        <p><strong>PS:</strong> Program Address Send</p>
-        <p><strong>PW:</strong> Program ready Wait</p>
-        <p><strong>PR:</strong> Program Receive</p>
-      </div>
-      <div class="compare-card amber">
-        <h4>Decode Stage</h4>
-        <p><strong>DP:</strong> Dispatch</p>
-        <p><strong>DC:</strong> Decode</p>
-      </div>
-      <div class="compare-card green">
-        <h4>Execute Stage</h4>
-        <p>من <strong>6 لـ 10 phases</strong> حسب نوع التعليمة.</p>
-        <p>Pipeline عميقة = throughput أعلى.</p>
-      </div>
-    </div>
-
-    <h4>Zero-Overhead Looping</h4>
-    <p>دعم هاردوير للـ Loops بعدد ثابت من التكرارات — <span class="hl">بدون أي branching</span>، بدون pipeline stalls، بدون branch prediction. الـ Hardware loop counters وloop buffers بتتكفل بكل ده.</p>
-
-    <h4>Hardware Circular Addressing (Ring Buffer)</h4>
-    <p>دعم هاردوير لـ <span class="hl">Ring Buffer</span> — Fixed-Length Queue تُستخدم في Digital Filtering (مثال FIR Filter: y[n] = a₀x[n] + a₁x[n-1] + … + aₖx[n-k]). بيحتاج على الأقل مؤشرَين: Head وTail.</p>
-
-    <h4>Saturation Arithmetic — حساب الإشباع</h4>
-    <p>عند تجاوز الحد الأقصى — النتيجة تثبت عند الحد بدل Overflow. <span class="hl-blue">مثال (1 signed byte):</span> 64 + 69 = <span class="hl">127</span> (مش 133). -127 – 5 = <span class="hl">-128</span>. مهم في الـ Audio لتجنب التشويش.</p>
-
-    <div class="callout callout-warn">
-      <div class="callout-head">⚠️ تأثير على الرياضيات</div>
-      <p>Saturation Arithmetic تكسر قوانين الجبر! مثال: (64 + 70) – 25 = <strong>122</strong> ≠ 64 + (70 – 25) = <strong>109</strong>. الـ Associativity والـ Distributivity غير مضمونة.</p>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ==================== SECTION 17 ==================== -->
-<div class="section" id="s17">
-  <div class="section-header">
-    <div class="section-badge">17</div>
-    <div class="section-meta">
-      <div class="section-title">🏗️ IC Technologies & SoC & Moore's Law & Development Process</div>
-      <div class="section-sub">تقنيات التصنيع، الشريحة المتكاملة، قانون مور، وعملية تطوير النظام</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">⚙️</span> IC Technologies — 3 أنواع رئيسية لتصنيع الشرائح</div>
-    <p>الـ IC Technology بتحدد <span class="hl">كيف يتصنع الـ Chip</span> — وبتأثر على التكلفة والأداء وسرعة الوصول للسوق.</p>
-
-    <div class="compare-grid">
-      <div class="compare-card red">
-        <h4>A. Full-Custom / VLSI</h4>
-        <p>كل طبقات الـ IC مُحسَّنة يدوياً:</p>
-        <p>• Placing transistors بدقة متناهية</p>
-        <p>• Sizing transistors للأداء الأمثل</p>
-        <p>• Routing wires بأقصر مسار</p>
-        <p><strong>✅ مميزات:</strong> أفضل أداء، أصغر حجم، أقل طاقة.</p>
-        <p><strong>❌ عيوب:</strong> NRE ~$300,000+، وقت تطوير طويل جداً.</p>
-      </div>
-      <div class="compare-card amber">
-        <h4>B. Semi-Custom ASIC</h4>
-        <p>الطبقات السفلى جاهزة — المصمم يتحكم في الـ Routing فقط.</p>
-        <p>نوعان: <strong>Gate Array</strong> و <strong>Standard Cell</strong></p>
-        <p><strong>✅ مميزات:</strong> أداء جيد، NRE أقل ($10k–$100k).</p>
-        <p><strong>❌ عيوب:</strong> أسابيع لأشهر للتطوير.</p>
-      </div>
-      <div class="compare-card green">
-        <h4>C. PLD / FPGA</h4>
-        <p>كل الطبقات موجودة — المصمم يبرمج الـ Connections فقط.</p>
-        <p>أشهر نوع: <strong>FPGA (Field-Programmable Gate Array)</strong></p>
-        <p><strong>✅ مميزات:</strong> NRE منخفض جداً، متاح فوراً، Reprogrammable!</p>
-        <p><strong>❌ عيوب:</strong> أكبر حجماً، أغلى/unit (~$30)، Power أعلى.</p>
-      </div>
-    </div>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>الخاصية</th><th>Full-Custom VLSI</th><th>Semi-Custom ASIC</th><th>PLD / FPGA</th></tr></thead>
-        <tbody>
-          <tr><td>NRE Cost</td><td class="no">~$300,000+</td><td class="hi">$10k – $100k</td><td class="yes">منخفض جداً</td></tr>
-          <tr><td>Unit Cost (mass)</td><td class="yes">الأرخص</td><td class="yes">رخيص</td><td class="no">~$30/unit</td></tr>
-          <tr><td>Time to Market</td><td class="no">شهور – سنين</td><td class="hi">أسابيع – شهور</td><td class="yes">شبه فوري</td></tr>
-          <tr><td>الأداء</td><td class="hi">الأعلى</td><td class="hi">عالٍ</td><td>متوسط</td></tr>
-          <tr><td>الحجم</td><td class="yes">الأصغر</td><td class="yes">صغير</td><td class="no">الأكبر</td></tr>
-          <tr><td>استهلاك الطاقة</td><td class="yes">الأقل</td><td class="yes">قليل</td><td class="no">الأعلى</td></tr>
-          <tr><td>Reprogrammable؟</td><td class="no">لأ</td><td class="no">لأ</td><td class="yes">نعم!</td></tr>
-          <tr><td>مثالي لـ</td><td>Mass Production ملايين</td><td>Medium Volume</td><td>Prototyping & Low Volume</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout callout-danger">
-      <div class="callout-head">⚠️ Trap — NRE Cost vs Unit Cost</div>
-      <p>❌ الغلط الشائع: "ASIC الأرخص دايماً" → <strong>غير صحيح دايماً!</strong></p>
-      <p>✅ <strong>ASIC unit cost</strong> (سعر الوحدة في الإنتاج الضخم) هو الأرخص. لكن <strong>ASIC NRE cost</strong> (تكلفة التصميم الأولي) هو الأغلى بكتير.</p>
-      <p>📌 لو بتنتج مليون وحدة → ASIC أرخص إجمالاً. لو بتنتج 100 وحدة → FPGA/PLD أرخص بكتير.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">🔮</span> Moore's Law — قانون مور</div>
-    <p>قانون مور هو ملاحظة تاريخية رصدها <span class="hl-blue">Gordon E. Moore</span> (مؤسس Intel) عام 1965:</p>
-
-    <div class="callout callout-purple">
-      <div class="callout-head">📌 قانون مور</div>
-      <p>عدد الترانزستورات التي يمكن وضعها على الشريحة المتكاملة بنفس التكلفة <strong>يتضاعف كل عامين تقريباً</strong> — منذ اختراع الدائرة المتكاملة عام 1958.</p>
-    </div>
-
-    <p>هذا التضاعف المستمر أدى لتحسين أسي في: <span class="hl">Processing Speed</span> و <span class="hl">Memory Capacity</span> و <span class="hl">Power Efficiency</span> وانخفاض <span class="hl">Cost per Transistor</span>.</p>
-
-    <div class="callout callout-info">
-      <div class="callout-head">💡 واقع اليوم</div>
-      <p>في السنوات الأخيرة تباطأت وتيرة قانون مور بسبب الحدود الفيزيائية (نحن عند 2-3 نانومتر!). المصنّعون يلجأون لـ 3D Stacking وتقنيات جديدة لمواصلة التطوير. قانون مور لم يمُت — لكنه تباطأ.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">💎</span> SoC — System-on-Chip</div>
-    <p><span class="hl-blue">SoC</span> هو تكامل كل مكونات النظام الإلكتروني في شريحة واحدة — CPU وRAM وROM وI/O وGPU ووحدات الاتصال — كلها on-chip.</p>
-
-    <div class="compare-grid">
-      <div class="compare-card blue">
-        <h4>مكونات الـ SoC النموذجي</h4>
-        <p>• Digital: CPU, DSP, GPU</p>
-        <p>• Analog: ADC, DAC, PLL</p>
-        <p>• Mixed-signal circuits</p>
-        <p>• RF (Radio-Frequency) circuits</p>
-        <p>• Memory: RAM, ROM, Flash</p>
-        <p>• I/O: USB, UART, SPI, I²C, Wi-Fi</p>
-      </div>
-      <div class="compare-card green">
-        <h4>مزايا SoC</h4>
-        <p>• <strong>حجم أصغر</strong> — كل شيء on-chip</p>
-        <p>• <strong>طاقة أقل</strong> — لا كابلات طويلة بين chips</p>
-        <p>• <strong>أداء أعلى</strong> — latency منخفض</p>
-        <p>• <strong>تكلفة أقل</strong> — في الإنتاج الضخم</p>
-        <p>• <strong>موثوقية أعلى</strong> — وصلات أقل = أعطال أقل</p>
-      </div>
-    </div>
-
-    <p><strong>أمثلة شهيرة:</strong> <span class="hl-blue">ESP32</span> (CPU + Wi-Fi + BT + ADC + كل الـ Peripherals). <span class="hl-blue">Apple M4</span> (CPU + GPU + Neural Engine + Memory Controller). <span class="hl-blue">Raspberry Pi BCM2711</span> (ARM CPU + GPU).</p>
-
-    <div class="callout callout-info">
-      <div class="callout-head">💡 SiP vs SoC</div>
-      <p><strong>SoC:</strong> كل المكونات على نفس الـ Silicon Die — أصغر حجماً وأكفأ.</p>
-      <p><strong>SiP (System-in-Package):</strong> عدة Dies منفصلة في Package واحدة — أرخص في التطوير، لكن أكبر قليلاً من SoC.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">🛠️</span> Development Process — خطوات بناء Embedded System</div>
-    <p>أي Embedded System بيمر بـ 6 خطوات رئيسية من الفكرة للمنتج النهائي:</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>#</th><th>المرحلة</th><th>التفاصيل</th><th>أدوات شائعة</th></tr></thead>
-        <tbody>
-          <tr><td class="hi">1</td><td><strong>Requirements</strong></td><td>جمع متطلبات العميل — إيه اللي النظام لازم يعمله؟ القيود (وقت، طاقة، حجم، تكلفة)؟ المستخدمون مش دايماً مهندسين.</td><td>Word, SRS Documents</td></tr>
-          <tr><td class="hi">2</td><td><strong>Select MCU & Hardware</strong></td><td>اختيار المعالج المناسب (8/16/32-bit)، DSP إذا احتجت، تحديد الـ Sensors والـ Actuators.</td><td>Datasheets, Comparison Charts</td></tr>
-          <tr><td class="hi">3</td><td><strong>Design Hardware</strong></td><td>رسم Schematic → تصميم PCB Layout → أنظمة القوة والاتصال.</td><td>Orcad, Proteus, Eagle, KiCad</td></tr>
-          <tr><td class="hi">4</td><td><strong>Write Software Code</strong></td><td>رسم Flowchart → كتابة الكود → Compilation → HEX File.</td><td>Arduino IDE, Keil, RIDE, MASM</td></tr>
-          <tr><td class="hi">5</td><td><strong>Program & Test Prototype</strong></td><td>تحميل الـ HEX على الـ MCU، اختبار الـ Prototype، Debugging، تصحيح الأخطاء.</td><td>JTAG, Serial Monitor, Oscilloscope</td></tr>
-          <tr><td class="hi">6</td><td><strong>Production</strong></td><td>بداية الإنتاج الضخم، مراقبة الجودة، الصيانة والتحديثات.</td><td>PCB Manufacturing, SMT Assembly</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h4>اختيار الـ Microcontroller — معايير القرار</h4>
-    <div class="compare-grid">
-      <div class="compare-card blue">
-        <h4>8-bit MCU</h4>
-        <p>للتطبيقات البسيطة: عمليات حسابية بسيطة، قليل من I/O Pins، استهلاك طاقة منخفض جداً.</p>
-        <p><strong>أمثلة:</strong> 8051, PIC16xx, AVR ATmega</p>
-      </div>
-      <div class="compare-card amber">
-        <h4>16-bit MCU</h4>
-        <p>للتطبيقات المتوسطة: دقة أعلى، أداء حسابي أفضل، تطبيقات صناعية بسيطة.</p>
-        <p><strong>أمثلة:</strong> MSP430, C166, MB90890</p>
-      </div>
-      <div class="compare-card green">
-        <h4>32-bit MCU</h4>
-        <p>للتطبيقات المتقدمة: Floating Point، RTOS، Networking، Graphics. يدعم 8 و16-bit أيضاً.</p>
-        <p><strong>أمثلة:</strong> ARM Cortex-M/A/R, ESP32, LPC2148</p>
+      <div class="compare-card" style="border-top:3px solid var(--accent5);">
+        <h4 style="color:var(--accent5);">🧠 Memory Quick Map</h4>
+        <p>• ATmega Flash: <strong>Program code</strong> (32KB)</p>
+        <p>• ATmega SRAM: <strong>Variables, Stack</strong> (2KB)</p>
+        <p>• ATmega EEPROM: <strong>Settings, NVRAM</strong> (1KB)</p>
+        <p>• Flash ⊂ EEPROM (subtype)</p>
+        <p>• ROM variants: ROM → PROM → EPROM → EEPROM → Flash</p>
+        <p>• EPROM: UV light erases</p>
+        <p>• EEPROM: byte-by-byte erase</p>
+        <p>• Flash: block erase (faster)</p>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">🔩</span> Other Hardware Components المهمة</div>
-    <p>بجانب الـ MCU، أي Embedded System بيحتاج مكونات هاردوير إضافية لازمة:</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>المكوّن</th><th>الوظيفة</th><th>أهمية</th></tr></thead>
-        <tbody>
-          <tr><td><strong>Power Source</strong></td><td>مصدر الطاقة — بطارية أو مشترك كهربائي</td><td>أساسي</td></tr>
-          <tr><td><strong>Clock Oscillator</strong></td><td>توليد نبضات الساعة (Clock Signal) — يحدد سرعة CPU</td><td>أساسي</td></tr>
-          <tr><td><strong>Real-Time Clock (RTC)</strong></td><td>يحتفظ بالوقت والتاريخ حتى عند انقطاع الطاقة (له بطارية مستقلة)</td><td>مهم لأنظمة التوقيت</td></tr>
-          <tr><td><strong>Reset Circuit</strong></td><td>يضمن بداية تشغيل نظيفة عند Power-up</td><td>مهم للموثوقية</td></tr>
-          <tr><td><strong>Watchdog Timer</strong></td><td>لو البرنامج "تجمّد" → Reset تلقائياً. يُعاد تعيينه بواسطة البرنامج كل فترة محددة.</td><td class="hi">حرج في الأنظمة الخطرة</td></tr>
-          <tr><td><strong>ADC / DAC</strong></td><td>ADC: Analog→Digital. DAC: Digital→Analog. للتعامل مع العالم الحقيقي.</td><td>أساسي</td></tr>
-          <tr><td><strong>Interrupt Handler</strong></td><td>دائرة تتحكم في أولويات الـ Interrupts واستجاباتها</td><td>مهم جداً</td></tr>
-          <tr><td><strong>LCD / LED Display</strong></td><td>واجهة إخراج بصرية للمستخدم</td><td>حسب التطبيق</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="callout callout-danger">
-      <div class="callout-head">⚠️ Watchdog Timer — خط الدفاع الأخير</div>
-      <p>الـ Watchdog Timer هو "حارس" النظام. لو البرنامج دخل في Loop لانهائية أو "تجمّد" — الـ CPU مش بيقدر يعمل Reset لنفسه. الـ Watchdog بيعمل Reset تلقائياً بعد مرور وقت محدد بدون "Kick" من البرنامج. في Pacemakers وأنظمة الطيران — هو خط الدفاع الأخير.</p>
-    </div>
-  </div>
-
-  <div class="card">
-    <div class="card-title"><span class="card-title-icon">📐</span> Layered Architecture of an Embedded System</div>
-    <p>الـ Embedded System بناء متعدد الطبقات — من التطبيق أعلاه للـ Hardware في القاع:</p>
-
-    <div class="numbox">
-      <div class="numbox-title">🔺 من الأعلى للأسفل (Application → Hardware)</div>
-      <div class="num-row"><span class="num-label">Layer 6 — Application Software</span><span class="num-val">البرنامج الذي يحقق وظيفة النظام</span></div>
-      <div class="num-row"><span class="num-label">Layer 5 — Middleware / Libraries</span><span class="num-val">TCP/IP Stack, File System, Drivers API</span></div>
-      <div class="num-row"><span class="num-label">Layer 4 — RTOS / OS (إن وُجد)</span><span class="num-val">Task Scheduling, Memory Management</span></div>
-      <div class="num-row"><span class="num-label">Layer 3 — HAL (Hardware Abstraction Layer)</span><span class="num-val">يخفي تفاصيل الـ Hardware عن الـ Software</span></div>
-      <div class="num-row"><span class="num-label">Layer 2 — BSP (Board Support Package)</span><span class="num-val">Drivers للـ Peripherals والـ Board الخاصة</span></div>
-      <div class="num-row"><span class="num-label">Layer 1 — Hardware</span><span class="num-val">MCU, Sensors, Actuators, Memory, Peripherals</span></div>
-    </div>
-  </div>
 </div>
 
 <div class="footer">
   <div class="footer-title">🌟 Embedded Systems — الشرح التأسيسي الكامل</div>
-  <p>شرح شامل يغطي جميع المفاهيم الأساسية والمتقدمة في Embedded Systems</p>
+  <p>شرح شامل يغطي 17 سكشن كاملة — من الأساسيات للـ Cheat Sheet النهائي</p>
 </div>
 
 <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
