@@ -595,17 +595,147 @@ tr:hover td { background: rgba(56,189,248,0.03); }
 .footer-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: var(--accent); margin-bottom: 8px; font-weight: 800; }
 
 /* === RESPONSIVE === */
+
+/* Tablet: 768px */
 @media (max-width: 768px) {
-  .compare-grid { grid-template-columns: 1fr; }
-  .hero h1 { font-size: 2rem; }
-  .toc-grid { grid-template-columns: 1fr 1fr; }
-  .cheat-grid { grid-template-columns: 1fr; }
-  .card { padding: 20px; }
-  th, td { padding: 9px 11px; }
-  .section-header { flex-direction: column; }
+  body { font-size: 15px; }
+
+  /* Hero */
+  .hero { padding: 50px 20px 44px; min-height: auto; }
+  .hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+  .hero-sub { font-size: 0.95rem; }
+  .badges { gap: 7px; }
+  .badge { font-size: 0.75rem; padding: 4px 11px; }
+
+  /* TOC */
+  .toc-wrapper { margin: 32px auto 20px; padding: 0 16px; }
+  .toc-box { padding: 24px 20px; border-radius: 14px; }
+  .toc-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+  .toc-item { font-size: 0.82rem; padding: 9px 11px; }
+
+  /* Section */
+  .section { margin: 40px auto; padding: 0 16px; }
+  .section-header { flex-direction: column; gap: 12px; margin-bottom: 24px; padding-bottom: 20px; }
+  .section-badge { width: 46px; height: 46px; font-size: 1.1rem; border-radius: 11px; }
+  .section-title { font-size: 1.4rem; }
+
+  /* Cards */
+  .card { padding: 18px 16px; border-radius: 12px; }
+  .card-title { font-size: 0.95rem; }
+  .card p, .card li { font-size: 0.9rem; }
+
+  /* Grids */
+  .compare-grid { grid-template-columns: 1fr; gap: 12px; }
+  .cheat-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Tables */
+  .table-wrap { border-radius: 10px; }
+  th { padding: 10px 12px; font-size: 0.78rem; white-space: normal; }
+  td { padding: 9px 12px; font-size: 0.84rem; }
+
+  /* Callouts */
+  .callout { padding: 14px 16px; border-radius: 10px; }
+  .callout p { font-size: 0.88rem; }
+
+  /* Numbox */
+  .numbox { padding: 18px 16px; }
+  .num-row { flex-direction: column; align-items: flex-start; gap: 4px; padding: 10px 0; }
+  .num-val { font-size: 0.82rem; white-space: normal; direction: ltr; }
+
+  /* Cheat cards */
+  .cheat-card { padding: 16px 18px; }
+
+  /* Divider */
+  .divider { margin: 36px 16px; }
+
+  /* Code blocks */
+  .code-block { padding: 18px 14px; font-size: 0.8rem; border-radius: 10px; }
+
+  /* Scroll top button */
+  .scroll-top { bottom: 20px; left: 20px; width: 42px; height: 42px; font-size: 1rem; border-radius: 10px; }
+
+  /* Footer */
+  .footer { padding: 40px 16px; }
+  .footer-title { font-size: 1rem; }
 }
+
+/* Mobile: 480px */
 @media (max-width: 480px) {
-  .toc-grid { grid-template-columns: 1fr; }
+  body { font-size: 14px; line-height: 1.8; }
+
+  /* Hero */
+  .hero { padding: 40px 16px 36px; }
+  .hero h1 { font-size: clamp(1.5rem, 7vw, 2rem); line-height: 1.2; }
+  .hero-chip { font-size: 0.72rem; padding: 5px 14px; margin-bottom: 20px; }
+  .hero-sub { font-size: 0.88rem; margin-bottom: 22px; }
+  .badges { gap: 6px; }
+  .badge { font-size: 0.72rem; padding: 3px 9px; }
+
+  /* TOC */
+  .toc-wrapper { margin: 24px auto 16px; padding: 0 12px; }
+  .toc-box { padding: 18px 14px; border-radius: 12px; }
+  .toc-grid { grid-template-columns: 1fr; gap: 5px; }
+  .toc-item { padding: 8px 10px; font-size: 0.8rem; }
+  .toc-num { min-width: 22px; height: 22px; font-size: 0.7rem; }
+
+  /* Section */
+  .section { margin: 30px auto; padding: 0 12px; }
+  .section-title { font-size: 1.2rem; }
+  .section-sub { font-size: 0.82rem; }
+  .section-badge { width: 40px; height: 40px; font-size: 1rem; min-width: 40px; }
+
+  /* Cards */
+  .card { padding: 14px 13px; border-radius: 10px; margin-bottom: 14px; }
+  .card-title { font-size: 0.88rem; gap: 7px; }
+  .card p, .card li { font-size: 0.86rem; }
+  .card ul, .card ol { padding-right: 16px; }
+  .card-title-icon { width: 28px; height: 28px; font-size: 0.85rem; }
+
+  /* Tables — make them scroll horizontally cleanly */
+  .table-wrap { -webkit-overflow-scrolling: touch; }
+  table { min-width: 480px; }
+  th { padding: 9px 10px; font-size: 0.75rem; }
+  td { padding: 8px 10px; font-size: 0.8rem; }
+
+  /* Callouts */
+  .callout { padding: 12px 13px; }
+  .callout p { font-size: 0.84rem; }
+  .callout-head { font-size: 0.76rem; }
+
+  /* Numbox */
+  .numbox { padding: 14px 12px; border-radius: 10px; }
+  .numbox-title { font-size: 0.72rem; }
+  .num-label { font-size: 0.82rem; }
+  .num-val { font-size: 0.78rem; }
+
+  /* Compare cards */
+  .compare-card { padding: 14px 15px; border-radius: 10px; }
+  .compare-card h4 { font-size: 0.88rem; }
+  .compare-card p { font-size: 0.83rem; }
+
+  /* Cheat cards */
+  .cheat-card { padding: 14px 14px; border-radius: 10px; }
+  .cheat-card-title { font-size: 0.76rem; }
+  .cheat-card li { font-size: 0.8rem; }
+
+  /* Code */
+  .code-block { padding: 16px 12px; font-size: 0.76rem; }
+
+  /* Scroll top */
+  .scroll-top { bottom: 16px; left: 16px; width: 38px; height: 38px; font-size: 0.95rem; border-radius: 8px; }
+
+  /* Progress bar stays same */
+
+  /* Footer */
+  .footer { padding: 30px 12px; font-size: 0.82rem; }
+  .footer-title { font-size: 0.9rem; }
+}
+
+/* Very small screens: 360px */
+@media (max-width: 360px) {
+  .hero h1 { font-size: 1.4rem; }
+  .section-title { font-size: 1.1rem; }
+  .card { padding: 12px 11px; }
 }
 </style>
 </head>
