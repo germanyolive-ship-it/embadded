@@ -1077,6 +1077,7 @@ table { min-width: 400px; }
       <a href="#s48" class="toc-item"><span class="toc-num">48</span> 🛰️ AT Commands GPS &amp; 3G</a>
       <a href="#s49" class="toc-item"><span class="toc-num">49</span> 🗂️ Memory Map Stack &amp; Watchdog</a>
       <a href="#s50" class="toc-item"><span class="toc-num">50</span> 🏁 Final Exam Mega Revision</a>
+      <a href="#s51" class="toc-item"><span class="toc-num">51</span> 🎓 Student Presentations</a>
     </div>
   </div>
 </div>
@@ -6735,9 +6736,2054 @@ Timer t;
 </div>
 
 
+
+<!-- ============================================================ -->
+<!-- PRESENTATIONS & STUDENT RESEARCH SECTION -->
+<!-- ============================================================ -->
+<style>
+/* ===== PRESENTATIONS SECTION STYLES ===== */
+#presentations-section {
+  background: var(--bg);
+  padding: 80px 0 60px;
+  border-top: 1px solid var(--border2);
+  position: relative;
+}
+#presentations-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+}
+
+/* Section header */
+.pres-section-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.pres-section-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(56,189,248,0.08);
+  border: 1px solid rgba(56,189,248,0.25);
+  color: var(--accent);
+  padding: 6px 18px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.pres-section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.pres-section-title span { color: var(--accent); }
+.pres-section-sub {
+  color: var(--text-muted);
+  font-size: 1rem;
+  max-width: 520px;
+  margin: 0 auto 32px;
+  line-height: 1.9;
+}
+
+/* Search */
+.pres-search-wrap {
+  max-width: 480px;
+  margin: 0 auto 48px;
+  position: relative;
+}
+.pres-search-wrap input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 48px 14px 18px;
+  color: var(--text);
+  font-family: 'Cairo', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+  direction: rtl;
+}
+.pres-search-wrap input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
+.pres-search-wrap input::placeholder { color: var(--text-muted); }
+.pres-search-icon {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* Stats bar */
+.pres-stats {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.pres-stat {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 100px;
+}
+.pres-stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.pres-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Cards grid */
+.pres-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Presentation Card */
+.pres-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.pres-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px rgba(56,189,248,0.1);
+}
+.pres-card-header {
+  padding: 24px 24px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.pres-card-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+.pres-card-meta {
+  flex: 1;
+  min-width: 0;
+}
+.pres-card-topic {
+  font-size: 0.72rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.pres-card-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+  word-break: break-word;
+}
+.pres-card-body {
+  padding: 16px 24px;
+  flex: 1;
+}
+.pres-card-student {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.pres-card-avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.pres-card-student-name {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+.pres-card-summary {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pres-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.pres-tag {
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.pres-tag.tag-accent { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.2); color: var(--accent); }
+.pres-tag.tag-green { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.2); color: var(--accent3); }
+.pres-tag.tag-purple { background: rgba(129,140,248,0.08); border-color: rgba(129,140,248,0.2); color: var(--accent2); }
+.pres-tag.tag-yellow { background: rgba(251,191,36,0.08); border-color: rgba(251,191,36,0.2); color: var(--accent4); }
+.pres-tag.tag-pink { background: rgba(244,114,182,0.08); border-color: rgba(244,114,182,0.2); color: var(--accent5); }
+
+/* Card buttons */
+.pres-card-actions {
+  padding: 0 24px 20px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pres-btn {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 12px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'Cairo', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pres-btn-primary {
+  background: var(--accent);
+  color: #0a0f1a;
+}
+.pres-btn-primary:hover { background: #7dd3fc; transform: translateY(-1px); }
+.pres-btn-secondary {
+  background: var(--surface3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.pres-btn-secondary:hover { background: var(--surface4); border-color: var(--accent); }
+.pres-btn-notes {
+  background: rgba(251,191,36,0.1);
+  color: var(--accent4);
+  border: 1px solid rgba(251,191,36,0.25);
+  width: 100%;
+  flex: none;
+}
+.pres-btn-notes:hover { background: rgba(251,191,36,0.2); }
+
+/* ===== MODAL / DETAIL VIEW ===== */
+.pres-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(7,11,20,0.92);
+  z-index: 9000;
+  overflow-y: auto;
+  padding: 20px 16px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.pres-modal-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
+.pres-modal {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 900px;
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+  animation: modalIn 0.25s ease;
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pres-modal-close {
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border2);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+.pres-modal-close-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 48px);
+}
+.pres-modal-close-btn {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.pres-modal-close-btn:hover { background: var(--surface4); }
+
+/* Modal inner layout */
+.pres-modal-inner {
+  display: flex;
+  gap: 0;
+}
+@media (max-width: 768px) {
+  .pres-modal-inner { flex-direction: column; }
+}
+
+/* Sidebar TOC */
+.pres-modal-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--border2);
+  padding: 20px 14px;
+  position: sticky;
+  top: 69px;
+  height: calc(100vh - 89px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+@media (max-width: 768px) {
+  .pres-modal-sidebar {
+    width: 100%;
+    border-left: none;
+    border-bottom: 1px solid var(--border2);
+    position: static;
+    height: auto;
+    max-height: 200px;
+    padding: 14px;
+  }
+}
+.pres-toc-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.pres-toc-item {
+  display: block;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-decoration: none;
+  word-break: break-word;
+  margin-bottom: 2px;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: right;
+  font-family: 'Cairo', sans-serif;
+}
+.pres-toc-item:hover, .pres-toc-item.active {
+  background: rgba(56,189,248,0.1);
+  color: var(--accent);
+}
+
+/* Modal content */
+.pres-modal-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px;
+  max-height: calc(100vh - 89px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+@media (max-width: 768px) {
+  .pres-modal-content { max-height: none; padding: 20px 16px; }
+}
+
+/* Reading progress inside modal */
+.modal-progress-bar {
+  position: sticky;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  margin: -32px -32px 24px;
+  width: 0%;
+  transition: width 0.1s;
+  z-index: 5;
+}
+@media (max-width: 768px) {
+  .modal-progress-bar { margin: -20px -16px 20px; }
+}
+
+/* Section headings inside modal */
+.pres-modal-content .pres-sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  padding: 12px 16px;
+  margin: 24px -16px 14px;
+  border-radius: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  transition: background 0.15s;
+}
+.pres-modal-content .pres-sec-head:hover { background: var(--surface3); }
+.pres-sec-head-icon { font-size: 1.1rem; flex-shrink: 0; }
+.pres-sec-head-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  flex: 1;
+}
+.pres-sec-head-arrow {
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+.pres-sec-head.collapsed .pres-sec-head-arrow { transform: rotate(-90deg); }
+.pres-sec-body {
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+.pres-sec-body.collapsed { max-height: 0 !important; }
+
+/* Prose inside modal */
+.pres-modal-content p {
+  font-size: 0.93rem;
+  line-height: 2;
+  color: var(--text);
+  margin-bottom: 14px;
+  word-break: break-word;
+}
+.pres-modal-content ul, .pres-modal-content ol {
+  padding-right: 20px;
+  margin-bottom: 14px;
+}
+.pres-modal-content li {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.pres-modal-content li strong { color: var(--text); }
+.pres-modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 18px;
+  font-size: 0.85rem;
+}
+.pres-modal-content th {
+  background: var(--surface3);
+  padding: 10px 14px;
+  text-align: right;
+  color: var(--accent);
+  font-weight: 700;
+  border: 1px solid var(--border2);
+}
+.pres-modal-content td {
+  padding: 9px 14px;
+  border: 1px solid var(--border2);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+.pres-modal-content tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 18px; }
+
+/* Code blocks */
+.pres-code-block {
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.pres-code-header {
+  background: var(--surface3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border2);
+}
+.pres-code-lang {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.pres-code-copy {
+  font-size: 0.72rem;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: 'Cairo', sans-serif;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+.pres-code-copy:hover { color: var(--accent); }
+.pres-code-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--code-bg);
+  scrollbar-width: thin;
+  scrollbar-color: var(--border2) transparent;
+}
+.pres-code-scroll pre {
+  margin: 0;
+  padding: 18px 20px;
+  min-width: 100%;
+  width: max-content;
+}
+.pres-code-scroll code {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.83rem;
+  line-height: 1.8;
+  color: #a8d8f0;
+  white-space: pre;
+  word-break: normal;
+  word-wrap: normal;
+}
+
+/* Callout boxes inside modal */
+.pres-callout {
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+  border-left: 3px solid;
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+.pres-callout-info { background: rgba(56,189,248,0.06); border-color: var(--accent); }
+.pres-callout-warn { background: rgba(251,191,36,0.06); border-color: var(--accent4); }
+.pres-callout-danger { background: rgba(248,113,113,0.06); border-color: var(--danger); }
+.pres-callout-success { background: rgba(52,211,153,0.06); border-color: var(--accent3); }
+.pres-callout-head {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.pres-callout-info .pres-callout-head { color: var(--accent); }
+.pres-callout-warn .pres-callout-head { color: var(--accent4); }
+.pres-callout-danger .pres-callout-head { color: var(--danger); }
+.pres-callout-success .pres-callout-head { color: var(--accent3); }
+
+/* Doctor Notes Box */
+.pres-doctor-notes {
+  background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(251,191,36,0.02));
+  border: 1px solid rgba(251,191,36,0.25);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.pres-doctor-notes-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--accent4);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pres-doctor-notes ul {
+  padding-right: 18px;
+  margin: 0;
+}
+.pres-doctor-notes li {
+  font-size: 0.88rem;
+  line-height: 1.9;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.pres-doctor-notes li::marker { color: var(--accent4); }
+
+/* Metric badges inside modal */
+.pres-metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.pres-metric {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+.pres-metric-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent);
+}
+.pres-metric-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* No results */
+.pres-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  display: none;
+}
+.pres-no-results-icon { font-size: 2.5rem; margin-bottom: 12px; }
+.pres-no-results-text { font-size: 1rem; }
+</style>
+
+<!-- THE SECTION -->
+<section id="presentations-section" dir="ltr">
+  <div class="container">
+    <!-- Header -->
+    <div class="pres-section-header">
+      <div class="pres-section-chip">🎓 Student Research</div>
+      <h2 class="pres-section-title">Embedded Systems <span>Presentations</span></h2>
+      <p class="pres-section-sub" dir="rtl">كل البرزنتيشنز والتقارير الطلابية — مرتبة ومنظمة في مكان واحد</p>
+      
+      <!-- Stats -->
+      <div class="pres-stats">
+        <div class="pres-stat">
+          <div class="pres-stat-num">8</div>
+          <div class="pres-stat-label">Presentations</div>
+        </div>
+        <div class="pres-stat">
+          <div class="pres-stat-num">10+</div>
+          <div class="pres-stat-label">Students</div>
+        </div>
+        <div class="pres-stat">
+          <div class="pres-stat-num">ESP32</div>
+          <div class="pres-stat-label">Core Platform</div>
+        </div>
+        <div class="pres-stat">
+          <div class="pres-stat-num">2026</div>
+          <div class="pres-stat-label">Academic Year</div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="pres-search-wrap" dir="rtl">
+        <input type="text" id="presSearch" placeholder="ابحث في البرزنتيشنز... (Fire, GPS, Radiation...)" autocomplete="off">
+        <span class="pres-search-icon">🔍</span>
+      </div>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="pres-grid" id="presGrid">
+
+      <!-- CARD 1: Fire & Safety -->
+      <div class="pres-card" data-search="fire safety sensor esp32 flame gas mq2 ky026 moataz ahmed wifi iot">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(248,113,113,0.12);color:#f87171;">🔥</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">IoT Safety Systems</div>
+            <div class="pres-card-title">Fire and Safety Sensor Systems Using ESP32</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">MA</div>
+            <span class="pres-card-student-name">Moataz Ahmed — ID 2305223</span>
+          </div>
+          <p class="pres-card-summary">نظام كشف حريق IoT باستخدام ESP32 مع استجابة فورية عبر hardware interrupts لحساس اللهب KY-026 وقراءة ADC مستمرة لحساس الغاز MQ-2 مع تنبيهات Wi-Fi في أقل من 1.4 ثانية.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-pink">MQ-2</span>
+            <span class="pres-tag tag-yellow">KY-026</span>
+            <span class="pres-tag tag-green">Wi-Fi Alert</span>
+            <span class="pres-tag">ISR</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('fire')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('fire','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('fire','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 2: Radiation -->
+      <div class="pres-card" data-search="radiation monitoring gm sensor geiger muller esp32 hager amr youssef hesham medical imaging mqtt influxdb grafana">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(129,140,248,0.12);color:#818cf8;">☢️</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Medical / Environmental</div>
+            <div class="pres-card-title">Radiation Monitoring System Using GM Sensor & ESP32</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">H·Y</div>
+            <span class="pres-card-student-name">Hager Amr & Youssef Hesham</span>
+          </div>
+          <p class="pres-card-summary">نظام مراقبة إشعاعية طبية وبيئية باستخدام أنبوب Geiger-Müller مع ESP32 لقياس الجرعة الإشعاعية بدقة 3.7% وإرسالها عبر MQTT إلى Grafana dashboard بزمن استجابة 380ms.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-purple">GM Tube</span>
+            <span class="pres-tag tag-green">MQTT</span>
+            <span class="pres-tag">μSv/h</span>
+            <span class="pres-tag tag-yellow">Medical</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('radiation')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('radiation','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('radiation','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 3: GPS -->
+      <div class="pres-card" data-search="gps sensor esp32 neo6m neom tinygps uart trilateration shahd hisham vehicle tracking">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(52,211,153,0.12);color:#34d399;">🛰️</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Navigation & Tracking</div>
+            <div class="pres-card-title">GPS Sensor in Embedded Systems using ESP32</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">SH</div>
+            <span class="pres-card-student-name">Shahd Hisham — ID 2305244</span>
+          </div>
+          <p class="pres-card-summary">تكامل وحدة GPS NEO-6M مع ESP32 عبر UART2 لإنشاء نظام تتبع مركبات. يشمل تحليل NMEA sentences وقراءة Latitude/Longitude/Altitude مع نظام Geofencing.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-green">NEO-6M</span>
+            <span class="pres-tag">UART</span>
+            <span class="pres-tag tag-yellow">TinyGPS++</span>
+            <span class="pres-tag">Geofencing</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('gps')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('gps','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('gps','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 4: Washing Machine -->
+      <div class="pres-card" data-search="washing machine embedded systems fsm finite state machine arduino sensors water level motor control">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(56,189,248,0.12);color:#38bdf8;">🫧</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Consumer Electronics</div>
+            <div class="pres-card-title">Embedded Systems in Washing Machines</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">St</div>
+            <span class="pres-card-student-name">Student Research Team</span>
+          </div>
+          <p class="pres-card-summary">دراسة تفصيلية لتطبيقات الأنظمة المدمجة في الغسالات الحديثة: FSM للتحكم في دورات الغسيل، حساسات مستوى الماء والحرارة، والتحكم في المحركات عبر H-Bridge.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">FSM</span>
+            <span class="pres-tag">Sensors</span>
+            <span class="pres-tag tag-green">Motor Control</span>
+            <span class="pres-tag tag-yellow">Consumer IoT</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('washing')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('washing','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('washing','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 5: Smart Home -->
+      <div class="pres-card" data-search="smart home automation arduino esp32 pir dht11 gas sensor relay mqtt iot elderly disability">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(251,191,36,0.12);color:#fbbf24;">🏠</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Home Automation</div>
+            <div class="pres-card-title">Smart Home Automation System</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">St</div>
+            <span class="pres-card-student-name">Research Team</span>
+          </div>
+          <p class="pres-card-summary">نظام أتمتة منزلية ذكية لكبار السن وذوي الاحتياجات الخاصة. يدمج PIR و DHT11 وحساسات الغاز مع MQTT للتحكم عن بعد والتنبيهات الطارئة عبر Voice Assistants.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-green">PIR</span>
+            <span class="pres-tag">DHT11</span>
+            <span class="pres-tag tag-yellow">MQTT</span>
+            <span class="pres-tag tag-purple">Alexa</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('smarthome')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('smarthome','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('smarthome','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 6: Smart Climate Control -->
+      <div class="pres-card" data-search="smart climate control automotive ac esp32 sht31 dht22 ds18b20 ntc thermistor i2c onewire omar el sayed temperature humidity">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(52,211,153,0.12);color:#34d399;">❄️</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Automotive / Climate</div>
+            <div class="pres-card-title">Smart Climate Control System — Automotive AC</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">OE</div>
+            <span class="pres-card-student-name">Omar El-Sayed — ID 2305057</span>
+          </div>
+          <p class="pres-card-summary">نظام تكييف ذكي للسيارات باستخدام ESP32 مع NTC Thermistors ومستشعرات رقمية SHT31-D/DS18B20 عبر I2C و OneWire للتحكم التلقائي في درجة حرارة المقصورة.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-green">SHT31-D</span>
+            <span class="pres-tag">I2C</span>
+            <span class="pres-tag tag-yellow">NTC</span>
+            <span class="pres-tag">OneWire</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('climate')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('climate','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('climate','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 7: IoT DHT11 -->
+      <div class="pres-card" data-search="smart iot esp32 dht11 temperature humidity machine overheating iot vs ioe vs iiot industrial">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(244,114,182,0.12);color:#f472b6;">🌡️</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Industrial IoT</div>
+            <div class="pres-card-title">Smart IoT System Using ESP32 + DHT11</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">St</div>
+            <span class="pres-card-student-name">Student Presentation</span>
+          </div>
+          <p class="pres-card-summary">مقارنة بين IoT vs IoE vs IIoT مع تطبيق عملي لرصد درجة حرارة الماكينات الصناعية باستخدام DHT11 مع تنبيهات فورية لمنع ارتفاع الحرارة.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-pink">DHT11</span>
+            <span class="pres-tag tag-yellow">IIoT</span>
+            <span class="pres-tag">Cloud Alert</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('iotdht')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('iotdht','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('iotdht','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+      <!-- CARD 8: IR Sensor -->
+      <div class="pres-card" data-search="infrared ir sensor esp32 obstacle detection line tracking robot fc51 proximity digital signal mohamed hazem">
+        <div class="pres-card-header">
+          <div class="pres-card-icon" style="background:rgba(129,140,248,0.12);color:#818cf8;">📡</div>
+          <div class="pres-card-meta">
+            <div class="pres-card-topic">Sensors & Robotics</div>
+            <div class="pres-card-title">Infrared (IR) Sensor in Embedded Systems</div>
+          </div>
+        </div>
+        <div class="pres-card-body">
+          <div class="pres-card-student">
+            <div class="pres-card-avatar">MH</div>
+            <span class="pres-card-student-name">Mohamed Hazem Hafez — ID 2305534</span>
+          </div>
+          <p class="pres-card-summary">شرح شامل لحساس الأشعة تحت الحمراء IR: أنواعه (Obstacle & Line Tracking)، طريقة عمله مع ESP32 via GPIO، وتطبيق Robot Obstacle Avoidance العملي.</p>
+          <div class="pres-tags">
+            <span class="pres-tag tag-accent">ESP32</span>
+            <span class="pres-tag tag-purple">IR Sensor</span>
+            <span class="pres-tag tag-green">FC-51</span>
+            <span class="pres-tag">Robotics</span>
+            <span class="pres-tag">GPIO</span>
+          </div>
+        </div>
+        <div class="pres-card-actions">
+          <button class="pres-btn pres-btn-primary" onclick="openModal('ir')">📄 View Details</button>
+          <button class="pres-btn pres-btn-secondary" onclick="openModalTab('ir','slides')">🖥 Slides</button>
+          <button class="pres-btn pres-btn-notes" onclick="openModalTab('ir','notes')">⭐ Exam Notes</button>
+        </div>
+      </div>
+
+    </div><!-- /pres-grid -->
+
+    <div class="pres-no-results" id="presNoResults">
+      <div class="pres-no-results-icon">🔍</div>
+      <div class="pres-no-results-text">لم يُعثر على نتائج — جرّب كلمة أخرى</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================== MODAL ========================== -->
+<div class="pres-modal-overlay" id="presModalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="pres-modal" id="presModal">
+    <div class="pres-modal-close">
+      <span class="pres-modal-close-title" id="presModalTitle">Presentation Details</span>
+      <button class="pres-modal-close-btn" onclick="closeModal()" title="إغلاق">✕</button>
+    </div>
+    <div class="pres-modal-inner">
+      <!-- Sidebar TOC -->
+      <div class="pres-modal-sidebar" id="presToc">
+        <div class="pres-toc-title">📋 Contents</div>
+        <!-- TOC items injected by JS -->
+      </div>
+      <!-- Scrollable Content -->
+      <div class="pres-modal-content" id="presModalContent">
+        <div class="modal-progress-bar" id="modalProgressBar"></div>
+        <!-- Content injected by JS -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// PRESENTATIONS DATA
+// ============================================================
+const PRESENTATIONS = {
+
+  fire: {
+    title: "Fire and Safety Sensor Systems Using ESP32",
+    student: "Moataz Ahmed — ID 2305223",
+    tabs: { content: true, slides: true, notes: true },
+    sections: [
+      {
+        id: "intro", icon: "📖", title: "Introduction",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Historical Background</h3>
+          <p>Historically, fire detection relied on human vigilance and rudimentary mechanical bells triggered by extreme heat. The evolution of fire safety moved toward simple ionization smoke detectors in the mid-20th century, which lacked communication capabilities. In modern smart environments, the shift from isolated standalone alarms to interconnected IoT ecosystems allows for instantaneous, remote alerts, significantly reducing emergency response times.</p>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Aims & Objectives</h3>
+          <ul>
+            <li>Detect naked flame within <strong>50 ms</strong> using hardware interrupts</li>
+            <li>Detect hazardous gas anomalies and trigger alert within <strong>2 seconds</strong></li>
+            <li>Trigger local auditory alarm (buzzer) instantly upon detection</li>
+            <li>Dispatch Wi-Fi alert to remote dashboard within <strong>3 seconds</strong></li>
+          </ul>
+          <div class="pres-callout pres-callout-warn">
+            <div class="pres-callout-head">⚠️ The Need vs. Actual</div>
+            <p><strong>The Need:</strong> Industrial environments require fail-safe, redundant systems with backup power and industrial-grade certifications.</p>
+            <p><strong>The Actual:</strong> This prototype demonstrates core logic with COTS hobbyist sensors (MQ-2, KY-026) which lack industrial calibration.</p>
+          </div>
+        `
+      },
+      {
+        id: "sensors", icon: "🔬", title: "Sensor Operations & Market Analysis",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Types & Examples in the Market</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Category</th><th>Sensor</th><th>Type</th></tr></thead>
+            <tbody>
+              <tr><td>Gas/Smoke</td><td>MQ-2</td><td>Combustible Gas/Smoke</td></tr>
+              <tr><td>Gas/Smoke</td><td>MQ-7</td><td>Carbon Monoxide</td></tr>
+              <tr><td>Gas/Smoke</td><td>MQ-135</td><td>Air Quality</td></tr>
+              <tr><td>Flame/Light</td><td>KY-026</td><td>Infrared Flame Sensor</td></tr>
+              <tr><td>Temperature</td><td>DHT22</td><td>Temp/Humidity</td></tr>
+              <tr><td>Temperature</td><td>DS18B20</td><td>Waterproof Digital</td></tr>
+            </tbody>
+          </table></div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">MQ-2 Gas Sensor — How It Works</h3>
+          <p>Operates on a <strong>chemiresistor principle</strong>. It contains a sensing element (SnO₂) heated by a small coil. In clean air, oxygen is adsorbed on the SnO₂ surface, creating high resistance. When combustible gases pass through the anti-explosion mesh, they react with the heated Tin Dioxide sensing layer, <strong>decreasing internal resistance</strong> and providing an analog voltage shift proportional to gas concentration.</p>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">KY-026 Flame Sensor — How It Works</h3>
+          <p>Uses an <strong>IR photodiode</strong> sensitive to the flame spectrum (760–1100 nm). When IR light hits the diode, it generates a small current amplified by an onboard LM393 comparator to provide a clean digital HIGH/LOW signal.</p>
+        `
+      },
+      {
+        id: "hardware", icon: "🔧", title: "Hardware Design & ESP32 Integration",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Pin Interface</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Component</th><th>Pin Type</th><th>ESP32 GPIO</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>KY-026 Flame Sensor</td><td>Digital Input</td><td>GPIO 4</td><td>Hardware interrupt — RISING edge</td></tr>
+              <tr><td>MQ-2 Gas Sensor</td><td>Analog Input</td><td>GPIO 34</td><td>ADC — continuous voltage reading</td></tr>
+              <tr><td>Active Buzzer</td><td>Digital Output</td><td>GPIO 18</td><td>Alert actuator</td></tr>
+              <tr><td>Red LED</td><td>Digital Output</td><td>GPIO 19</td><td>Visual alert</td></tr>
+            </tbody>
+          </table></div>
+          <div class="pres-callout pres-callout-danger">
+            <div class="pres-callout-head">⚡ Problem 1: Signal Bounce</div>
+            <p>KY-026 digital pin was floating, causing environmental noise to repeatedly trigger the hardware interrupt. <strong>Solution:</strong> Software debounce using ESP32 hardware timers with 200ms minimum interval.</p>
+          </div>
+          <div class="pres-callout pres-callout-danger">
+            <div class="pres-callout-head">⚡ Problem 2: Power Bottleneck</div>
+            <p>MQ-2 internal heater drew excessive current from ESP32's 3.3V pin causing brownout resets and killing Wi-Fi radio. <strong>Solution:</strong> Decoupled power distribution — sensor on independent 5V rail, data line at 3.3V.</p>
+          </div>
+        `
+      },
+      {
+        id: "code", icon: "💻", title: "Sample Code — C++ / Arduino IDE",
+        content: `
+          <p>Complete ESP32 fire detection code with hardware interrupt and analog gas polling:</p>
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ / Arduino</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>#include &lt;WiFi.h&gt;
+
+// Pin Definitions
+const int FLAME_SENSOR_PIN = 4;   // Digital — Flame
+const int MQ_ANALOG_PIN    = 34;  // Analog  — Gas
+const int BUZZER_PIN       = 18;
+const int LED_PIN          = 19;
+
+// Thresholds & Flags
+const int HAZARD_THRESHOLD = 2200;  // Calibrated to ~2.7V
+volatile bool hazardDetected = false;
+unsigned long lastInterruptTime = 0;
+
+// *** Hardware Interrupt — runs in IRAM ***
+void IRAM_ATTR detectHazard() {
+  unsigned long interruptTime = millis();
+  if (interruptTime - lastInterruptTime &gt; 200) {
+    hazardDetected = true;  // debounced
+  }
+  lastInterruptTime = interruptTime;
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(FLAME_SENSOR_PIN, INPUT_PULLDOWN);
+  pinMode(BUZZER_PIN, OUTPUT);
+  pinMode(LED_PIN, OUTPUT);
+  // Attach interrupt on RISING edge
+  attachInterrupt(digitalPinToInterrupt(FLAME_SENSOR_PIN),
+                  detectHazard, RISING);
+  Serial.println("System Initialized. Monitoring...");
+}
+
+void loop() {
+  // Poll ADC for gas concentration
+  int gasValue = analogRead(MQ_ANALOG_PIN);
+
+  if (gasValue &gt; HAZARD_THRESHOLD || hazardDetected) {
+    digitalWrite(BUZZER_PIN, HIGH);
+    digitalWrite(LED_PIN, HIGH);
+    Serial.print("ALERT! Gas Value: ");
+    Serial.println(gasValue);
+    // sendIoTAlert(gasValue); — triggers at 1.4s
+    delay(3000);
+    hazardDetected = false;
+    digitalWrite(BUZZER_PIN, LOW);
+    digitalWrite(LED_PIN, LOW);
+  } else {
+    digitalWrite(BUZZER_PIN, LOW);
+    digitalWrite(LED_PIN, LOW);
+  }
+  delay(100);
+}</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "results", icon: "📊", title: "Results & Discussion",
+        content: `
+          <div class="pres-metric-grid">
+            <div class="pres-metric"><div class="pres-metric-val">1.4s</div><div class="pres-metric-desc">Stimulus → Mobile Alert Latency</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">50ms</div><div class="pres-metric-desc">Flame Detection via Interrupt</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">±5%</div><div class="pres-metric-desc">Baseline Analog Noise</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">2.7V</div><div class="pres-metric-desc">Calibrated Threshold (vs 2.5V simulated)</div></div>
+          </div>
+          <p>Initial simulation validated logic gates, but physical deployment yielded real performance data. Threshold adjustment from 2.5V → 2.7V was necessary for humidity compensation and to avoid false positives.</p>
+        `
+      },
+      {
+        id: "future", icon: "🚀", title: "Future Work",
+        content: `
+          <ul>
+            <li><strong>Mesh Networking:</strong> Linking multiple ESP32 nodes across large building blueprints</li>
+            <li><strong>Battery Optimisation:</strong> Implementing ESP32 deep-sleep modes for ultra-low-power operation</li>
+            <li><strong>Machine Learning:</strong> Analysing gas concentration trends at the edge to predict hazards prior to ignition</li>
+          </ul>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>volatile keyword:</strong> الـ flag المشتركة بين ISR والـ main loop لازم تكون <code style="color:var(--accent);background:var(--code-bg);padding:2px 6px;border-radius:4px;">volatile bool</code> — الـ compiler بدونها بيستخدم cached register value</li>
+              <li><strong>IRAM_ATTR:</strong> الـ ISR function لازم تتحط في IRAM مش Flash عشان تكون accessible دايماً</li>
+              <li><strong>Hardware Interrupt vs Polling:</strong> للـ events النادرة والحرجة زي الحريق → Interrupt أكفأ بكتير من Polling</li>
+              <li><strong>Debouncing:</strong> millis() مش delay() داخل ISR — delay() تجمّد البرنامج كله</li>
+              <li><strong>Power Decoupling:</strong> MQ-2 يحتاج 5V مستقلة — لا تغذيه من 3.3V pin الـ ESP32</li>
+              <li><strong>ADC on ESP32:</strong> GPIO 34 = Input-Only pin لا يمكن استخدامه كـ Output</li>
+              <li><strong>Threshold calibration:</strong> الـ simulated threshold ≠ practical — Physical environment needs recalibration</li>
+            </ul>
+          </div>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📌 Key Comparisons (Exam Traps)</div>
+            <p><strong>volatile vs non-volatile:</strong> بدون volatile الـ main loop بيقرأ قيمة stale من register مش من RAM</p>
+            <p><strong>Interrupt vs Polling:</strong> Interrupt = أكفأ للـ rare events | Polling = يهدر CPU في waiting</p>
+            <p><strong>5V Rail vs 3.3V:</strong> المستشعرات المتعبة تحتاج power decoupling منفصل</p>
+          </div>
+        `
+      }
+    ]
+  },
+
+  radiation: {
+    title: "Radiation Monitoring System — GM Sensor & ESP32",
+    student: "Hager Amr & Youssef Hesham | Supervisor: Dr. Elhabrouk",
+    sections: [
+      {
+        id: "intro", icon: "☢️", title: "Introduction — The Problem",
+        content: `
+          <p>Ionizing radiation is completely <strong>undetectable by the unaided human senses</strong> — invisible, odorless, tasteless. By the time biological effects become noticeable, dangerous cumulative doses may already have been received.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📊 Key Statistics</div>
+            <p>Medical procedures account for approximately <strong>98%</strong> of all radiation exposure from artificial sources globally. Radiological staff face strict dose limits under ICRP Publication 103: <strong>20 mSv/year</strong> averaged over 5 years, max 50 mSv in any single year.</p>
+          </div>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Tool</th><th>Advantage</th><th>Limitation</th></tr></thead>
+            <tbody>
+              <tr><td>TLD / OSL Badges</td><td>Simple, cheap</td><td>No real-time feedback; weeks of delay</td></tr>
+              <tr><td>Electronic Personal Dosimeter</td><td>Real-time</td><td>$500–5,000; no network connectivity</td></tr>
+              <tr><td>GM Counters (Analog)</td><td>Sensitive</td><td>No wireless output; no cloud integration</td></tr>
+              <tr><td><strong>Our System: GM + ESP32</strong></td><td><strong>Real-time + networked</strong></td><td>~$32 total cost</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "gm", icon: "⚡", title: "How the Geiger-Müller Sensor Works",
+        content: `
+          <p>The GM tube operates by exploiting <strong>gas ionization</strong> inside a sealed tube filled with noble gas (neon or argon) at low pressure:</p>
+          <ol>
+            <li>Ionizing radiation enters → collides with gas molecules → releases free electrons (<em>primary ionization</em>)</li>
+            <li>Electrons accelerate toward anode wire under <strong>~400–500 V</strong> strong electric field</li>
+            <li>Electrons gain energy → ionize more gas → triggers <strong>Townsend Avalanche</strong> chain reaction</li>
+            <li>Avalanche spreads along full anode within ~1 μs → measurable voltage pulse</li>
+            <li>Each pulse = <strong>one detected event</strong>; pulse count per minute (CPM) = raw output</li>
+            <li>Halogen quenching gas (Cl in J305β) stops avalanche → creates ~90–100 μs dead time per event</li>
+          </ol>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">🔢 CPM → μSv/h Conversion</div>
+            <p><code style="color:var(--accent3);background:var(--code-bg);padding:4px 10px;border-radius:6px;font-family:'Fira Code',monospace;">Hn (μSv/h) = CPM × CF</code></p>
+            <p>CF = 0.00812 μSv/h per CPM for SBM-20 (calibrated vs Cs-137 at 662 keV, per IEC 62387:2020)</p>
+          </div>
+          <div class="pres-callout pres-callout-warn">
+            <div class="pres-callout-head">⚠️ Dead-Time Correction (Important!)</div>
+            <p>At high dose rates (&gt;500 CPM), the 90–100 μs dead time causes under-counting. Dead-time correction using the paralyzable model:</p>
+          </div>
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ — Dead Time Correction</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>// Paralyzable dead-time correction (Knoll 2010)
+// τ = 100 μs = 1e-4 s → τ per minute = 0.006
+float correctedCPM = (float)rawCPM / (1.0f - rawCPM * 0.0001f);
+// Applied only when rawCPM &gt; 500 (below this error &lt; 5%)</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "arch", icon: "🏗️", title: "System Architecture",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Why ESP32 Over ESP8266 / Arduino?</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Feature</th><th>ESP8266</th><th>Arduino Mega</th><th>ESP32 ✅</th></tr></thead>
+            <tbody>
+              <tr><td>CPU Cores</td><td>1 @ 80 MHz</td><td>1 @ 16 MHz</td><td><strong>2 @ 240 MHz</strong></td></tr>
+              <tr><td>Wi-Fi</td><td>Yes</td><td>No</td><td>Yes ✅</td></tr>
+              <tr><td>Bluetooth</td><td>No</td><td>No</td><td>BLE 4.2 ✅</td></tr>
+              <tr><td>HW Interrupt Latency</td><td>Limited</td><td>Yes</td><td><strong>&lt; 200 ns</strong> ✅</td></tr>
+              <tr><td>RTOS</td><td>Basic</td><td>No</td><td>Full FreeRTOS ✅</td></tr>
+              <tr><td>Cost</td><td>~$4</td><td>~$10</td><td>~$8 module ✅</td></tr>
+            </tbody>
+          </table></div>
+          <div class="pres-callout pres-callout-success">
+            <div class="pres-callout-head">✅ Dual-Core Architecture — Key Advantage</div>
+            <p>Core 0: Wi-Fi/MQTT stack | Core 1: ISR pulse counter. Hardware interrupt runs in IRAM — completely isolated from network stack. <strong>Zero missed pulses</strong> after migration from single-core ESP8266.</p>
+          </div>
+        `
+      },
+      {
+        id: "results", icon: "📊", title: "Results & Validation",
+        content: `
+          <div class="pres-metric-grid">
+            <div class="pres-metric"><div class="pres-metric-val">3.7%</div><div class="pres-metric-desc">Deviation from reference (Mirion RDS-31)</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">380ms</div><div class="pres-metric-desc">MQTT event → dashboard latency</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">~$32</div><div class="pres-metric-desc">Total BOM cost</div></div>
+            <div class="pres-metric"><div class="pres-metric-val">10h</div><div class="pres-metric-desc">Battery life (2000 mAh)</div></div>
+          </div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin:16px 0 12px;font-size:1rem;">Clinical Observation (Simulated IR Suite)</h3>
+          <p>Four prototype units deployed in a simulated interventional radiology suite detected <strong>two instances</strong> of dose-rate excursions that were <strong>not detected</strong> by the quarterly survey program. Automatic alerting enabled corrective shielding within 48 hours — impossible with passive dosimetry.</p>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>GM Tube Voltage:</strong> يعمل على ~400–500V high voltage — مهم جداً</li>
+              <li><strong>Townsend Avalanche:</strong> آلية تضخيم الإشارة داخل أنبوب GM</li>
+              <li><strong>Dead Time:</strong> 90–100 μs بعد كل pulse — فوق 500 CPM تحتاج dead-time correction</li>
+              <li><strong>CPM formula:</strong> μSv/h = CPM × 0.00812 (calibrated for SBM-20/Cs-137)</li>
+              <li><strong>ICRP 103:</strong> 20 mSv/year average, max 50 mSv/year للعاملين في مجال الأشعة</li>
+              <li><strong>Dual Core isolation:</strong> Core 0 = Wi-Fi/MQTT | Core 1 = ISR pulse counter — يمنع missed pulses</li>
+              <li><strong>MQTT Latency target:</strong> &lt;500ms — الـ system حقق 380ms ✅</li>
+              <li><strong>Types of ionizing radiation:</strong> Alpha (α) — Beta (β) — Gamma (γ) — X-ray</li>
+            </ul>
+          </div>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📌 Key Comparisons (Exam Traps)</div>
+            <p><strong>Alpha vs Gamma:</strong> Alpha = highly ionizing, stopped by skin | Gamma = penetrating electromagnetic</p>
+            <p><strong>TLD vs EPD vs Our System:</strong> TLD = weeks delay | EPD = $500+ no wireless | Ours = real-time $32</p>
+            <p><strong>ESP8266 vs ESP32:</strong> Single core ESP8266 misses pulses during Wi-Fi — ESP32 dual core solves this</p>
+          </div>
+        `
+      }
+    ]
+  },
+
+  gps: {
+    title: "GPS Sensor in Embedded Systems using ESP32",
+    student: "Shahd Hisham — ID 2305244",
+    sections: [
+      {
+        id: "intro", icon: "🌍", title: "Introduction & History",
+        content: `
+          <p>The Global Positioning System (GPS) is a satellite-based navigation system providing location, velocity, and time synchronization. Developed by the US Department of Defense, the first GPS satellite was launched in <strong>1978</strong>, fully operational by <strong>1995</strong>.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">🎯 Objectives</div>
+            <ul style="margin:0;padding-right:18px;">
+              <li>Understand GPS operational principles: satellite communication and trilateration</li>
+              <li>Compare commercially available GPS modules for embedded applications</li>
+              <li>Interface GPS module with ESP32 including wiring and sample code</li>
+              <li>Propose a real-world Vehicle Tracking System application</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        id: "how", icon: "📡", title: "How GPS Works — Trilateration",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">GPS Constellation</h3>
+          <p><strong>31 active satellites</strong> in Medium Earth Orbit (MEO), arranged in six orbital planes. Each satellite continuously transmits radio signals containing precise timing information and orbital data (ephemeris), synchronized by atomic clocks.</p>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">Trilateration Process</h3>
+          <ul>
+            <li><strong>1 satellite:</strong> Position is on a sphere of radius = distance to satellite</li>
+            <li><strong>2 satellites:</strong> Position narrows to a circle (intersection of 2 spheres)</li>
+            <li><strong>3 satellites:</strong> Position narrows to 2 points (one usually discarded)</li>
+            <li><strong>4 satellites:</strong> Precise 3D fix + clock synchronization (eliminates pseudorange error)</li>
+          </ul>
+          <div class="pres-callout pres-callout-warn">
+            <div class="pres-callout-head">⚠️ Trilateration ≠ Triangulation</div>
+            <p>Trilateration uses <strong>distances</strong> from satellites. Triangulation uses <strong>angles</strong>. GPS uses trilateration!</p>
+          </div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">GPS Signals</h3>
+          <p>L1 = <strong>1575.42 MHz</strong> (civilian use) | L2 = <strong>1227.60 MHz</strong> (military)</p>
+        `
+      },
+      {
+        id: "modules", icon: "📦", title: "GPS Modules — Market Comparison",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>Module</th><th>Key Feature</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>u-blox NEO-6M</td><td>Cost-effective, UART, 9600 bps</td><td>Hobbyists, educational projects</td></tr>
+              <tr><td>u-blox NEO-7M</td><td>Better cold-start, higher sensitivity</td><td>Robust applications</td></tr>
+              <tr><td>u-blox NEO-8M</td><td>Multi-GNSS (GPS+GLONASS+BeiDou+Galileo)</td><td>High precision, urban environments</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "interface", icon: "🔌", title: "Interface with ESP32 — Wiring",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">UART2 Wiring (NEO-6M ↔ ESP32)</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>NEO-6M Pin</th><th>ESP32 Pin</th><th>GPIO</th></tr></thead>
+            <tbody>
+              <tr><td>VCC</td><td>3V3</td><td>—</td></tr>
+              <tr><td>RX</td><td>TX2</td><td>GPIO 17</td></tr>
+              <tr><td>TX</td><td>RX2</td><td>GPIO 16</td></tr>
+              <tr><td>GND</td><td>GND</td><td>—</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "code", icon: "💻", title: "Sample Code — TinyGPS++ Library",
+        content: `
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ / Arduino</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>#include &lt;TinyGPS++.h&gt;
+#include &lt;HardwareSerial.h&gt;
+
+#define RXD2 16
+#define TXD2 17
+#define GPS_BAUD 9600
+
+TinyGPSPlus gps;
+HardwareSerial gpsSerial(2);
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println("ESP32 GPS Tracker");
+  gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2);
+}
+
+void loop() {
+  while (gpsSerial.available() &gt; 0) {
+    if (gps.encode(gpsSerial.read())) {
+      if (gps.location.isValid()) {
+        Serial.print("Latitude:  "); Serial.println(gps.location.lat(), 6);
+        Serial.print("Longitude: "); Serial.println(gps.location.lng(), 6);
+        Serial.print("Altitude:  "); Serial.print(gps.altitude.meters()); Serial.println(" m");
+        Serial.print("Speed:     "); Serial.print(gps.speed.kmph());    Serial.println(" km/h");
+        Serial.print("Satellites:"); Serial.println(gps.satellites.value());
+        Serial.print("Date/Time: ");
+        Serial.print(gps.date.day()); Serial.print("/");
+        Serial.print(gps.date.month()); Serial.print("/");
+        Serial.println(gps.date.year());
+        Serial.println("-----------------------------");
+      }
+    }
+  }
+  if (millis() &gt; 5000 &amp;&amp; gps.charsProcessed() &lt; 10) {
+    Serial.println("No GPS data: check wiring or signal.");
+    while(true);
+  }
+}</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>Minimum satellites for 3D fix:</strong> 4 satellites (3 for 2D, 4th for clock sync)</li>
+              <li><strong>GPS vs GNSS:</strong> GPS = US system | GNSS = includes GLONASS (Russia) + BeiDou (China) + Galileo (EU)</li>
+              <li><strong>Trilateration vs Triangulation:</strong> GPS يستخدم distances مش angles</li>
+              <li><strong>L1 frequency:</strong> 1575.42 MHz للاستخدام المدني</li>
+              <li><strong>UART2 pins on ESP32:</strong> RXD2=GPIO16, TXD2=GPIO17</li>
+              <li><strong>NMEA sentences:</strong> البروتوكول القياسي لبيانات GPS ($GPGGA, $GPRMC...)</li>
+              <li><strong>TinyGPS++ library:</strong> مكتبة parsing لـ NMEA على Arduino/ESP32</li>
+              <li><strong>Cold Start vs Hot Start:</strong> Cold = دقائق للـ first fix | Hot = ثوانٍ بعد short power cycle</li>
+              <li><strong>Urban Canyon effect:</strong> تعكس الإشارة على المباني = multipath error</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  },
+
+  washing: {
+    title: "Embedded Systems in Washing Machines",
+    student: "Student Research — Embedded Systems Course",
+    sections: [
+      {
+        id: "intro", icon: "🫧", title: "Introduction",
+        content: `
+          <p>Modern washing machines are sophisticated embedded systems that integrate multiple sensors, actuators, and control algorithms to deliver efficient, automated laundry cycles. The embedded controller manages water level, temperature, motor speed, and cycle timing — all without manual intervention.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📌 Key Embedded System Elements</div>
+            <ul style="margin:0;padding-right:18px;">
+              <li>Finite State Machine (FSM) for wash cycle control</li>
+              <li>Water level sensors (pressure-based or capacitive)</li>
+              <li>NTC thermistors for water temperature monitoring</li>
+              <li>TRIAC/relay control for heating element</li>
+              <li>Motor controller for drum rotation (AC induction motor)</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        id: "fsm", icon: "🔄", title: "FSM — Wash Cycle Control",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Finite State Machine States</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>State</th><th>Action</th><th>Transition Condition</th></tr></thead>
+            <tbody>
+              <tr><td>IDLE</td><td>Waiting for start command</td><td>Start button pressed</td></tr>
+              <tr><td>FILL</td><td>Water inlet valve open</td><td>Water level sensor = FULL</td></tr>
+              <tr><td>HEAT</td><td>Heating element on</td><td>Temperature = set point</td></tr>
+              <tr><td>WASH</td><td>Drum rotating — agitate</td><td>Timer = wash duration</td></tr>
+              <tr><td>DRAIN</td><td>Drain pump on</td><td>Water level = EMPTY</td></tr>
+              <tr><td>SPIN</td><td>High-speed drum rotation</td><td>Timer = spin duration</td></tr>
+              <tr><td>DONE</td><td>Buzzer alert, display message</td><td>—</td></tr>
+            </tbody>
+          </table></div>
+          <p>The FSM ensures states are traversed in strict order — no state can be skipped, and each transition is triggered by a specific sensor event or timer expiration.</p>
+        `
+      },
+      {
+        id: "sensors", icon: "🔬", title: "Sensors & Actuators",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>Component</th><th>Type</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>Pressure Sensor</td><td>Analog input</td><td>Water level detection</td></tr>
+              <tr><td>NTC Thermistor</td><td>Analog input (ADC)</td><td>Water temperature</td></tr>
+              <tr><td>Hall Effect Sensor</td><td>Digital input</td><td>Drum speed (RPM)</td></tr>
+              <tr><td>Door Lock Sensor</td><td>Digital input</td><td>Safety interlock</td></tr>
+              <tr><td>Water Inlet Valve</td><td>Digital output (relay)</td><td>Fill control</td></tr>
+              <tr><td>Drain Pump</td><td>Digital output (relay)</td><td>Drain control</td></tr>
+              <tr><td>Heating Element</td><td>TRIAC</td><td>Water heating</td></tr>
+              <tr><td>Motor Driver</td><td>PWM output</td><td>Drum rotation speed</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>FSM in embedded systems:</strong> الغسالة مثال كلاسيكي على FSM — كل state واضح ومحدد</li>
+              <li><strong>Safety interlock:</strong> الباب لازم يكون مقفول قبل ما الدرام يدور — embedded safety check</li>
+              <li><strong>NTC Thermistor:</strong> Negative Temperature Coefficient — المقاومة تقل مع ارتفاع الحرارة</li>
+              <li><strong>TRIAC vs Relay:</strong> TRIAC للتحكم في AC loads مثل Heating Element — Relay للـ pumps والـ valves</li>
+              <li><strong>Real-Time constraint:</strong> الغسالة = Soft Real-Time (مش Hard) — missing a timing cycle لا يسبب كارثة</li>
+              <li><strong>Motor control:</strong> PWM لتحكم في سرعة المحرك في مرحلة SPIN</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  },
+
+  smarthome: {
+    title: "Smart Home Automation System",
+    student: "Research Team — Embedded Systems Course",
+    sections: [
+      {
+        id: "intro", icon: "🏠", title: "Introduction",
+        content: `
+          <p>The concept of smart homes has evolved from simple automation into intelligent, adaptive environments. This system focuses particularly on <strong>elderly individuals and people with disabilities</strong>, aiming to simplify home management through centralized control and intelligent monitoring.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">🎯 Core Objectives</div>
+            <ul style="margin:0;padding-right:18px;">
+              <li>Centralized control of household devices</li>
+              <li>Real-time monitoring of environmental and safety conditions</li>
+              <li>Automation of routine tasks</li>
+              <li>Emergency response mechanisms</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        id: "arch", icon: "🏗️", title: "System Architecture",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">Core IoT Components</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Component</th><th>Role</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Hub (Controller)</td><td>Executes rules, schedules, automation logic</td><td>ESP32, Raspberry Pi, Smart Speaker</td></tr>
+              <tr><td>Network Layer</td><td>Connects devices</td><td>Wi-Fi, Bluetooth, Zigbee, Z-Wave, Thread</td></tr>
+              <tr><td>Sensors</td><td>Collect environment data</td><td>PIR, DHT11, MQ-2, Flame sensor</td></tr>
+              <tr><td>Actuators</td><td>Execute physical actions</td><td>Relay, LED, Buzzer, Motor</td></tr>
+            </tbody>
+          </table></div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">Operation Flow</h3>
+          <ol>
+            <li>Sensors collect data (motion, temperature, gas)</li>
+            <li>Microcontroller processes data and applies programmed logic</li>
+            <li>Hub sends commands via network</li>
+            <li>Devices execute actions (turn lights on, trigger alarms)</li>
+            <li>User receives feedback through mobile/web interface</li>
+          </ol>
+        `
+      },
+      {
+        id: "automation", icon: "⚙️", title: "Automation Logic Examples",
+        content: `
+          <div class="pres-callout pres-callout-success">
+            <div class="pres-callout-head">✅ Smart Lighting Rule</div>
+            <p>If motion is detected AND light level is low → Lights turn ON<br>If no motion is detected → Lights turn OFF after timeout</p>
+          </div>
+          <div class="pres-callout pres-callout-danger">
+            <div class="pres-callout-head">🚨 Gas Leak Rule</div>
+            <p>If gas is detected (MQ-2 threshold crossed) → Alarm activates AND ventilation system starts AND mobile notification sent</p>
+          </div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">Challenges & Solutions</h3>
+          <div class="pres-callout pres-callout-warn">
+            <div class="pres-callout-head">⚠️ False Triggers in Motion Detection</div>
+            <p><strong>Problem:</strong> PIR sensor triggering on pets or sunlight changes.<br><strong>Solution:</strong> Software filtering (debouncing) + sensor fusion (PIR + light sensor)</p>
+          </div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>IoT vs IoE vs IIoT:</strong> IoT = devices connected | IoE = devices + people + data | IIoT = industrial smart systems</li>
+              <li><strong>MQTT protocol:</strong> lightweight publish/subscribe messaging — ideal for IoT devices</li>
+              <li><strong>PIR sensor:</strong> Passive Infrared — detects changes in infrared radiation (motion detection)</li>
+              <li><strong>Zigbee vs Z-Wave vs Wi-Fi:</strong> Zigbee/Z-Wave = mesh, low power | Wi-Fi = high bandwidth, higher power</li>
+              <li><strong>Matter Protocol:</strong> new standard for smart home interoperability across brands</li>
+              <li><strong>Edge Computing:</strong> local processing reduces latency and improves privacy vs cloud-only</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  },
+
+  climate: {
+    title: "Smart Climate Control — Automotive AC Using ESP32",
+    student: "Omar El-Sayed — ID 2305057",
+    sections: [
+      {
+        id: "intro", icon: "❄️", title: "Introduction — Need for Smart Climate Control",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>Feature</th><th>Manual Systems</th><th>Smart Automated</th></tr></thead>
+            <tbody>
+              <tr><td>Responsiveness</td><td>Reactive: User must adjust manually</td><td>Proactive: System adapts automatically</td></tr>
+              <tr><td>Efficiency</td><td>Often inefficient (over-cooling/heating)</td><td>Energy-efficient: precise control</td></tr>
+              <tr><td>User Effort</td><td>High: constant manual intervention</td><td>Minimal: set and forget</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "sensors", icon: "🌡️", title: "Sensor Deep Dive",
+        content: `
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;">NTC Thermistors</h3>
+          <p><strong>Negative Temperature Coefficient</strong> — electrical resistance decreases with temperature increase. This analog change is mapped to temperature values via the ESP32 ADC.</p>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">Market Examples</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Sensor</th><th>Interface</th><th>Best For</th></tr></thead>
+            <tbody>
+              <tr><td>DHT22 (AM2302)</td><td>Custom single-bus</td><td>Standard temp + humidity</td></tr>
+              <tr><td>SHT31-D</td><td>I2C (0x44)</td><td>High-accuracy automotive</td></tr>
+              <tr><td>DS18B20</td><td>OneWire</td><td>Long cable, noise-resistant</td></tr>
+            </tbody>
+          </table></div>
+          <h3 style="color:var(--accent);font-family:'Syne',sans-serif;margin-bottom:12px;font-size:1rem;margin-top:16px;">Wiring Guide</h3>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Sensor</th><th>Pins</th><th>Protocol</th></tr></thead>
+            <tbody>
+              <tr><td>SHT31-D</td><td>SDA→GPIO21, SCL→GPIO22, VCC→3.3V</td><td>I2C</td></tr>
+              <tr><td>DS18B20</td><td>Data→GPIO4 (4.7kΩ pull-up), VCC→3.3V</td><td>OneWire</td></tr>
+              <tr><td>DHT22</td><td>Data→GPIO15, VCC→3.3V, GND→GND</td><td>Custom Digital</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "code", icon: "💻", title: "Sample Code — SHT31 with I2C",
+        content: `
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ / Arduino — SHT31 I2C</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>#include &lt;Wire.h&gt;
+#include &lt;Adafruit_SHT31.h&gt;
+
+Adafruit_SHT31 sht31;
+
+void setup() {
+  Serial.begin(115200);
+  if (!sht31.begin(0x44)) {   // I2C address 0x44
+    Serial.println("Sensor Error!");
+    while (1) delay(1);
+  }
+}
+
+void loop() {
+  float t = sht31.readTemperature();
+  float h = sht31.readHumidity();
+
+  if (!isnan(t) &amp;&amp; !isnan(h)) {
+    Serial.printf("Temp: %.2f°C\n", t);
+    Serial.printf("Humidity: %.2f%%\n", h);
+  }
+  delay(2000);
+}</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>NTC vs PTC:</strong> NTC = resistance decreases with temperature | PTC = resistance increases</li>
+              <li><strong>I2C Address:</strong> SHT31-D uses address 0x44 (or 0x45 if ADDR pin HIGH)</li>
+              <li><strong>OneWire protocol:</strong> DS18B20 needs 4.7kΩ pull-up resistor on Data line</li>
+              <li><strong>I2C pull-up requirement:</strong> I2C lines are open-drain — need pull-up resistors on SDA/SCL</li>
+              <li><strong>DHT22 vs DHT11:</strong> DHT22 = higher accuracy (±0.5°C) | DHT11 = cheaper (±2°C)</li>
+              <li><strong>ADC for NTC:</strong> analog voltage from thermistor → read on ESP32 ADC pin (0–3.3V)</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  },
+
+  iotdht: {
+    title: "Smart IoT System Using ESP32 + DHT11",
+    student: "Student Presentation",
+    sections: [
+      {
+        id: "iot-types", icon: "🌐", title: "IoT vs IoE vs IIoT",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>Term</th><th>Definition</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><strong>IoT</strong></td><td>Devices connected (sensors, microcontrollers)</td><td>Smart thermostat, ESP32 + DHT11</td></tr>
+              <tr><td><strong>IoE</strong></td><td>Devices + people + data + processes</td><td>Smart city infrastructure</td></tr>
+              <tr><td><strong>IIoT</strong></td><td>Industrial smart systems</td><td>Factory automation, predictive maintenance</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "dht11", icon: "🌡️", title: "DHT11 Sensor",
+        content: `
+          <ul>
+            <li>Measures <strong>temperature and humidity</strong></li>
+            <li>Uses <strong>digital signal</strong> — single-wire protocol</li>
+            <li>3 pins: VCC, GND, DATA</li>
+            <li>Accuracy: ±2°C temperature, ±5% humidity</li>
+          </ul>
+          <div class="table-responsive"><table>
+            <thead><tr><th>Pin</th><th>Connect to</th></tr></thead>
+            <tbody>
+              <tr><td>DATA</td><td>GPIO4</td></tr>
+              <tr><td>VCC</td><td>3.3V</td></tr>
+              <tr><td>GND</td><td>GND</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "problem", icon: "🏭", title: "Real Problem: Machine Overheating",
+        content: `
+          <p><strong>Problem:</strong> Industrial machine overheating leads to damage and downtime.</p>
+          <p><strong>Goal:</strong> Monitor temperature and prevent failure with automated alerts.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📋 Solution Flow</div>
+            <ol style="margin:0;padding-right:18px;">
+              <li>Sensor reads temperature via DHT11</li>
+              <li>ESP32 processes data</li>
+              <li>Data sent via Wi-Fi to cloud</li>
+              <li>Alert triggered if temperature exceeds threshold</li>
+            </ol>
+          </div>
+        `
+      },
+      {
+        id: "code", icon: "💻", title: "Sample Code",
+        content: `
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ / Arduino — DHT11</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>#include "DHT.h"
+#define DHTPIN  4
+#define DHTTYPE DHT11
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float hum  = dht.readHumidity();
+
+  if (!isnan(temp)) {
+    Serial.print("Temperature: ");
+    Serial.print(temp);
+    Serial.println(" °C");
+  }
+  if (!isnan(hum)) {
+    Serial.print("Humidity: ");
+    Serial.print(hum);
+    Serial.println(" %");
+  }
+  delay(2000);
+}</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>IoT vs IIoT:</strong> IoT = consumer (home, wearables) | IIoT = industrial (factories, heavy machinery)</li>
+              <li><strong>DHT11 vs DHT22:</strong> DHT11 = cheaper, less accurate (±2°C, ±5% RH) | DHT22 = more accurate (±0.5°C, ±2.5% RH)</li>
+              <li><strong>isnan() check:</strong> مهم دايماً تتحقق من NaN قبل ما تستخدم قيمة الحساس</li>
+              <li><strong>delay(2000):</strong> DHT11 يحتاج على الأقل 2 ثانية بين القراءات</li>
+            </ul>
+          </div>
+        `
+      }
+    ]
+  },
+
+  ir: {
+    title: "Infrared (IR) Sensor in Embedded Systems",
+    student: "Mohamed Hazem Hafez Mostafa — ID 2305534",
+    sections: [
+      {
+        id: "intro", icon: "📡", title: "Introduction",
+        content: `
+          <p>An IR sensor is a small electronic component that detects objects or movement nearby using <strong>infrared light</strong> — the kind we can't see with our eyes. Used in TV remotes, automatic doors, and robots.</p>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">💡 Why IR Sensors?</div>
+            <p>Cheap, easy to use, works well for basic detection tasks. No camera needed — just a small module and ESP32 for proximity detection.</p>
+          </div>
+        `
+      },
+      {
+        id: "how", icon: "⚡", title: "How It Works",
+        content: `
+          <p>The sensor has two main parts: an <strong>IR LED</strong> (emitter) and a <strong>photodiode</strong> (receiver):</p>
+          <ol>
+            <li>IR LED sends out infrared light constantly</li>
+            <li>If there's an object in front, light bounces back</li>
+            <li>Photodiode picks up the reflected light</li>
+            <li>Sensor outputs: <strong>LOW if object detected</strong>, HIGH if nothing there</li>
+          </ol>
+          <p>Some sensors have a small <strong>potentiometer (blue knob)</strong> on the module to adjust sensitivity range.</p>
+        `
+      },
+      {
+        id: "types", icon: "📦", title: "Types of IR Sensors",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>Type</th><th>How It Works</th><th>Use Case</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Obstacle Detection</td><td>Detects if object is close → digital HIGH/LOW</td><td>Robot obstacle avoidance</td><td>FC-51 module</td></tr>
+              <tr><td>Line Tracking</td><td>Black = absorbs light (no reflection) / White = reflects</td><td>Line-following robots</td><td>FC-51 (line mode)</td></tr>
+            </tbody>
+          </table></div>
+        `
+      },
+      {
+        id: "interface", icon: "🔌", title: "Interface with ESP32",
+        content: `
+          <div class="table-responsive"><table>
+            <thead><tr><th>IR Module Pin</th><th>ESP32 Connection</th></tr></thead>
+            <tbody>
+              <tr><td>VCC</td><td>3.3V or 5V</td></tr>
+              <tr><td>GND</td><td>GND</td></tr>
+              <tr><td>OUT</td><td>GPIO 4 (any digital GPIO)</td></tr>
+            </tbody>
+          </table></div>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📋 Signal Logic</div>
+            <p>OUT = <strong>LOW</strong> → object detected | OUT = <strong>HIGH</strong> → nothing detected</p>
+          </div>
+        `
+      },
+      {
+        id: "code", icon: "💻", title: "Sample Code",
+        content: `
+          <div class="pres-code-block">
+            <div class="pres-code-header"><span class="pres-code-lang">C++ / Arduino — IR Sensor</span><button class="pres-code-copy" onclick="copyCode(this)">📋 Copy</button></div>
+            <div class="pres-code-scroll"><pre><code>// IR Sensor with ESP32
+#define IR_PIN 4   // Connect OUT to GPIO 4
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(IR_PIN, INPUT);
+}
+
+void loop() {
+  int sensorValue = digitalRead(IR_PIN);
+
+  if (sensorValue == LOW) {
+    Serial.println("Object detected!");
+    // Add action: stop motor, turn, buzzer...
+  } else {
+    Serial.println("No object detected.");
+  }
+  delay(200);
+}</code></pre></div>
+          </div>
+        `
+      },
+      {
+        id: "limits", icon: "⚠️", title: "Limitations",
+        content: `
+          <ul>
+            <li><strong>Affected by sunlight:</strong> Sunlight contains IR radiation → false readings outdoors</li>
+            <li><strong>Limited range:</strong> Most modules work from a few cm up to ~30cm max</li>
+            <li><strong>Dark/transparent objects:</strong> May not be detected properly (no reflection)</li>
+            <li><strong>No distance measurement:</strong> Digital output = binary — present or absent, no distance value</li>
+          </ul>
+        `
+      },
+      {
+        id: "kms", icon: "🧠", title: "K.M.S — Understanding the System",
+        content: `
+          <div class="pres-callout pres-callout-success">
+            <div class="pres-callout-head">✅ Sense → Process → Act</div>
+            <p><strong>Input:</strong> IR sensor reads environment → digital signal (HIGH or LOW)<br>
+            <strong>Processing:</strong> ESP32 reads signal and decides what to do<br>
+            <strong>Output:</strong> System reacts — stop motors, turn, sound buzzer</p>
+          </div>
+        `
+      },
+      {
+        id: "notes", icon: "⭐", title: "Important Exam Notes",
+        content: `
+          <div class="pres-doctor-notes">
+            <div class="pres-doctor-notes-title">🎓 Doctor's Important Notes</div>
+            <ul>
+              <li><strong>IR output logic:</strong> LOW = detected | HIGH = not detected (inverted from what you'd expect!)</li>
+              <li><strong>IR vs Ultrasonic:</strong> IR = simple binary detection, limited range | Ultrasonic = measures actual distance</li>
+              <li><strong>Sunlight interference:</strong> Sunlight has IR spectrum → causes false detections outdoors</li>
+              <li><strong>digitalRead() vs analogRead():</strong> IR module gives digital output → use digitalRead()</li>
+              <li><strong>FC-51 module:</strong> الأكثر شيوعاً للـ obstacle detection — 3 pins: VCC, GND, OUT</li>
+              <li><strong>Line tracking principle:</strong> Black absorbs light (no reflection = LOW) | White reflects (HIGH)</li>
+            </ul>
+          </div>
+          <div class="pres-callout pres-callout-info">
+            <div class="pres-callout-head">📌 Key Comparison: IR vs Ultrasonic vs PIR</div>
+            <p><strong>IR:</strong> Binary presence detection, short range, affected by light</p>
+            <p><strong>Ultrasonic:</strong> Distance measurement (cm), works in dark, not affected by light</p>
+            <p><strong>PIR:</strong> Motion detection (moving objects only), longer range, detects body heat</p>
+          </div>
+        `
+      }
+    ]
+  }
+
+}; // End PRESENTATIONS data
+
+// ============================================================
+// MODAL FUNCTIONS
+// ============================================================
+let activeModal = null;
+let activeTab = 'content';
+
+function openModal(id) {
+  activeModal = id;
+  activeTab = 'content';
+  renderModal(id);
+  document.getElementById('presModalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openModalTab(id, tab) {
+  activeModal = id;
+  activeTab = tab;
+  renderModal(id, tab);
+  document.getElementById('presModalOverlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('presModalOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+  activeModal = null;
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('presModalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+function renderModal(id, tab) {
+  const pres = PRESENTATIONS[id];
+  if (!pres) return;
+
+  // Title
+  document.getElementById('presModalTitle').textContent = pres.title;
+
+  // Decide which sections to show based on tab
+  let sections = pres.sections;
+  if (tab === 'slides') {
+    // Show intro + how it works sections
+    sections = pres.sections.filter(s => ['intro','how','gm','sensors','arch','iot-types','dht11','types'].includes(s.id));
+    if (!sections.length) sections = pres.sections.slice(0, 3);
+  } else if (tab === 'notes') {
+    sections = pres.sections.filter(s => s.id === 'notes');
+    if (!sections.length) sections = pres.sections.slice(-1);
+  }
+
+  // Build TOC
+  const toc = document.getElementById('presToc');
+  toc.innerHTML = '<div class="pres-toc-title">📋 Contents</div>';
+  sections.forEach((sec, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'pres-toc-item' + (i === 0 ? ' active' : '');
+    btn.textContent = sec.icon + ' ' + sec.title;
+    btn.onclick = () => {
+      const el = document.getElementById('pres-sec-' + sec.id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toc.querySelectorAll('.pres-toc-item').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    };
+    toc.appendChild(btn);
+  });
+
+  // Build Content
+  const content = document.getElementById('presModalContent');
+  let html = '<div class="modal-progress-bar" id="modalProgressBar"></div>';
+
+  // Student info header
+  html += `<div style="margin-bottom:24px;">
+    <div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:#fff;margin-bottom:8px;">${pres.title}</div>
+    <div style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">${pres.student}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button onclick="openModalTab('${id}','content')" style="padding:6px 14px;border-radius:8px;font-size:0.78rem;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;border:1px solid;${tab!=='slides'&&tab!=='notes'?'background:var(--accent);color:#0a0f1a;border-color:var(--accent);':'background:var(--surface2);color:var(--text);border-color:var(--border2);'}">📄 Full Report</button>
+      <button onclick="openModalTab('${id}','slides')" style="padding:6px 14px;border-radius:8px;font-size:0.78rem;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;border:1px solid;${tab==='slides'?'background:var(--accent);color:#0a0f1a;border-color:var(--accent);':'background:var(--surface2);color:var(--text);border-color:var(--border2);'}">🖥 Slides View</button>
+      <button onclick="openModalTab('${id}','notes')" style="padding:6px 14px;border-radius:8px;font-size:0.78rem;font-weight:700;font-family:'Cairo',sans-serif;cursor:pointer;border:1px solid;${tab==='notes'?'background:var(--accent4);color:#0a0f1a;border-color:var(--accent4);':'background:var(--surface2);color:var(--text);border-color:var(--border2);'}">⭐ Exam Notes</button>
+    </div>
+  </div>`;
+
+  sections.forEach(sec => {
+    html += `
+      <div id="pres-sec-${sec.id}" style="margin-bottom:8px;">
+        <div class="pres-sec-head" onclick="toggleSection(this)">
+          <span class="pres-sec-head-icon">${sec.icon}</span>
+          <span class="pres-sec-head-text">${sec.title}</span>
+          <span class="pres-sec-head-arrow">▾</span>
+        </div>
+        <div class="pres-sec-body" style="max-height:9999px;">
+          <div style="padding:16px 0 8px;">${sec.content}</div>
+        </div>
+      </div>`;
+  });
+
+  content.innerHTML = html;
+
+  // Progress bar inside modal
+  content.addEventListener('scroll', () => {
+    const el = content;
+    const prog = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+    const bar = document.getElementById('modalProgressBar');
+    if (bar) bar.style.width = prog + '%';
+  }, { passive: true });
+}
+
+function toggleSection(head) {
+  const body = head.nextElementSibling;
+  if (!body) return;
+  if (body.classList.contains('collapsed')) {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.classList.remove('collapsed');
+    head.classList.remove('collapsed');
+    // Let it grow then remove fixed max-height
+    setTimeout(() => { body.style.maxHeight = '9999px'; }, 350);
+  } else {
+    body.style.maxHeight = body.scrollHeight + 'px';
+    body.offsetHeight; // force reflow
+    requestAnimationFrame(() => {
+      body.style.maxHeight = '0';
+      body.classList.add('collapsed');
+      head.classList.add('collapsed');
+    });
+  }
+}
+
+function copyCode(btn) {
+  const block = btn.closest('.pres-code-block');
+  const code = block ? block.querySelector('code') : null;
+  if (!code) return;
+  navigator.clipboard.writeText(code.textContent).then(() => {
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy', 2000);
+  });
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+document.getElementById('presSearch').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  const cards = document.querySelectorAll('.pres-card');
+  const noResults = document.getElementById('presNoResults');
+  let found = 0;
+  cards.forEach(card => {
+    const searchText = card.dataset.search || '';
+    const titleEl = card.querySelector('.pres-card-title');
+    const match = !q || searchText.includes(q) || (titleEl && titleEl.textContent.toLowerCase().includes(q));
+    card.style.display = match ? '' : 'none';
+    if (match) found++;
+  });
+  noResults.style.display = (found === 0 && q) ? 'block' : 'none';
+});
+</script>
+
 <!-- FLOAT NAV (Desktop) -->
 <div class="float-nav">
   <a href="#top" title="أعلى الصفحة">⬆️ أعلى</a>
+  <a href="#presentations-section" title="Presentations">🎓 Pres</a>
   <a href="#s50" title="المراجعة النهائية">🏁 Final</a>
   <a href="#s42" title="Quick Code Reference">📋 Code</a>
   <a href="#s36" title="Exam Questions">🎯 Exam</a>
@@ -6748,11 +8794,1023 @@ Timer t;
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
   <a href="#top"><span class="nav-icon">⬆️</span>أعلى</a>
+  <a href="#presentations-section"><span class="nav-icon">🎓</span>Pres</a>
   <a href="#searchInput" onclick="document.getElementById('searchInput').focus()"><span class="nav-icon">🔍</span>بحث</a>
   <a href="#s36"><span class="nav-icon">🎯</span>Exam</a>
   <a href="#s42"><span class="nav-icon">📋</span>Code</a>
   <a href="#s50"><span class="nav-icon">🏁</span>Final</a>
 </nav>
+
+
+<div class="divider"></div>
+<!-- ==================== S51 ==================== -->
+<style>
+/* ===== SECTION 51 — PRESENTATIONS DASHBOARD ===== */
+.presentations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+@media (max-width: 900px) { .presentations-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) { .presentations-grid { grid-template-columns: 1fr; } }
+
+.presentation-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  height: auto;
+  min-width: 0;
+}
+.presentation-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(56,189,248,0.1);
+}
+.presentation-card.hidden { display: none; }
+
+.presentation-card-num {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  font-family: 'Fira Code', monospace;
+}
+.presentation-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+  word-break: break-word;
+}
+.presentation-card-summary {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  word-break: break-word;
+}
+.presentation-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(56,189,248,0.1);
+  border: 1px solid rgba(56,189,248,0.25);
+  color: var(--accent);
+  width: fit-content;
+}
+.presentation-cat-badge.cat-sensors    { background: rgba(251,191,36,0.1);  border-color: rgba(251,191,36,0.3);  color: var(--accent4); }
+.presentation-cat-badge.cat-iot        { background: rgba(52,211,153,0.1);  border-color: rgba(52,211,153,0.3);  color: var(--accent3); }
+.presentation-cat-badge.cat-medical    { background: rgba(244,114,182,0.1); border-color: rgba(244,114,182,0.3); color: var(--accent5); }
+.presentation-cat-badge.cat-automotive { background: rgba(248,113,113,0.1); border-color: rgba(248,113,113,0.3); color: var(--danger); }
+.presentation-cat-badge.cat-robotics   { background: rgba(129,140,248,0.1); border-color: rgba(129,140,248,0.3); color: var(--accent2); }
+.presentation-cat-badge.cat-control    { background: rgba(56,189,248,0.1);  border-color: rgba(56,189,248,0.3);  color: var(--accent); }
+.presentation-cat-badge.cat-communication { background: rgba(52,211,153,0.1); border-color: rgba(52,211,153,0.3); color: var(--accent3); }
+.presentation-cat-badge.cat-smarthome  { background: rgba(251,191,36,0.1);  border-color: rgba(251,191,36,0.3);  color: var(--accent4); }
+
+.presentation-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 4px;
+}
+.presentation-tag {
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text-muted);
+  font-family: 'Fira Code', monospace;
+}
+
+.presentation-meta-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.presentation-meta-row span { display: flex; align-items: flex-start; gap: 6px; word-break: break-word; }
+.presentation-meta-row strong { color: var(--text); white-space: nowrap; }
+
+/* Filter chips */
+.presentation-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 8px;
+}
+.presentation-chip {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.18s;
+  user-select: none;
+}
+.presentation-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(56,189,248,0.08); }
+.presentation-chip.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 800; }
+
+.pres-count-badge {
+  display: inline-block;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-right: 8px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* Ranked list */
+.pres-ranked-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.pres-ranked-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.pres-rank-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--accent4);
+  min-width: 28px;
+  line-height: 1;
+  padding-top: 2px;
+}
+.pres-rank-num.r1 { color: #ffd700; }
+.pres-rank-num.r2 { color: #c0c0c0; }
+.pres-rank-num.r3 { color: #cd7f32; }
+.pres-rank-content { flex: 1; min-width: 0; }
+.pres-rank-title { font-weight: 700; font-size: 0.9rem; margin-bottom: 3px; }
+.pres-rank-reason { font-size: 0.78rem; color: var(--text-muted); }
+
+/* Exam focus cards */
+.pres-focus-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+@media (max-width: 600px) { .pres-focus-grid { grid-template-columns: 1fr; } }
+.pres-focus-item {
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.pres-focus-icon { font-size: 1.1rem; line-height: 1; padding-top: 2px; }
+.pres-focus-text { font-size: 0.82rem; color: var(--text-muted); line-height: 1.7; }
+.pres-focus-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+/* Exam cheat table override for this section */
+#s51 .table-wrap table th { font-size: 0.78rem; }
+#s51 .table-wrap table td { font-size: 0.78rem; }
+
+/* Pattern card flow */
+.pres-pattern-flow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 14px 0 10px;
+  padding: 14px 18px;
+  background: var(--surface3);
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+}
+.pres-flow-step {
+  background: rgba(56,189,248,0.12);
+  border: 1px solid rgba(56,189,248,0.3);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+.pres-flow-arrow { color: var(--text-muted); font-size: 1.1rem; }
+
+.pres-pattern-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+@media (max-width: 600px) { .pres-pattern-list { grid-template-columns: 1fr; } }
+.pres-pattern-item {
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 9px 13px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.pres-pattern-item::before { content: "→"; color: var(--accent3); font-weight: 700; flex-shrink: 0; }
+</style>
+
+<div class="section" id="s51">
+  <div class="section-header">
+    <div class="section-badge">51</div>
+    <div class="section-meta">
+      <div class="section-title">🎓 Student Presentations &amp; Technical Reports</div>
+      <div class="section-sub">كل برزنتيشنات الطلبة المهمة للدكتور — مرتبة كموضوعات وأسئلة وملاحظات مذاكرة</div>
+    </div>
+  </div>
+
+  <!-- INTRO CARD -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📌</span> عن هذا القسم</div>
+    <div class="card-body"><div class="card-body-inner">
+      <p>هذا القسم يجمع كل برزنتيشنات الطلبة المهمة اللي الدكتور من المحتمل يسأل عنها في الامتحان. كل كارد فيه ملخص البرزنتيشن + الحساسات والبروتوكولات المستخدمة + توقع أسئلة الامتحان. المذاكرة الصح: افهم الـ Sensor بيشتغل إزاي + اتصاله بالـ ESP32 + الـ Application.</p>
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="badge">27 Presentation</span>
+        <span class="badge">ESP32 Core</span>
+        <span class="badge">Sensors Focus</span>
+        <span class="badge">IoT & Automotive</span>
+        <span class="badge">Medical & Robotics</span>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- FILTER CARD -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔍</span> فلتر البرزنتيشنات <span class="pres-count-badge" id="pres-count">27 / 27</span></div>
+    <div class="card-body"><div class="card-body-inner">
+      <div class="presentation-filter-row" id="pres-filter-row">
+        <button class="presentation-chip active" onclick="filterPresentations('all', this)">🗂️ All</button>
+        <button class="presentation-chip" onclick="filterPresentations('sensors', this)">📡 Sensors</button>
+        <button class="presentation-chip" onclick="filterPresentations('iot', this)">🌐 IoT</button>
+        <button class="presentation-chip" onclick="filterPresentations('medical', this)">🏥 Medical</button>
+        <button class="presentation-chip" onclick="filterPresentations('automotive', this)">🚗 Automotive</button>
+        <button class="presentation-chip" onclick="filterPresentations('robotics', this)">🤖 Robotics</button>
+        <button class="presentation-chip" onclick="filterPresentations('control', this)">⚙️ Control</button>
+        <button class="presentation-chip" onclick="filterPresentations('communication', this)">📶 Communication</button>
+        <button class="presentation-chip" onclick="filterPresentations('smarthome', this)">🏠 Smart Home</button>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- PRESENTATIONS GRID -->
+  <div class="presentations-grid" id="pres-grid">
+
+    <!-- 1 -->
+    <div class="presentation-card" data-cat="sensors iot">
+      <div class="presentation-card-num">PRES-01</div>
+      <div class="presentation-card-title">Fire and Safety Sensor Systems Using ESP32</div>
+      <span class="presentation-cat-badge cat-sensors">📡 Sensors</span>
+      <div class="presentation-card-summary">نظام كشف حرائق وغازات باستخدام ESP32 مع MQ-2 Gas Sensor وKY-026 Flame Sensor وإنذار محلي وتنبيه Wi-Fi/IoT.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> MQ-2, KY-026</span>
+        <span><strong>Protocol:</strong> Wi-Fi / IoT Alerts</span>
+        <span><strong>Focus:</strong> Hardware Interrupts, Smoke Detection, Real-Time Response</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Fire Detection</span>
+        <span class="presentation-tag">MQ-2</span>
+        <span class="presentation-tag">KY-026</span>
+        <span class="presentation-tag">Hardware Interrupts</span>
+        <span class="presentation-tag">IoT Alerts</span>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="presentation-card" data-cat="sensors medical iot">
+      <div class="presentation-card-num">PRES-02</div>
+      <div class="presentation-card-title">Radiation Monitoring System Using GM Sensor &amp; ESP32</div>
+      <span class="presentation-cat-badge cat-medical">🏥 Medical</span>
+      <div class="presentation-card-summary">نظام مراقبة إشعاع باستخدام Geiger-Müller Sensor وESP32 للمجال الطبي والبيئي مع Cloud Dashboard.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> GM Sensor (Geiger-Müller)</span>
+        <span><strong>Protocol:</strong> MQTT, FreeRTOS</span>
+        <span><strong>Focus:</strong> CPM, μSv/h, Grafana, Medical Monitoring</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">GM Sensor</span>
+        <span class="presentation-tag">Radiation</span>
+        <span class="presentation-tag">CPM</span>
+        <span class="presentation-tag">MQTT</span>
+        <span class="presentation-tag">Grafana</span>
+        <span class="presentation-tag">FreeRTOS</span>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="presentation-card" data-cat="sensors iot communication">
+      <div class="presentation-card-num">PRES-03</div>
+      <div class="presentation-card-title">GPS Sensor in Embedded Systems using ESP32</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">ربط GPS Modules مع ESP32 باستخدام UART لعمل Vehicle Tracking System.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> NEO-6M, NEO-7M, NEO-8M</span>
+        <span><strong>Protocol:</strong> UART</span>
+        <span><strong>Focus:</strong> Trilateration, Vehicle Tracking</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">GPS</span>
+        <span class="presentation-tag">NEO-6M</span>
+        <span class="presentation-tag">UART</span>
+        <span class="presentation-tag">Trilateration</span>
+        <span class="presentation-tag">Vehicle Tracking</span>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="presentation-card" data-cat="sensors control smarthome">
+      <div class="presentation-card-num">PRES-04</div>
+      <div class="presentation-card-title">Embedded Systems in Washing Machines</div>
+      <span class="presentation-cat-badge cat-control">⚙️ Control</span>
+      <div class="presentation-card-summary">استخدام ESP32 والحساسات في الغسالات الذكية لمراقبة مستوى المياه والتحكم في العمليات.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Capacitive Sensors, Water Level</span>
+        <span><strong>Protocol:</strong> GPIO, Relay</span>
+        <span><strong>Focus:</strong> Smart Appliances, Automation</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Capacitive Sensor</span>
+        <span class="presentation-tag">Water Level</span>
+        <span class="presentation-tag">Relay</span>
+        <span class="presentation-tag">Automation</span>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="presentation-card" data-cat="automotive sensors control">
+      <div class="presentation-card-num">PRES-05</div>
+      <div class="presentation-card-title">Anti-lock Braking System ABS</div>
+      <span class="presentation-cat-badge cat-automotive">🚗 Automotive</span>
+      <div class="presentation-card-summary">محاكاة نظام ABS في السيارات باستخدام ESP32 وWheel Speed Sensors لمنع قفل العجلات.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Wheel Speed Sensor, Hall Effect</span>
+        <span><strong>Protocol:</strong> GPIO Interrupts</span>
+        <span><strong>Focus:</strong> Real-Time Control, Automotive Safety</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">ABS</span>
+        <span class="presentation-tag">Hall Effect</span>
+        <span class="presentation-tag">Real-Time</span>
+        <span class="presentation-tag">Automotive Safety</span>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="presentation-card" data-cat="communication iot">
+      <div class="presentation-card-num">PRES-06</div>
+      <div class="presentation-card-title">AT Commands for Modem with ESP32</div>
+      <span class="presentation-cat-badge cat-communication">📶 Communication</span>
+      <div class="presentation-card-summary">استخدام AT Commands للتحكم في Modem مثل SIM800L وربطه بالـ ESP32 عن طريق UART.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Module:</strong> SIM800L Modem</span>
+        <span><strong>Protocol:</strong> UART, AT Commands</span>
+        <span><strong>Focus:</strong> IoT Connectivity, Modem Control</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">AT Commands</span>
+        <span class="presentation-tag">UART</span>
+        <span class="presentation-tag">SIM800L</span>
+        <span class="presentation-tag">IoT</span>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="presentation-card" data-cat="sensors smarthome control">
+      <div class="presentation-card-num">PRES-07</div>
+      <div class="presentation-card-title">Automatic Lighting System</div>
+      <span class="presentation-cat-badge cat-smarthome">🏠 Smart Home</span>
+      <div class="presentation-card-summary">نظام إضاءة تلقائي يستخدم LDR Sensor لتشغيل وإطفاء الإضاءة حسب شدة الضوء.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> LDR (Light Dependent Resistor)</span>
+        <span><strong>Protocol:</strong> ADC, Relay</span>
+        <span><strong>Focus:</strong> Energy Saving, Smart Lighting</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">LDR</span>
+        <span class="presentation-tag">Smart Lighting</span>
+        <span class="presentation-tag">Relay</span>
+        <span class="presentation-tag">Energy Saving</span>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="presentation-card" data-cat="medical sensors">
+      <div class="presentation-card-num">PRES-08</div>
+      <div class="presentation-card-title">Biomedical Engineering Report</div>
+      <span class="presentation-cat-badge cat-medical">🏥 Medical</span>
+      <div class="presentation-card-summary">تطبيقات Embedded Systems في المجال الطبي والـ Biometric Systems.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> ESP32-CAM, Biometric</span>
+        <span><strong>Protocol:</strong> I2C, UART, Wi-Fi</span>
+        <span><strong>Focus:</strong> Face/Iris/Ear Recognition, Heart Rate, Blood Pressure</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Ear Recognition</span>
+        <span class="presentation-tag">Face Recognition</span>
+        <span class="presentation-tag">Iris</span>
+        <span class="presentation-tag">Heart Rate</span>
+        <span class="presentation-tag">ESP32-CAM</span>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="presentation-card" data-cat="sensors medical">
+      <div class="presentation-card-num">PRES-09</div>
+      <div class="presentation-card-title">Breathalyzer System using ESP32</div>
+      <span class="presentation-cat-badge cat-sensors">📡 Sensors</span>
+      <div class="presentation-card-summary">جهاز قياس كحول DIY باستخدام MQ-3 Sensor وMicrocontroller لتصنيف مستوى الكحول.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> MQ-3 Gas Sensor</span>
+        <span><strong>Protocol:</strong> ADC, GPIO</span>
+        <span><strong>Focus:</strong> BAC, Sensor Calibration, Breathalyzer</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">MQ-3</span>
+        <span class="presentation-tag">Alcohol Detection</span>
+        <span class="presentation-tag">BAC</span>
+        <span class="presentation-tag">Calibration</span>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="presentation-card" data-cat="sensors robotics">
+      <div class="presentation-card-num">PRES-10</div>
+      <div class="presentation-card-title">Sensor Systems with ESP32 Integration</div>
+      <span class="presentation-cat-badge cat-robotics">🤖 Robotics</span>
+      <div class="presentation-card-summary">مجموعة حساسات حركة واهتزاز متصلة بـ ESP32.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Accelerometers, IMU, Velocity Sensors</span>
+        <span><strong>Protocol:</strong> I2C, SPI</span>
+        <span><strong>Focus:</strong> Earthquake Detection, Motion Tracking</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Velocity Sensors</span>
+        <span class="presentation-tag">Accelerometers</span>
+        <span class="presentation-tag">IMU</span>
+        <span class="presentation-tag">Earthquake</span>
+        <span class="presentation-tag">Motion Tracking</span>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="presentation-card" data-cat="robotics control">
+      <div class="presentation-card-num">PRES-11</div>
+      <div class="presentation-card-title">Embedded Mirror System</div>
+      <span class="presentation-cat-badge cat-robotics">🤖 Robotics</span>
+      <div class="presentation-card-summary">نظام مرآة مدمجة تتحرك باستخدام Servo Motor وPWM للتحكم في اتجاه الضوء.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Actuator:</strong> Servo Motor, MEMS Mirrors</span>
+        <span><strong>Protocol:</strong> PWM</span>
+        <span><strong>Focus:</strong> Laser Scanning, Robotics Vision</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Servo Motor</span>
+        <span class="presentation-tag">PWM</span>
+        <span class="presentation-tag">MEMS Mirrors</span>
+        <span class="presentation-tag">Laser Scanning</span>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="presentation-card" data-cat="sensors">
+      <div class="presentation-card-num">PRES-12</div>
+      <div class="presentation-card-title">Force &amp; Pressure Measurement Sensors</div>
+      <span class="presentation-cat-badge cat-sensors">📡 Sensors</span>
+      <div class="presentation-card-summary">قياس القوة والضغط باستخدام Load Cell وHX711 وWheatstone Bridge.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Load Cell, Pressure Sensors</span>
+        <span><strong>IC:</strong> HX711 (24-bit ADC)</span>
+        <span><strong>Focus:</strong> Wheatstone Bridge, Force Measurement</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Load Cell</span>
+        <span class="presentation-tag">HX711</span>
+        <span class="presentation-tag">Wheatstone Bridge</span>
+        <span class="presentation-tag">Pressure</span>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="presentation-card" data-cat="sensors automotive smarthome">
+      <div class="presentation-card-num">PRES-13</div>
+      <div class="presentation-card-title">Proximity Sensors &amp; Smart Parking System</div>
+      <span class="presentation-cat-badge cat-smarthome">🏠 Smart Home</span>
+      <div class="presentation-card-summary">استخدام Proximity Sensors مثل Ultrasonic وIR في Smart Parking وObstacle Detection.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> HC-SR04, IR Sensor</span>
+        <span><strong>Protocol:</strong> GPIO, PWM (trigger)</span>
+        <span><strong>Focus:</strong> Smart Parking, Obstacle Detection</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">HC-SR04</span>
+        <span class="presentation-tag">IR Sensor</span>
+        <span class="presentation-tag">Smart Parking</span>
+        <span class="presentation-tag">Obstacle Detection</span>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="presentation-card" data-cat="sensors iot medical">
+      <div class="presentation-card-num">PRES-14</div>
+      <div class="presentation-card-title">ESP32 Camera Sensor System</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">نظام ESP32-CAM لمعالجة الصور والبث المباشر باستخدام OV2640.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> OV2640 Camera (CMOS)</span>
+        <span><strong>Protocol:</strong> Wi-Fi, HTTP Streaming</span>
+        <span><strong>Focus:</strong> Real-Time Image Processing, CMOS vs CCD</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">ESP32-CAM</span>
+        <span class="presentation-tag">OV2640</span>
+        <span class="presentation-tag">CMOS</span>
+        <span class="presentation-tag">CCD</span>
+        <span class="presentation-tag">Wi-Fi Streaming</span>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="presentation-card" data-cat="automotive sensors iot">
+      <div class="presentation-card-num">PRES-15</div>
+      <div class="presentation-card-title">RADAR and LiDAR in ADAS</div>
+      <span class="presentation-cat-badge cat-automotive">🚗 Automotive</span>
+      <div class="presentation-card-summary">استخدام RADAR وLiDAR وSensor Fusion في أنظمة مساعدة القيادة ADAS.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> RADAR, LiDAR</span>
+        <span><strong>Protocol:</strong> CAN Bus, MQTT</span>
+        <span><strong>Focus:</strong> Sensor Fusion, FreeRTOS, Edge AI, V2X, Autonomous Driving</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">ADAS</span>
+        <span class="presentation-tag">RADAR</span>
+        <span class="presentation-tag">LiDAR</span>
+        <span class="presentation-tag">Sensor Fusion</span>
+        <span class="presentation-tag">CAN Bus</span>
+        <span class="presentation-tag">Edge AI</span>
+        <span class="presentation-tag">V2X</span>
+      </div>
+    </div>
+
+    <!-- 16 -->
+    <div class="presentation-card" data-cat="iot sensors smarthome">
+      <div class="presentation-card-num">PRES-16</div>
+      <div class="presentation-card-title">Web-Enabled Smart Sensor System</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">نظام ESP32 يقرأ DHT11 ويعرض الحرارة والرطوبة على Web Page عبر Wi-Fi.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> DHT11</span>
+        <span><strong>Protocol:</strong> Wi-Fi, HTTP Web Server</span>
+        <span><strong>Focus:</strong> Remote Monitoring, IoT Dashboard</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">DHT11</span>
+        <span class="presentation-tag">Web Server</span>
+        <span class="presentation-tag">Wi-Fi</span>
+        <span class="presentation-tag">Remote Monitoring</span>
+      </div>
+    </div>
+
+    <!-- 17 -->
+    <div class="presentation-card" data-cat="sensors smarthome communication">
+      <div class="presentation-card-num">PRES-17</div>
+      <div class="presentation-card-title">Fingerprint Sensor &amp; ESP32 Integration</div>
+      <span class="presentation-cat-badge cat-sensors">📡 Sensors</span>
+      <div class="presentation-card-summary">نظام Access Control باستخدام Fingerprint Sensor وESP32.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> R307 / AS608 Fingerprint</span>
+        <span><strong>Protocol:</strong> UART</span>
+        <span><strong>Focus:</strong> Biometric Security, Access Control</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Fingerprint</span>
+        <span class="presentation-tag">UART</span>
+        <span class="presentation-tag">R307</span>
+        <span class="presentation-tag">AS608</span>
+        <span class="presentation-tag">Biometric</span>
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="presentation-card" data-cat="sensors robotics">
+      <div class="presentation-card-num">PRES-18</div>
+      <div class="presentation-card-title">IMU Sensor &amp; MEMS Technology</div>
+      <span class="presentation-cat-badge cat-robotics">🤖 Robotics</span>
+      <div class="presentation-card-summary">شرح IMU وMEMS وعلاقتهم بالحركة والاتجاه في الروبوتات والدرونز.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Accelerometer, Gyroscope, Magnetometer</span>
+        <span><strong>Protocol:</strong> I2C, SPI</span>
+        <span><strong>Focus:</strong> MEMS, Sensor Fusion, Kalman Filter</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">IMU</span>
+        <span class="presentation-tag">Accelerometer</span>
+        <span class="presentation-tag">Gyroscope</span>
+        <span class="presentation-tag">MEMS</span>
+        <span class="presentation-tag">Kalman Filter</span>
+      </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="presentation-card" data-cat="iot sensors">
+      <div class="presentation-card-num">PRES-19</div>
+      <div class="presentation-card-title">Smart IoT Temperature Monitoring System</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">نظام IoT لمراقبة حرارة الماكينات باستخدام DHT11 وESP32 وإرسال تنبيهات.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> DHT11</span>
+        <span><strong>Protocol:</strong> Wi-Fi, MQTT</span>
+        <span><strong>Focus:</strong> IIoT, Machine Overheating, Wi-Fi Alerts</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">IIoT</span>
+        <span class="presentation-tag">DHT11</span>
+        <span class="presentation-tag">Machine Overheating</span>
+        <span class="presentation-tag">Temperature Alert</span>
+      </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="presentation-card" data-cat="sensors robotics">
+      <div class="presentation-card-num">PRES-20</div>
+      <div class="presentation-card-title">Infrared Sensor IR Sensor</div>
+      <span class="presentation-cat-badge cat-robotics">🤖 Robotics</span>
+      <div class="presentation-card-summary">استخدام IR Sensor في Obstacle Avoidance وLine Tracking Robots.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> FC-51 IR Sensor</span>
+        <span><strong>Protocol:</strong> GPIO (Digital/Analog)</span>
+        <span><strong>Focus:</strong> Obstacle Avoidance, Line Tracking</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">IR Sensor</span>
+        <span class="presentation-tag">FC-51</span>
+        <span class="presentation-tag">Obstacle Avoidance</span>
+        <span class="presentation-tag">Line Tracking</span>
+        <span class="presentation-tag">GPIO</span>
+      </div>
+    </div>
+
+    <!-- 21 -->
+    <div class="presentation-card" data-cat="smarthome control sensors">
+      <div class="presentation-card-num">PRES-21</div>
+      <div class="presentation-card-title">Smart Cooking System Automatic Oven</div>
+      <span class="presentation-cat-badge cat-smarthome">🏠 Smart Home</span>
+      <div class="presentation-card-summary">فرن ذكي يستخدم Temperature Sensors وESP32 للتحكم التلقائي في الحرارة.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> DS18B20 Temperature</span>
+        <span><strong>Protocol:</strong> 1-Wire, Relay</span>
+        <span><strong>Focus:</strong> Temperature Control, Automation</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Smart Oven</span>
+        <span class="presentation-tag">DS18B20</span>
+        <span class="presentation-tag">Relay Control</span>
+        <span class="presentation-tag">Temperature Control</span>
+      </div>
+    </div>
+
+    <!-- 22 -->
+    <div class="presentation-card" data-cat="smarthome sensors iot">
+      <div class="presentation-card-num">PRES-22</div>
+      <div class="presentation-card-title">Smart Home Automation System</div>
+      <span class="presentation-cat-badge cat-smarthome">🏠 Smart Home</span>
+      <div class="presentation-card-summary">نظام Smart Home يستخدم PIR وDHT11 وGas Sensors للتحكم والمراقبة والسلامة.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> PIR, DHT11, Gas Sensor</span>
+        <span><strong>Protocol:</strong> Wi-Fi, Voice Assistant</span>
+        <span><strong>Focus:</strong> Elderly Care, Safety, IoT Integration</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Smart Home</span>
+        <span class="presentation-tag">PIR</span>
+        <span class="presentation-tag">DHT11</span>
+        <span class="presentation-tag">Gas Sensor</span>
+        <span class="presentation-tag">Voice Assistant</span>
+      </div>
+    </div>
+
+    <!-- 23 -->
+    <div class="presentation-card" data-cat="iot sensors">
+      <div class="presentation-card-num">PRES-23</div>
+      <div class="presentation-card-title">Smart IoT System using ESP32</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">نظام IoT بسيط باستخدام DHT11 وESP32 لمراقبة الحرارة والرطوبة وربطها بالسحابة.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> DHT11</span>
+        <span><strong>Protocol:</strong> MQTT, Cloud</span>
+        <span><strong>Focus:</strong> IoT vs IoE vs IIoT, Cloud Monitoring</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">IoT vs IoE vs IIoT</span>
+        <span class="presentation-tag">DHT11</span>
+        <span class="presentation-tag">Cloud Monitoring</span>
+        <span class="presentation-tag">MQTT</span>
+      </div>
+    </div>
+
+    <!-- 24 -->
+    <div class="presentation-card" data-cat="automotive control sensors">
+      <div class="presentation-card-num">PRES-24</div>
+      <div class="presentation-card-title">Smart Climate Control System Automotive AC</div>
+      <span class="presentation-cat-badge cat-automotive">🚗 Automotive</span>
+      <div class="presentation-card-summary">نظام تكييف ذكي للسيارات باستخدام ESP32 وحساسات حرارة ورطوبة وتحكم PID.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> NTC, DHT22, SHT31-D, DS18B20</span>
+        <span><strong>Protocol:</strong> CAN Bus, MQTT, PWM</span>
+        <span><strong>Focus:</strong> PID Control, Edge AI, Automotive AC</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Automotive AC</span>
+        <span class="presentation-tag">NTC</span>
+        <span class="presentation-tag">DHT22</span>
+        <span class="presentation-tag">PID</span>
+        <span class="presentation-tag">CAN Bus</span>
+        <span class="presentation-tag">Edge AI</span>
+      </div>
+    </div>
+
+    <!-- 25 -->
+    <div class="presentation-card" data-cat="sensors smarthome">
+      <div class="presentation-card-num">PRES-25</div>
+      <div class="presentation-card-title">Sound Sensor KY-038</div>
+      <span class="presentation-cat-badge cat-sensors">📡 Sensors</span>
+      <div class="presentation-card-summary">حساس صوت KY-038 لاكتشاف الصوت واستخدامه في Smart Home وAudio Event Detection.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> KY-038 Sound Sensor</span>
+        <span><strong>Protocol:</strong> Analog + Digital GPIO</span>
+        <span><strong>Focus:</strong> Clap Detection, Voice Activation, Smart Home</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">KY-038</span>
+        <span class="presentation-tag">Sound Detection</span>
+        <span class="presentation-tag">Clap Detection</span>
+        <span class="presentation-tag">Voice Activation</span>
+      </div>
+    </div>
+
+    <!-- 26 -->
+    <div class="presentation-card" data-cat="medical control sensors">
+      <div class="presentation-card-num">PRES-26</div>
+      <div class="presentation-card-title">Smart Ventilator Control System</div>
+      <span class="presentation-cat-badge cat-medical">🏥 Medical</span>
+      <div class="presentation-card-summary">نظام Ventilator ذكي يحاكي PCV Mode وOxygen Blending باستخدام PID Feedback.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> Pressure, Flow, Oxygen Sensors</span>
+        <span><strong>Protocol:</strong> PID, PWM, MATLAB Function</span>
+        <span><strong>Focus:</strong> PCV, FiO2, Medical Ventilator</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">Ventilator</span>
+        <span class="presentation-tag">PCV</span>
+        <span class="presentation-tag">PID</span>
+        <span class="presentation-tag">FiO2</span>
+        <span class="presentation-tag">Oxygen Sensor</span>
+        <span class="presentation-tag">MATLAB</span>
+      </div>
+    </div>
+
+    <!-- 27 -->
+    <div class="presentation-card" data-cat="iot sensors medical">
+      <div class="presentation-card-num">PRES-27</div>
+      <div class="presentation-card-title">Smart Environmental Monitoring System Using ESP32</div>
+      <span class="presentation-cat-badge cat-iot">🌐 IoT</span>
+      <div class="presentation-card-summary">نظام مراقبة بيئية متكامل باستخدام ESP32 و4 حساسات (جودة هواء، حرارة، رطوبة، pH) مع معالجة في الوقت الحقيقي وتنبيهات تلقائية.</div>
+      <div class="presentation-meta-row">
+        <span><strong>Sensors:</strong> MQ-135, DHT22, DS18B20, pH Sensor</span>
+        <span><strong>Protocol:</strong> ADC (GPIO34/35), 1-Wire (GPIO5), Digital GPIO (GPIO4)</span>
+        <span><strong>Focus:</strong> Sensor Calibration, Noise Filtering, Moving Average, Real-Time Alerts</span>
+      </div>
+      <div class="presentation-tags">
+        <span class="presentation-tag">MQ-135</span>
+        <span class="presentation-tag">DHT22</span>
+        <span class="presentation-tag">DS18B20</span>
+        <span class="presentation-tag">pH Sensor</span>
+        <span class="presentation-tag">Moving Average</span>
+        <span class="presentation-tag">Calibration</span>
+        <span class="presentation-tag">1-Wire</span>
+        <span class="presentation-tag">IoT</span>
+      </div>
+    </div>
+
+  </div><!-- /pres-grid -->
+
+  <!-- DOCTOR EXAM FOCUS CARD -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🎯</span> Doctor Exam Focus — أسئلة الامتحان المتوقعة</div>
+    <div class="card-body"><div class="card-body-inner">
+      <p style="margin-bottom:14px;color:var(--text-muted);font-size:.85rem;">أسئلة الدكتور المتكررة في كل البرزنتيشنات — فاهمهم = مذاكرة 80% من الأسئلة</p>
+      <div class="pres-focus-grid">
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">🔬</span>
+          <div class="pres-focus-text"><strong>اشرح الـ Sensor بيشتغل إزاي</strong>المبدأ الفيزيائي، المدخلات، المخرجات، الوحدات</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">🔌</span>
+          <div class="pres-focus-text"><strong>Interface بين الـ Sensor والـ ESP32</strong>الـ Pins، البروتوكول (UART/I2C/SPI/ADC)، الكود المبسط</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">⚖️</span>
+          <div class="pres-focus-text"><strong>قارن بين Sensor Types</strong>مثلاً: MQ-2 vs KY-026، CMOS vs CCD، RADAR vs LiDAR</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">📐</span>
+          <div class="pres-focus-text"><strong>ارسم Block Diagram</strong>Sensor → Processing → Output → Feedback Loop</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">⚠️</span>
+          <div class="pres-focus-text"><strong>اذكر Practical Problems &amp; Solutions</strong>مشاكل التعيير، الضوضاء، درجة الحرارة، التدخل الكهرومغناطيسي</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">📊</span>
+          <div class="pres-focus-text"><strong>اشرح KMS / Need vs Actual</strong>المشكلة + الحل الحالي + مقترح الفريق</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">📡</span>
+          <div class="pres-focus-text"><strong>اشرح الـ Communication Protocol</strong>UART: TX/RX، Baud Rate — I2C: SDA/SCL، Address — SPI: MOSI/MISO/CLK/CS</div>
+        </div>
+        <div class="pres-focus-item">
+          <span class="pres-focus-icon">💻</span>
+          <div class="pres-focus-text"><strong>اكتب Simple Code Logic</strong>Init → Read → Process → Output — مش لازم تحفظ بالحرف</div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- COMMON PATTERNS CARD -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔄</span> Common Patterns Across All Presentations</div>
+    <div class="card-body"><div class="card-body-inner">
+      <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:10px;">كل برزنتيشن بيتبع نفس النمط — افهمه مرة وهتفهم كل الباقي</p>
+      <div class="pres-pattern-flow">
+        <span class="pres-flow-step">🔍 Sensor</span>
+        <span class="pres-flow-arrow">→</span>
+        <span class="pres-flow-step">⚡ ESP32</span>
+        <span class="pres-flow-arrow">→</span>
+        <span class="pres-flow-step">⚙️ Processing</span>
+        <span class="pres-flow-arrow">→</span>
+        <span class="pres-flow-step">📤 Output</span>
+        <span class="pres-flow-arrow">→</span>
+        <span class="pres-flow-step">🔁 Feedback</span>
+      </div>
+      <div class="pres-pattern-list">
+        <div class="pres-pattern-item">Sensor Types: Analog, Digital, I2C, SPI, UART</div>
+        <div class="pres-pattern-item">Market Examples: اللي بيتباع في السوق فعلاً</div>
+        <div class="pres-pattern-item">Interface Pins: VCC, GND, Data (+ CLK/CS لو serial)</div>
+        <div class="pres-pattern-item">Problems &amp; Solutions: Noise, Calibration, Power</div>
+        <div class="pres-pattern-item">Real-World Application: Industry, Medical, Automotive</div>
+        <div class="pres-pattern-item">KMS: Knowledge Management System — شاهد على الفهم</div>
+        <div class="pres-pattern-item">New Learn: إيه اللي الفريق اتعلمه جديد</div>
+        <div class="pres-pattern-item">Future Work: التطوير المقترح للمشروع</div>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- STRONGEST TECHNICALLY CARD -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏆</span> Strongest Presentations Technically</div>
+    <div class="card-body"><div class="card-body-inner">
+      <p style="color:var(--text-muted);font-size:.85rem;margin-bottom:14px;">الـ 5 برزنتيشنات الأقوى من ناحية التعقيد التقني — الأسئلة منهم هتكون أصعب</p>
+      <ul class="pres-ranked-list">
+        <li class="pres-ranked-item">
+          <span class="pres-rank-num r1">1</span>
+          <div class="pres-rank-content">
+            <div class="pres-rank-title">ADAS — RADAR and LiDAR (PRES-15)</div>
+            <div class="pres-rank-reason">Sensor Fusion + CAN Bus + FreeRTOS + Edge AI + V2X — أعلى تعقيد في كل الـ Section</div>
+          </div>
+        </li>
+        <li class="pres-ranked-item">
+          <span class="pres-rank-num r2">2</span>
+          <div class="pres-rank-content">
+            <div class="pres-rank-title">Smart Climate Control Automotive AC (PRES-24)</div>
+            <div class="pres-rank-reason">PID + CAN Bus + MQTT + Edge AI + 4 sensors مختلفة في نفس الوقت</div>
+          </div>
+        </li>
+        <li class="pres-ranked-item">
+          <span class="pres-rank-num r3">3</span>
+          <div class="pres-rank-content">
+            <div class="pres-rank-title">Smart Ventilator Control System (PRES-26)</div>
+            <div class="pres-rank-reason">Medical-grade PID + FiO2 Oxygen Blending + PCV Mode + MATLAB Simulation</div>
+          </div>
+        </li>
+        <li class="pres-ranked-item">
+          <span class="pres-rank-num" style="color:var(--accent);">4</span>
+          <div class="pres-rank-content">
+            <div class="pres-rank-title">ESP32 Camera Sensor System (PRES-14)</div>
+            <div class="pres-rank-reason">Real-Time Image Processing + CMOS/CCD architecture + Wi-Fi streaming pipeline</div>
+          </div>
+        </li>
+        <li class="pres-ranked-item">
+          <span class="pres-rank-num" style="color:var(--accent2);">5</span>
+          <div class="pres-rank-content">
+            <div class="pres-rank-title">Radiation Monitoring System (PRES-02)</div>
+            <div class="pres-rank-reason">GM Sensor physics + FreeRTOS multitasking + MQTT + Grafana Cloud Dashboard</div>
+          </div>
+        </li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- EXAM CHEAT TABLE -->
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📋</span> Exam Cheat Table — كل البرزنتيشنات في جدول واحد</div>
+    <div class="card-body"><div class="card-body-inner">
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Presentation</th>
+              <th>Main Sensor</th>
+              <th>Protocol</th>
+              <th>Application</th>
+              <th>Expected Question</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>01</td><td>Fire &amp; Safety</td><td>MQ-2, KY-026</td><td>GPIO, Wi-Fi</td><td>Fire Detection</td><td>كيف يكشف MQ-2 الغاز؟</td></tr>
+            <tr><td>02</td><td>Radiation Monitor</td><td>GM Sensor</td><td>MQTT, FreeRTOS</td><td>Medical/Environmental</td><td>CPM vs μSv/h؟</td></tr>
+            <tr><td>03</td><td>GPS Tracking</td><td>NEO-6M/7M/8M</td><td>UART</td><td>Vehicle Tracking</td><td>كيف يعمل Trilateration؟</td></tr>
+            <tr><td>04</td><td>Washing Machine</td><td>Capacitive Sensor</td><td>GPIO, Relay</td><td>Smart Appliances</td><td>كيف يقيس مستوى الماء؟</td></tr>
+            <tr><td>05</td><td>ABS Braking</td><td>Hall Effect Sensor</td><td>Interrupts</td><td>Automotive Safety</td><td>كيف يمنع ABS انزلاق العجل؟</td></tr>
+            <tr><td>06</td><td>AT Commands</td><td>SIM800L Modem</td><td>UART</td><td>IoT Connectivity</td><td>اكتب AT Command لإرسال SMS</td></tr>
+            <tr><td>07</td><td>Auto Lighting</td><td>LDR</td><td>ADC, Relay</td><td>Smart Lighting</td><td>كيف يعمل LDR مع ADC؟</td></tr>
+            <tr><td>08</td><td>Biomedical</td><td>ESP32-CAM, Biometric</td><td>I2C, UART</td><td>Medical Biometrics</td><td>قارن Face vs Iris Recognition</td></tr>
+            <tr><td>09</td><td>Breathalyzer</td><td>MQ-3</td><td>ADC</td><td>BAC Measurement</td><td>كيف يُعيَّر MQ-3؟</td></tr>
+            <tr><td>10</td><td>IMU Motion</td><td>Accelerometer, IMU</td><td>I2C / SPI</td><td>Earthquake / Tracking</td><td>ما هو الـ IMU؟</td></tr>
+            <tr><td>11</td><td>Mirror System</td><td>Servo / MEMS Mirror</td><td>PWM</td><td>Laser Scanning</td><td>كيف يتحكم PWM في زاوية Servo؟</td></tr>
+            <tr><td>12</td><td>Force &amp; Pressure</td><td>Load Cell + HX711</td><td>SPI (HX711)</td><td>Weight Measurement</td><td>اشرح Wheatstone Bridge</td></tr>
+            <tr><td>13</td><td>Smart Parking</td><td>HC-SR04, IR</td><td>GPIO, Trigger/Echo</td><td>Obstacle Detection</td><td>كيف يحسب HC-SR04 المسافة؟</td></tr>
+            <tr><td>14</td><td>ESP32-CAM</td><td>OV2640 (CMOS)</td><td>Wi-Fi HTTP</td><td>Video Streaming</td><td>CMOS vs CCD الفرق؟</td></tr>
+            <tr><td>15</td><td>ADAS RADAR/LiDAR</td><td>RADAR, LiDAR</td><td>CAN Bus, MQTT</td><td>Autonomous Driving</td><td>RADAR vs LiDAR متى تستخدم كل؟</td></tr>
+            <tr><td>16</td><td>Web Smart Sensor</td><td>DHT11</td><td>Wi-Fi HTTP</td><td>Remote Monitoring</td><td>كيف تبني Web Server على ESP32؟</td></tr>
+            <tr><td>17</td><td>Fingerprint</td><td>R307 / AS608</td><td>UART</td><td>Access Control</td><td>كيف يُخزَّن ويُطابَق البصمة؟</td></tr>
+            <tr><td>18</td><td>IMU &amp; MEMS</td><td>Gyroscope, Magnetometer</td><td>I2C / SPI</td><td>Drones, Robots</td><td>ما هو Kalman Filter؟</td></tr>
+            <tr><td>19</td><td>IoT Temp Monitor</td><td>DHT11</td><td>MQTT, Wi-Fi</td><td>IIoT Machine Monitor</td><td>IoT vs IIoT الفرق؟</td></tr>
+            <tr><td>20</td><td>IR Sensor</td><td>FC-51</td><td>GPIO</td><td>Line Robot</td><td>كيف يعمل IR في Line Tracking؟</td></tr>
+            <tr><td>21</td><td>Smart Oven</td><td>DS18B20</td><td>1-Wire, Relay</td><td>Home Automation</td><td>ما هو بروتوكول 1-Wire؟</td></tr>
+            <tr><td>22</td><td>Smart Home</td><td>PIR, DHT11, Gas</td><td>Wi-Fi</td><td>Home Safety</td><td>كيف يكشف PIR الحركة؟</td></tr>
+            <tr><td>23</td><td>IoT ESP32</td><td>DHT11</td><td>MQTT, Cloud</td><td>Cloud Monitoring</td><td>IoT vs IoE vs IIoT؟</td></tr>
+            <tr><td>24</td><td>Automotive AC</td><td>NTC, DHT22, SHT31</td><td>CAN Bus, PWM</td><td>Smart Car Climate</td><td>اشرح PID Control بالأرقام</td></tr>
+            <tr><td>25</td><td>Sound KY-038</td><td>KY-038</td><td>Analog + GPIO</td><td>Clap Detection</td><td>Analog vs Digital Output الفرق؟</td></tr>
+            <tr><td>26</td><td>Ventilator</td><td>Pressure, Flow, O2</td><td>PID, PWM</td><td>Medical ICU</td><td>اشرح PCV Mode و FiO2</td></tr>
+            <tr><td>27</td><td>Smart Env. Monitor</td><td>MQ-135, DHT22, DS18B20, pH</td><td>ADC, 1-Wire, GPIO</td><td>Greenhouse / IoT</td><td>قارن DHT22 vs DS18B20 ولماذا الاثنين معاً؟</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div></div>
+  </div>
+
+</div><!-- /section s51 -->
+
+<script>
+// ===== SECTION 51 — PRESENTATION FILTER =====
+function filterPresentations(cat, btn) {
+  // Update active chip
+  document.querySelectorAll('#pres-filter-row .presentation-chip').forEach(function(c) {
+    c.classList.remove('active');
+  });
+  if (btn) btn.classList.add('active');
+
+  var cards = document.querySelectorAll('#pres-grid .presentation-card');
+  var visible = 0;
+  cards.forEach(function(card) {
+    var cats = card.getAttribute('data-cat') || '';
+    if (cat === 'all' || cats.indexOf(cat) !== -1) {
+      card.classList.remove('hidden');
+      visible++;
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+  var countEl = document.getElementById('pres-count');
+  if (countEl) countEl.textContent = visible + ' / 27';
+}
+
+function resetPresentationFilters() {
+  filterPresentations('all', document.querySelector('#pres-filter-row .presentation-chip'));
+}
+</script>
 
 <div class="footer">
   <p>📚 Embedded Systems — ملزمة المراجعة الشاملة | 50 Section | شرح بالعربي المصري</p>
