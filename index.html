@@ -1078,6 +1078,17 @@ table { min-width: 400px; }
       <a href="#s49" class="toc-item"><span class="toc-num">49</span> 🗂️ Memory Map Stack &amp; Watchdog</a>
       <a href="#s50" class="toc-item"><span class="toc-num">50</span> 🏁 Final Exam Mega Revision</a>
       <a href="#s51" class="toc-item"><span class="toc-num">51</span> 🎓 Student Presentations</a>
+      <a href="#s52" class="toc-item"><span class="toc-num">52</span> 🧠 Processor Architectures</a>
+      <a href="#s_new_1" class="toc-item"><span class="toc-num">N1</span> Fundamentals &amp; Architectures</a>
+      <a href="#s_new_2" class="toc-item"><span class="toc-num">N2</span> Digital &amp; Analog Electronics</a>
+      <a href="#s_new_3" class="toc-item"><span class="toc-num">N3</span> Operational Amplifiers</a>
+      <a href="#s_new_4" class="toc-item"><span class="toc-num">N4</span> ADC / DAC Deep Theory</a>
+      <a href="#s_new_5" class="toc-item"><span class="toc-num">N5</span> Signal &amp; Measurement Systems</a>
+      <a href="#s_new_6" class="toc-item"><span class="toc-num">N6</span> 8085 Microprocessor</a>
+      <a href="#s_new_7" class="toc-item"><span class="toc-num">N7</span> DSP Advanced Architecture</a>
+      <a href="#s_new_8" class="toc-item"><span class="toc-num">N8</span> Embedded Software &amp; Toolchains</a>
+      <a href="#s_new_9" class="toc-item"><span class="toc-num">N9</span> Arduino Deep Dive</a>
+      <a href="#s_new_10" class="toc-item"><span class="toc-num">N10</span> Advanced RTOS</a>
     </div>
   </div>
 </div>
@@ -13981,6 +13992,358 @@ document.getElementById('presSearch').addEventListener('input', function() {
 
 </div><!-- /section s51 -->
 
+<div class="divider"></div>
+
+<!-- ==================== SECTION 52 ==================== -->
+<div class="section" id="s52">
+  <div class="section-header">
+    <div class="section-badge">52</div>
+    <div class="section-meta">
+      <div class="section-title">🧠 Processor Architectures</div>
+      <div class="section-sub">ARM · AVR · PIC · MSP430 · MIPS · 8051 — المعالجات الـ6 الأكتر استخداماً في Embedded Systems</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🗺️</span> ليه في معالجات مختلفة؟ — فلسفة كل Architecture</div>
+    <p>مفيش معالج واحد بيناسب كل التطبيقات. كل Architecture اتصمم بفلسفة مختلفة بتناسب احتياجات معينة من ناحية الأداء، استهلاك الطاقة، التكلفة، وسهولة البرمجة.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Architecture</th><th>Bits</th><th>Type</th><th>الشركة</th><th>الاستخدام الرئيسي</th></tr></thead>
+        <tbody>
+          <tr><td>ARM</td><td>32/64-bit</td><td>RISC</td><td>ARM Holdings</td><td>Smartphones, STM32, RPi, كل حاجة حديثة</td></tr>
+          <tr><td>AVR</td><td>8-bit</td><td>RISC</td><td>Atmel/Microchip</td><td>Arduino, Hobby, التعليم</td></tr>
+          <tr><td>PIC</td><td>8/16/32-bit</td><td>Harvard RISC</td><td>Microchip</td><td>صناعي، تجاري، automotive</td></tr>
+          <tr><td>MSP430</td><td>16-bit</td><td>RISC</td><td>Texas Instruments</td><td>Ultra-low power, IoT, wearables</td></tr>
+          <tr><td>MIPS</td><td>32/64-bit</td><td>RISC</td><td>MIPS Technologies</td><td>Routers, تعليمي, embedded Linux</td></tr>
+          <tr><td>8051</td><td>8-bit</td><td>CISC</td><td>Intel (اخترعه)</td><td>تعليمي، تطبيقات بسيطة رخيصة جداً</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">💪</span> ARM Architecture — Advanced RISC Machine</div>
+    <div class="callout callout-info">
+      <div class="callout-head">📌 ARM مش Chip — هي License!</div>
+      <p>ARM Holdings بتصمم وتبيع الـ IP (Intellectual Property). الشركات زي Apple, Samsung, Qualcomm بتاخد License وتصنع Chips بنفسها. ده بيخلي ARM الأكثر انتشاراً في العالم — 95%+ من الـ Smartphones بتشتغل على ARM.</p>
+    </div>
+    <h4>ARM Cortex Families</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Family</th><th>يعني</th><th>أمثلة</th><th>الاستخدام</th></tr></thead>
+        <tbody>
+          <tr><td>Cortex-A</td><td>Application</td><td>A53, A72, A78</td><td>Smartphones, Linux, Raspberry Pi 4</td></tr>
+          <tr><td>Cortex-R</td><td>Real-time</td><td>R4, R5, R52</td><td>Hard Real-Time: ABS, Airbag, Medical Devices</td></tr>
+          <tr><td>Cortex-M</td><td>Microcontroller</td><td>M0, M3, M4, M7</td><td>STM32, ESP32, wearables, IoT</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>ARM Key Technical Features</h4>
+    <ul>
+      <li><strong>Load/Store Architecture:</strong> العمليات الحسابية فقط على الـ Registers — الذاكرة بس عن طريق LDR/STR.</li>
+      <li><strong>Thumb Instruction Set:</strong> تعليمات 16-bit بدل 32-bit — تقليل حجم الكود بـ 30-40%.</li>
+      <li><strong>Barrel Shifter:</strong> Hardware shifter مدمج في الـ ALU — Shift بدون clock cycles إضافية.</li>
+      <li><strong>Conditional Execution:</strong> كل تعليمة ممكن تتنفذ conditionally — بيقلل الـ Branches.</li>
+      <li><strong>NVIC (Cortex-M):</strong> Nested Vectored Interrupt Controller — يدعم حتى 240 interrupt بـ hardware priority.</li>
+      <li><strong>32 Registers:</strong> R0-R12 General, R13=SP, R14=LR (Link Register), R15=PC.</li>
+    </ul>
+    <div class="numbox">
+      <div class="numbox-title">Cortex-M4 Specs — الأكثر شيوعاً في Embedded</div>
+      <div class="num-row"><span class="num-label">Clock</span><span class="num-val">حتى 180 MHz (STM32F4)</span></div>
+      <div class="num-row"><span class="num-label">Pipeline</span><span class="num-val">3-stage: Fetch → Decode → Execute</span></div>
+      <div class="num-row"><span class="num-label">DSP Extension</span><span class="num-val">Single-cycle MAC unit</span></div>
+      <div class="num-row"><span class="num-label">FPU (optional)</span><span class="num-val">Single-precision floating point</span></div>
+      <div class="num-row"><span class="num-label">Memory Bus</span><span class="num-val">32-bit AHB (Advanced High-speed Bus)</span></div>
+      <div class="num-row"><span class="num-label">SysTick</span><span class="num-val">24-bit timer للـ RTOS scheduling</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚡</span> AVR Architecture — قلب Arduino</div>
+    <p><span class="hl-blue">AVR</span> من Atmel (دلوقتي Microchip) — 1996. المعالج الموجود في Arduino Uno هو <strong>ATmega328P</strong>.</p>
+    <div class="numbox">
+      <div class="numbox-title">ATmega328P Full Specs</div>
+      <div class="num-row"><span class="num-label">Architecture</span><span class="num-val">8-bit RISC, Modified Harvard</span></div>
+      <div class="num-row"><span class="num-label">Clock (Arduino)</span><span class="num-val">16 MHz</span></div>
+      <div class="num-row"><span class="num-label">Flash (Program Memory)</span><span class="num-val">32 KB</span></div>
+      <div class="num-row"><span class="num-label">SRAM (Data)</span><span class="num-val">2 KB</span></div>
+      <div class="num-row"><span class="num-label">EEPROM</span><span class="num-val">1 KB</span></div>
+      <div class="num-row"><span class="num-label">General Registers</span><span class="num-val">32 x 8-bit (R0-R31)</span></div>
+      <div class="num-row"><span class="num-label">ADC</span><span class="num-val">6-channel, 10-bit</span></div>
+      <div class="num-row"><span class="num-label">Timers</span><span class="num-val">2x 8-bit + 1x 16-bit</span></div>
+      <div class="num-row"><span class="num-label">Interfaces</span><span class="num-val">UART, SPI, I2C (TWI)</span></div>
+      <div class="num-row"><span class="num-label">Execution Speed</span><span class="num-val">1 MIPS per MHz (Single-cycle)</span></div>
+    </div>
+    <h4>AVR Ports — DDR, PORT, PIN Registers</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Register</th><th>الوظيفة</th><th>مثال</th></tr></thead>
+        <tbody>
+          <tr><td>DDRx</td><td>Data Direction — 1=Output, 0=Input</td><td>DDRB = 0xFF كل PORTB Output</td></tr>
+          <tr><td>PORTx</td><td>Output Value او Enable Pull-up</td><td>PORTB = 0x01 PB0 = HIGH</td></tr>
+          <tr><td>PINx</td><td>Input Reading — Read-only</td><td>val = PINB اقرا قيمة PORTB</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="code-block" style="direction:ltr; --label:'AVR C';">
+// Set PB0 as Output, PB1 as Input with Pull-up
+DDRB  |=  (1 &lt;&lt; PB0);   // PB0 = Output
+DDRB  &amp;= ~(1 &lt;&lt; PB1);   // PB1 = Input
+PORTB |=  (1 &lt;&lt; PB1);   // Enable Pull-up on PB1
+
+// Toggle PB0
+PORTB ^= (1 &lt;&lt; PB0);    // XOR = Toggle
+
+// Read PB1
+if (PINB &amp; (1 &lt;&lt; PB1)) { /* HIGH */ }
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏭</span> PIC Architecture — Peripheral Interface Controller</div>
+    <p><span class="hl-blue">PIC</span> من Microchip Technology — الاكثر استخداماً في التطبيقات الصناعية والتجارية.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Family</th><th>Bits</th><th>Instruction</th><th>امثلة</th><th>الاستخدام</th></tr></thead>
+        <tbody>
+          <tr><td>PIC10/12</td><td>8-bit</td><td>12-bit</td><td>PIC10F200</td><td>بسيط جداً، SOT-23 صغير</td></tr>
+          <tr><td>PIC16</td><td>8-bit</td><td>14-bit</td><td>PIC16F877A</td><td>الاكثر تعليماً، hobby</td></tr>
+          <tr><td>PIC18</td><td>8-bit</td><td>16-bit</td><td>PIC18F4550</td><td>USB, CAN, advanced peripherals</td></tr>
+          <tr><td>PIC24/dsPIC</td><td>16-bit</td><td>24-bit</td><td>dsPIC33F</td><td>DSP features, motor control</td></tr>
+          <tr><td>PIC32</td><td>32-bit</td><td>32-bit (MIPS)</td><td>PIC32MX</td><td>High performance, RTOS</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>PIC Key Features</h4>
+    <ul>
+      <li><strong>Harvard Architecture:</strong> Program memory منفصل تماماً عن Data memory.</li>
+      <li><strong>Variable Instruction Width:</strong> PIC16 بـ 14-bit instructions — مش 8 ولا 16!</li>
+      <li><strong>W (Working) Register:</strong> الـ Accumulator الرئيسي — كل العمليات بتمر فيه.</li>
+      <li><strong>Bank Switching:</strong> الـ RAM بتتقسم لـ Banks — محتاج تختار الـ Bank الصح قبل الوصول للـ Register.</li>
+      <li><strong>35 Instructions فقط (PIC16):</strong> من أبسط Instruction Sets موجودة.</li>
+      <li><strong>PIC32 بيستخدم MIPS Core!</strong> — سؤال صعب في الامتحانات.</li>
+    </ul>
+    <div class="callout callout-warn">
+      <div class="callout-head">⚠️ Bank Switching Trap</div>
+      <p>في PIC16، الـ RAM متقسمة على 4 Banks. عشان تتعامل مع Register في Bank معين لازم تضبط الـ RP0 وـ RP1 bits في STATUSREG. ده من اكثر الاخطاء اللي بتوقف البرامج في PIC!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔋</span> MSP430 Architecture — ملك Ultra-Low Power</div>
+    <p><span class="hl-blue">MSP430</span> = Mixed Signal Processor 430 — من Texas Instruments 1993. صُمِّم من الاساس للـ Battery-powered applications.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Power Mode</th><th>Active Components</th><th>Current Consumption</th></tr></thead>
+        <tbody>
+          <tr><td>AM (Active)</td><td>CPU + All Peripherals</td><td class="no">~400 uA @ 1MHz</td></tr>
+          <tr><td>LPM0</td><td>CPU off, Clock on</td><td>~85 uA</td></tr>
+          <tr><td>LPM3</td><td>فقط ACLK شغال (32kHz)</td><td class="yes">~2 uA</td></tr>
+          <tr><td>LPM4</td><td>كل الـ Clocks off</td><td class="yes">~0.1 uA</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="numbox">
+      <div class="numbox-title">MSP430G2553 (LaunchPad) Specs</div>
+      <div class="num-row"><span class="num-label">Architecture</span><span class="num-val">16-bit RISC, Von Neumann</span></div>
+      <div class="num-row"><span class="num-label">Clock</span><span class="num-val">حتى 16 MHz (DCO)</span></div>
+      <div class="num-row"><span class="num-label">Flash</span><span class="num-val">16 KB</span></div>
+      <div class="num-row"><span class="num-label">RAM</span><span class="num-val">512 Bytes</span></div>
+      <div class="num-row"><span class="num-label">Supply Voltage</span><span class="num-val">1.8V – 3.6V</span></div>
+      <div class="num-row"><span class="num-label">Active Current</span><span class="num-val">330 uA/MHz</span></div>
+      <div class="num-row"><span class="num-label">Standby (LPM3)</span><span class="num-val">0.7 uA فقط!</span></div>
+    </div>
+    <div class="callout callout-tip">
+      <div class="callout-head">✅ MSP430 في الواقع</div>
+      <p>بطارية CR2032 (3V عملة) بتشغّل MSP430 لـ سنوات في LPM3! مثالي للـ Wireless sensor nodes, Medical implants, Smart meters.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📚</span> MIPS Architecture — الكلاسيكي التعليمي</div>
+    <p><span class="hl-blue">MIPS</span> = Microprocessor without Interlocked Pipeline Stages — من Stanford 1981. النموذج الأنقى للـ RISC — بتُدرَّس في معظم جامعات العالم.</p>
+    <h4>MIPS Key Features</h4>
+    <ul>
+      <li><strong>Fixed 32-bit Instructions:</strong> كل تعليمة بـ 32 bit بالظبط — بيسهّل الـ Decode.</li>
+      <li><strong>32 General-Purpose Registers:</strong> كلهم 32-bit في الـ 32-bit version.</li>
+      <li><strong>3 Instruction Formats:</strong> R-type (Register), I-type (Immediate), J-type (Jump).</li>
+      <li><strong>Delay Slot:</strong> بعد Branch/Jump، التعليمة التالية بتتنفذ قبل ما الـ Branch يحصل — Pipeline behavior مهم!</li>
+      <li><strong>No Condition Code Flags:</strong> الـ Branches بتقارن Registers مباشرةً (مثال: BEQ R1, R2, target).</li>
+    </ul>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>التطبيق</th><th>المعالج</th><th>ملاحظة</th></tr></thead>
+        <tbody>
+          <tr><td>Home Routers</td><td>MIPS 24K, 34K</td><td>OpenWRT Linux on MIPS</td></tr>
+          <tr><td>PlayStation 1</td><td>MIPS R3000 (33 MHz)</td><td>اول Console بـ MIPS</td></tr>
+          <tr><td>PlayStation 2</td><td>MIPS R5900 (295 MHz)</td><td>Emotion Engine</td></tr>
+          <tr><td>Nintendo 64</td><td>MIPS R4300i (93.75 MHz)</td><td>64-bit MIPS</td></tr>
+          <tr><td>PIC32 MCU</td><td>MIPS M4K core</td><td>PIC32 بيستخدم MIPS core!</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏺</span> 8051 Architecture — الجد الأكبر للـ MCUs</div>
+    <p><span class="hl-blue">Intel 8051</span> — 1980. اقدم معمارية MCU لا تزال مستخدمة! بعد Intel نشرت الـ Specs، شركات كتير انتجت clones (Atmel, Philips, Silicon Labs...).</p>
+    <div class="numbox">
+      <div class="numbox-title">8051 Classic Specs</div>
+      <div class="num-row"><span class="num-label">Architecture</span><span class="num-val">8-bit CISC, Harvard</span></div>
+      <div class="num-row"><span class="num-label">Clock Cycles/Instruction</span><span class="num-val">12 cycles (Classic!) — 1 instruction = 12 oscillator periods</span></div>
+      <div class="num-row"><span class="num-label">Program Memory</span><span class="num-val">4 KB ROM داخلي + 64 KB External</span></div>
+      <div class="num-row"><span class="num-label">Data Memory</span><span class="num-val">128 Bytes RAM داخلي + 64 KB External</span></div>
+      <div class="num-row"><span class="num-label">I/O Ports</span><span class="num-val">4 Ports x 8-bit = 32 pins</span></div>
+      <div class="num-row"><span class="num-label">Timers</span><span class="num-val">2 x 16-bit (Timer0, Timer1)</span></div>
+      <div class="num-row"><span class="num-label">Interrupts</span><span class="num-val">5 sources: 2 External, 2 Timer, 1 Serial</span></div>
+    </div>
+    <h4>8051 Internal Memory Map</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Address</th><th>المنطقة</th><th>الوصف</th></tr></thead>
+        <tbody>
+          <tr><td>00H – 1FH</td><td>Register Banks</td><td>4 Banks x 8 Registers (R0–R7)</td></tr>
+          <tr><td>20H – 2FH</td><td>Bit-Addressable RAM</td><td>16 Bytes = 128 bits — كل bit له عنوان!</td></tr>
+          <tr><td>30H – 7FH</td><td>General Purpose RAM</td><td>80 bytes للاستخدام العام</td></tr>
+          <tr><td>80H – FFH</td><td>SFR Area</td><td>Special Function Registers — Ports, Timers, Serial</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-warn">
+      <div class="callout-head">⚠️ 8051 — 12 Clocks Per Instruction!</div>
+      <p>الـ Classic 8051 بيحتاج 12 clock cycle عشان ينفذ معظم التعليمات. بـ 12MHz clock بيعمل 1 MIPS فقط. الـ Enhanced 8051 (Silicon Labs) بيشتغل بـ single-cycle — اسرع بـ 12 مرة!</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚖️</span> المقارنة الشاملة — الـ 6 Architectures في جدول</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Feature</th><th>ARM (M4)</th><th>AVR (ATmega)</th><th>PIC (16F)</th><th>MSP430</th><th>MIPS</th><th>8051</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Data Width</td><td class="yes">32-bit</td><td>8-bit</td><td>8-bit</td><td>16-bit</td><td class="yes">32-bit</td><td class="no">8-bit</td></tr>
+          <tr><td>Type</td><td>RISC</td><td>RISC</td><td>RISC</td><td>RISC</td><td>RISC</td><td class="no">CISC</td></tr>
+          <tr><td>Memory Arch.</td><td>Harvard</td><td>Mod. Harvard</td><td>Harvard</td><td>Von Neumann</td><td>Von Neumann</td><td>Harvard</td></tr>
+          <tr><td>Max Clock</td><td class="yes">180 MHz+</td><td>20 MHz</td><td>64 MHz</td><td>25 MHz</td><td class="yes">1 GHz+</td><td class="no">12 MHz</td></tr>
+          <tr><td>Power</td><td>متوسط</td><td>منخفض</td><td>منخفض</td><td class="yes">Ultra-Low</td><td class="no">مرتفع</td><td>متوسط</td></tr>
+          <tr><td>Cost</td><td>متوسط</td><td class="yes">رخيص</td><td class="yes">رخيص جداً</td><td>متوسط</td><td>متوسط</td><td class="yes">رخيص جداً</td></tr>
+          <tr><td>FPU</td><td class="yes">نعم</td><td class="no">لا</td><td class="no">لا</td><td class="no">لا</td><td class="yes">نعم</td><td class="no">لا</td></tr>
+          <tr><td>OS Support</td><td class="yes">RTOS/Linux</td><td>Bare-metal</td><td>RTOS بسيط</td><td>FreeRTOS</td><td class="yes">Linux</td><td class="no">Bare-metal</td></tr>
+          <tr><td>الشهرة</td><td>STM32, ESP32</td><td>Arduino Uno</td><td>Industrial</td><td>IoT/Wearables</td><td>Routers/PS1</td><td>تعليمي</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">❓</span> MCQs — Processor Architectures</div>
+
+    <h4>Q1: Which architecture is used in Arduino Uno?</h4>
+    <p>A) ARM Cortex-M3 &nbsp;&nbsp; B) PIC16F &nbsp;&nbsp; <strong style="color:var(--accent3)">C) AVR ATmega328P ✅</strong> &nbsp;&nbsp; D) 8051</p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>Arduino Uno بيستخدم ATmega328P — 8-bit AVR RISC من Atmel. 16 MHz, 32KB Flash, 2KB SRAM.</p></div>
+
+    <h4>Q2: MSP430 is known primarily for:</h4>
+    <p>A) High clock speed &nbsp;&nbsp; B) DSP capabilities &nbsp;&nbsp; <strong style="color:var(--accent3)">C) Ultra-low power consumption ✅</strong> &nbsp;&nbsp; D) Large RAM</p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>MSP430 متخصص في Ultra-low power — بيشتغل بـ μA في الـ Low Power Modes. مثالي للـ Battery-powered IoT.</p></div>
+
+    <h4>Q3: Classic 8051 uses _____ clock cycles per instruction:</h4>
+    <p>A) 1 &nbsp;&nbsp; B) 4 &nbsp;&nbsp; C) 6 &nbsp;&nbsp; <strong style="color:var(--accent3)">D) 12 ✅</strong></p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>Classic 8051 = 12 oscillator periods = 1 machine cycle. بـ 12 MHz بينفذ 1 MIPS.</p></div>
+
+    <h4>Q4: Which is the ONLY CISC architecture in our list?</h4>
+    <p><strong style="color:var(--accent3)">A) 8051 ✅</strong> &nbsp;&nbsp; B) AVR &nbsp;&nbsp; C) PIC &nbsp;&nbsp; D) MSP430</p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>8051 هو الوحيد CISC. الباقين (ARM, AVR, PIC, MSP430, MIPS) كلهم RISC.</p></div>
+
+    <h4>Q5: ARM Cortex-R is designed for:</h4>
+    <p>A) Mobile apps &nbsp;&nbsp; <strong style="color:var(--accent3)">B) Hard Real-Time ✅</strong> &nbsp;&nbsp; C) Ultra-low power &nbsp;&nbsp; D) GPU</p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>Cortex-R = Real-time. للـ ABS, Airbags, Hard Disk Controllers. Cortex-A للـ Smartphones, Cortex-M للـ MCUs.</p></div>
+
+    <h4>Q6: PIC32 uses which processor core?</h4>
+    <p>A) ARM Cortex-M &nbsp;&nbsp; B) AVR &nbsp;&nbsp; C) 8051 &nbsp;&nbsp; <strong style="color:var(--accent3)">D) MIPS ✅</strong></p>
+    <div class="callout callout-tip"><div class="callout-head">Explanation</div><p>PIC32 بيستخدم MIPS M4K core — سؤال صعب! Microchip اختارت MIPS لانتاج MCU بـ 32-bit performance.</p></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📋</span> Cheat Sheet — Processor Architectures</div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-card-title">ARM Cortex Families</div>
+        <ul>
+          <li><strong>Cortex-A</strong> → Application (Smartphones)</li>
+          <li><strong>Cortex-R</strong> → Real-time (ABS, Airbag)</li>
+          <li><strong>Cortex-M</strong> → Microcontroller (STM32)</li>
+          <li>ARM = License مش Manufacturer</li>
+          <li>Thumb = 16-bit compressed instructions</li>
+          <li>R13=SP, R14=LR, R15=PC</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-title">AVR (Arduino Uno)</div>
+        <ul>
+          <li>ATmega328P: 8-bit RISC, 16MHz</li>
+          <li>Flash=32KB, SRAM=2KB, EEPROM=1KB</li>
+          <li>DDR=Direction, PORT=Output, PIN=Input</li>
+          <li>1 MIPS per MHz (Single-cycle)</li>
+          <li>Modified Harvard Architecture</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-title">PIC</div>
+        <ul>
+          <li>PIC16 = 8-bit, 14-bit instructions</li>
+          <li>W Register = Accumulator الرئيسي</li>
+          <li>Bank Switching = Trap شهير</li>
+          <li>Harvard Architecture</li>
+          <li>PIC32 بيستخدم MIPS Core!</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-title">MSP430</div>
+        <ul>
+          <li>16-bit RISC, Ultra-low power</li>
+          <li>LPM3 = 0.7 uA فقط!</li>
+          <li>R0=PC, R1=SP, R2=SR</li>
+          <li>Von Neumann (unified memory)</li>
+          <li>Energia IDE للبرمجة</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-title">MIPS</div>
+        <ul>
+          <li>Fixed 32-bit instructions دايماً</li>
+          <li>32 General-Purpose Registers</li>
+          <li>Delay Slot بعد كل Branch</li>
+          <li>No Condition Code Flags</li>
+          <li>PS1, PS2, N64, Routers, PIC32</li>
+        </ul>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-card-title">8051</div>
+        <ul>
+          <li>Intel 1980 — 8-bit CISC</li>
+          <li>12 clocks per instruction (Classic)</li>
+          <li>RAM: Banks, Bit-addr, General, SFR</li>
+          <li>4 Ports x 8-bit = 32 I/O pins</li>
+          <li>Bit-Addressable Memory ميزة فريدة</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout callout-danger" style="margin-top:20px;">
+      <div class="callout-head">⚠️ Exam Traps — الاخطاء الاكثر شيوعاً</div>
+      <p>❌ "ARM بتصنع Chips" → <strong>غلط!</strong> ARM بتبيع License — المصنعين هم Apple, Qualcomm, Samsung, ST.</p>
+      <p>❌ "8051 RISC Architecture" → <strong>غلط!</strong> 8051 هو CISC — الوحيد CISC في القائمة.</p>
+      <p>❌ "ATmega328 Von Neumann" → <strong>غلط!</strong> AVR = Modified Harvard.</p>
+      <p>❌ "MSP430 Harvard Architecture" → <strong>غلط!</strong> MSP430 = Von Neumann (Unified Memory).</p>
+      <p>✅ PIC32 بيستخدم MIPS Core — سؤال صعب!</p>
+      <p>✅ Cortex-A للـ Apps، Cortex-R للـ Real-time، Cortex-M للـ Microcontrollers.</p>
+    </div>
+  </div>
+
+</div><!-- /section s52 -->
+
 <script>
 // ===== SECTION 51 — PRESENTATION FILTER =====
 function filterPresentations(cat, btn) {
@@ -14114,5 +14477,485 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+
+<!-- ==================== أقسام جديدة N1-N10 ==================== -->
+<div class="divider"></div>
+
+<!-- ==================== SECTION N1 ==================== -->
+<div class="section" id="s_new_1">
+  <div class="section-header">
+    <div class="section-badge">N1</div>
+    <div class="section-meta">
+      <div class="section-title">Fundamentals & Architectures</div>
+      <div class="section-sub">التأسيس المعماري الشامل — من المفاهيم للـ Life Cycle</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚙️</span> Microprocessor vs Microcontroller</div>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Microprocessor (MPU)</h4>
+        <p>هو وحدة معالجة مركزية (CPU) فقط على شريحة واحدة. لا يحتوي على RAM أو ROM أو I/O Ports بداخله.</p>
+        <p><strong>الاستخدام:</strong> الأنظمة المعقدة زي الكمبيوترات والـ Laptops اللي بتحتاج قدرة معالجة ضخمة.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>Microcontroller (MCU)</h4>
+        <p>هو "كمبيوتر كامل" على شريحة. بيحتوي على CPU + RAM + ROM + Timers + I/O Ports في شريحة واحدة.</p>
+        <p><strong>الاستخدام:</strong> الـ Embedded Systems والأجهزة المتخصصة لتوفير المساحة والطاقة.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🧠</span> Processor Types — أنواع المعالجات</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>النوع</th><th>الاسم الكامل</th><th>الشرح والتطبيق</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">GPP</td><td>General Purpose Processor</td><td>معالج مرن متعدد الاستخدامات (زي معالجات Intel). بيشغل أي تطبيق بس بيستهلك طاقة ومساحة أكبر.</td></tr>
+          <tr><td class="hl-green">DSP</td><td>Digital Signal Processor</td><td>معالج مخصص لمعالجة الإشارات الرقمية (الصوت، الصور). بيحتوي على وحدات زي MAC لتسريع المعادلات الرياضية.</td></tr>
+          <tr><td class="hi">ASSP</td><td>Application Specific Standard Product</td><td>شريحة مصممة لتطبيق محدد بس بتتباع لكل الشركات (زي شريحة فك تشفير الفيديو أو شريحة الـ Ethernet).</td></tr>
+          <tr><td class="hl-pink">EP</td><td>Embedded Processor</td><td>معالج مُصمم خصيصاً ليُدمج داخل نظام أكبر، وعادة بيكون مبني على معمارية موفرة للطاقة زي ARM Cortex-M.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏗️</span> Architectures: CISC/RISC و Harvard/Von Neumann</div>
+    <div class="compare-grid">
+      <div class="compare-card amber">
+        <h4>CISC vs RISC</h4>
+        <p><strong>CISC (Complex):</strong> التعليمات معقدة وممكن تاخد أكتر من Clock cycle. الكود بيكون أصغر. (مثال: x86).</p>
+        <p><strong>RISC (Reduced):</strong> التعليمات بسيطة وبتتنفذ في Clock cycle واحدة. أسرع وموفر للطاقة. (مثال: ARM, AVR).</p>
+      </div>
+      <div class="compare-card red">
+        <h4>Harvard vs Von Neumann</h4>
+        <p><strong>Von Neumann:</strong> ذاكرة واحدة وBus واحد بيشارك فيه الكود والبيانات. أبطأ بسبب الـ Bottleneck.</p>
+        <p><strong>Harvard:</strong> ذاكرة مستقلة للكود وذاكرة للبيانات مع Buses منفصلة. أسرع لإن الـ CPU بيقرأ الكود والبيانات مع بعض.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🛡️</span> Dependability & System Constraints</div>
+    <p>أي Embedded System بيخضع لـ <span class="hl">Constraints</span> (قيود) صارمة: الحجم، استهلاك الطاقة، التكلفة، والأداء. لضمان الاعتمادية (Dependability)، بنقيّم 4 عوامل:</p>
+    <ul style="padding-right:20px;">
+      <li><span class="hl-blue">Reliability (الموثوقية):</span> قدرة النظام على العمل بدون أعطال لفترة زمنية محددة.</li>
+      <li><span class="hl-blue">Safety (السلامة):</span> ضمان ألا يتسبب فشل النظام في أذى للبشر أو البيئة.</li>
+      <li><span class="hl-blue">Security (الأمان):</span> حماية النظام من الاختراقات والتعديل غير المصرح به.</li>
+      <li><span class="hl-blue">Maintainability (قابلية الصيانة):</span> سهولة تحديث وإصلاح النظام (زي الـ OTA Firmware updates).</li>
+    </ul>
+    
+    <div class="callout callout-tip">
+      <div class="callout-head">🔄 Embedded System Life Cycle & Design Flow</div>
+      <p>دورة الحياة بتبدأ من <strong>Requirements Analysis</strong>، مروراً بالـ <strong>Architecture Design</strong> (تحديد الـ HW/SW partitioning)، ثم الـ <strong>Implementation</strong>، وأخيراً الـ <strong>Testing & Maintenance</strong>. الأنظمة بتُصنف لـ Small Scale (8/16-bit)، Medium Scale (16/32-bit)، و Sophisticated (32/64-bit IPs).</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N2 ==================== -->
+<div class="section" id="s_new_2">
+  <div class="section-header">
+    <div class="section-badge">N2</div>
+    <div class="section-meta">
+      <div class="section-title">Digital & Analog Electronics</div>
+      <div class="section-sub">الأساسيات الإلكترونية — من الدايود للبوابات المنطقية</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚡</span> Semiconductor Devices (Diodes, BJT, MOSFET)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>العنصر</th><th>الوظيفة الأساسية</th><th>الأنواع والخصائص</th></tr></thead>
+        <tbody>
+          <tr><td><span class="hl-blue">Diode</span></td><td>السماح للتيار بالمرور في اتجاه واحد (Forward Bias).</td><td>Zener (لتثبيت الجهد)، Schottky (سريع للـ Switching)، LED (إضاءة).</td></tr>
+          <tr><td><span class="hl-green">BJT</span></td><td>مُضخم (Amplifier) أو مفتاح (Switch) محكوم بالتيار.</td><td>NPN و PNP. تيار الـ Base يتحكم في تيار الـ Collector.</td></tr>
+          <tr><td><span class="hi">MOSFET</span></td><td>مفتاح طاقة محكوم بالجهد (Voltage-controlled).</td><td>N-Channel و P-Channel. استهلاك طاقة شبه معدوم على الـ Gate.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔌</span> Rectifiers & Regulators</div>
+    <p>لتحويل التيار المتردد (AC) لتيار مستمر (DC)، بنستخدم <span class="hl">Rectifiers</span> (دوائر تقويم):</p>
+    <p><strong>Half-Wave Rectifier:</strong> بيستخدم دايود واحد ويمرر نصف الموجة فقط. كفاءته منخفضة.</p>
+    <p><strong>Full-Wave Bridge Rectifier:</strong> بيستخدم 4 دايودات ويمرر الموجة كاملة. بنضيف Capacitor لتنعيم الإشارة (Smoothing).</p>
+    <p>لتثبيت الجهد، بنستخدم <span class="hl-pink">Voltage Regulators</span> زي عائلة LM78xx (مثال 7805 بيخرج 5V ثابت) أو Linear Regulators للحماية من التذبذبات.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔢</span> Logic Gates & Pull-Networks</div>
+    <p>البوابات المنطقية (AND, OR, NOT, NAND, NOR, XOR, XNOR) هي حجر الأساس للدوائر الرقمية. لكن عند ربطها بالميكروكنترولر، بنحتاج <span class="hl">Pull-Networks</span> لتجنب حالة الـ Floating:</p>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Pull-Up Resistor</h4>
+        <p>مقاومة توصل الـ Input بالـ VCC. في الوضع الطبيعي، الإشارة HIGH. عند ضغط الزر، تتصل بالـ GND وتصبح LOW.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>Pull-Down Resistor</h4>
+        <p>مقاومة توصل الـ Input بالـ GND. في الوضع الطبيعي، الإشارة LOW. عند ضغط الزر، تتصل بالـ VCC وتصبح HIGH.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N3 ==================== -->
+<div class="section" id="s_new_3">
+  <div class="section-header">
+    <div class="section-badge">N3</div>
+    <div class="section-meta">
+      <div class="section-title">Operational Amplifiers (Op-Amps)</div>
+      <div class="section-sub">المضخمات التشغيلية والتطبيقات التناظرية الكاملة</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📡</span> الـ 7 دوائر الأساسية للـ Op-Amp</div>
+    <p>الـ Op-Amp المُثالي بيتميز بـ: Input Impedance = ∞، Output Impedance = 0، و Gain = ∞.</p>
+    
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>النوع</th><th>المعادلة الرياضية</th><th>الشرح</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">1. Inverting Amp</td><td>Vout = - (Rf / Rin) * Vin</td><td>بيضخم الإشارة وبيعكس طورها (يضرب في سالب).</td></tr>
+          <tr><td class="hl-green">2. Non-Inverting Amp</td><td>Vout = (1 + Rf / Rin) * Vin</td><td>بيضخم الإشارة بدون عكس الطور.</td></tr>
+          <tr><td class="hi">3. Voltage Follower</td><td>Vout = Vin</td><td>مفيش تضخيم (Gain=1). بيستخدم كـ Buffer لعزل الدوائر (Impedance matching).</td></tr>
+          <tr><td class="hl-pink">4. Summing Amp</td><td>Vout = - (V1/R1 + V2/R2) * Rf</td><td>بيجمع أكتر من جهد داخل ويعكسهم. مفيد في دوائر الـ DAC.</td></tr>
+          <tr><td class="hl">5. Difference Amp</td><td>Vout = (V2 - V1) * (Rf / R1)</td><td>بيضخم الفرق بين إشارتين. أساس الـ Instrumentation Amplifiers.</td></tr>
+          <tr><td class="hl-blue">6. Integrator</td><td>Vout = - (1/RC) ∫ Vin dt</td><td>بيحول الموجة المربعة لموجة مثلثية (تكامل الإشارة).</td></tr>
+          <tr><td class="hl-green">7. Differentiator</td><td>Vout = - RC (dVin/dt)</td><td>بيحول الموجة المثلثية لموجة مربعة (تفاضل الإشارة).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-head">⚠️ Comparator (المُقارن)</div>
+      <p>الـ Comparator هو Op-Amp بيشتغل بدون Feedback (في وضع الـ Open-Loop). بيقارن بين جهدين V+ و V-. لو V+ أكبر، الخرج بيكون +Vcc. لو V- أكبر، الخرج بيكون -Vee. بيُستخدم لتحويل الإشارة الأنالوج لـ Digital (1 أو 0).</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N4 ==================== -->
+<div class="section" id="s_new_4">
+  <div class="section-header">
+    <div class="section-badge">N4</div>
+    <div class="section-meta">
+      <div class="section-title">ADC / DAC Deep Theory</div>
+      <div class="section-sub">النظرية المعمارية العميقة للتحويلات الرقمية والتناظرية</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🎯</span> ADC Architectures — الـ 6 تقنيات لتحويل ADC</div>
+    <p>في التطبيقات الدقيقة والمشاريع الأكاديمية (كما يُشير د. الحبروك ود. عبد العزيز عمارة دائماً في تصميم الأنظمة)، فهم هيكلة الـ ADC والـ Noise Shaping يعتبر حجر الأساس للوصول لـ Resolution عالي. التقنيات الأساسية هي:</p>
+
+    <div class="numbox">
+      <div class="numbox-title">تقنيات الـ ADC</div>
+      <div class="num-row"><span class="num-label">1. Flash ADC</span><span class="num-val">الأسرع إطلاقاً. بيستخدم 2^N - 1 Comparators. عيبه إنه غالي جداً وبيستهلك مساحة.</span></div>
+      <div class="num-row"><span class="num-label">2. SAR (Successive Approximation)</span><span class="num-val">الأكثر شيوعاً (الموجود في Arduino). توازن ممتاز بين السرعة والدقة، بيستخدم Binary Search لمعرفة القيمة.</span></div>
+      <div class="num-row"><span class="num-label">3. Dual Slope Integrating</span><span class="num-val">دقيق جداً وبيلغي الـ Noise (زي الـ 50Hz hum). بطيء جداً وبيستخدم في المالتيميتر.</span></div>
+      <div class="num-row"><span class="num-label">4. Sigma-Delta (Σ-Δ)</span><span class="num-val">بيعتمد على الـ Oversampling والـ Noise Shaping للوصول لدقة خرافية (تصل لـ 24-bit). ممتاز للصوتيات.</span></div>
+      <div class="num-row"><span class="num-label">5. Pipeline ADC</span><span class="num-val">بيقسم التحويل لمراحل (Stages). بيوفر سرعة عالية جداً مع دقة معقولة. يستخدم في الـ Video والتصوير.</span></div>
+      <div class="num-row"><span class="num-label">6. Counter (Ramp) ADC</span><span class="num-val">بسيط جداً. بيقارن الإشارة مع Counter متزايد. مشكلته إن وقت التحويل متغير حسب قيمة الإشارة.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📊</span> DAC Architectures</div>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Weighted Resistor DAC</h4>
+        <p>بيستخدم مقاومات بقيم مضاعفة (R, 2R, 4R, 8R). نظرياً بسيط، لكن عملياً مستحيل تصنيع مقاومات دقيقة بفروق ضخمة للـ High Resolutions.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>R-2R Ladder DAC</h4>
+        <p>بيحل مشكلة الـ Weighted بأنه بيستخدم قيمتين بس للمقاومات (R و 2R). سهل جداً في التصنيع داخل الـ ICs وهو المعيار الصناعي الحالي.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N5 ==================== -->
+<div class="section" id="s_new_5">
+  <div class="section-header">
+    <div class="section-badge">N5</div>
+    <div class="section-meta">
+      <div class="section-title">Signal & Measurement Systems</div>
+      <div class="section-sub">المستشعرات، القياسات، وتطبيقات المعايرة المتقدمة</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📐</span> Signal Conditioning & Oscillators</div>
+    <p>الإشارة الناتجة من السنسور بتحتاج <span class="hl">Signal Conditioning</span> قبل الـ MCU عبر التضخيم (Amplification)، التنقية (Filtering)، والـ Isolation للحماية.</p>
+    <p>لتوليد نبضات المعالجة، بنستخدم الـ <span class="hl">Oscillators</span> (المُذبذبات). أنواعها:</p>
+    <ul style="padding-right:20px;">
+      <li><strong>RC/LC Oscillators:</strong> بسيطة ورخيصة لكن دقتها منخفضة وبتتأثر بالحرارة.</li>
+      <li><strong>Crystal Oscillators (Quartz):</strong> دقة عالية جداً وثبات ممتاز، وتعتبر الـ Standard في الـ Microcontrollers.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚙️</span> Industrial Sensors, Encoders & Motors</div>
+    <p>في الأنظمة الآلية زي Smart automatic door system المعتمد على ESP32، الـ <span class="hl">Encoders</span> (زي الـ Optical Rotary Encoders) هي اللي بتحدد موضع وسرعة الباب بدقة متناهية عبر إشارات نبضية (Quadrature A/B signals) بتعرفنا الاتجاه والمسافة.</p>
+    <p><strong>Advanced Motor Types:</strong> بجانب الـ DC والـ Stepper، بيتم استخدام BLDC (Brushless DC) لكفاءته العالية وعمره الطويل في الدرونز والسيارات الكهربائية، و Servomotors للتحكم الزاوي الدقيق بفضل الـ Feedback loop الداخلية.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🛠️</span> Calibration & Error Analysis</div>
+    <p>أنظمة القياس بتتعرض لأخطاء. تحليل الأخطاء (Error Analysis) بيشمل:</p>
+    <p><span class="hl-blue">Systematic Errors:</span> أخطاء متكررة (زي الـ Zero Offset)، بنعالجها بـ <span class="hl">Calibration</span> (المعايرة) عن طريق مقارنة النظام بمعيار قياسي (Golden Standard) وضبط الكود.</p>
+    <p><span class="hl-pink">Random Errors:</span> أخطاء عشوائية بسبب הNoise، بنعالجها برمجياً عن طريق أخذ متوسط قراءات (Moving Average) أو فلاتر رقمية.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N6 ==================== -->
+<div class="section" id="s_new_6">
+  <div class="section-header">
+    <div class="section-badge">N6</div>
+    <div class="section-meta">
+      <div class="section-title">8085 Microprocessor</div>
+      <div class="section-sub">تشريح معماري كامل لأشهر معالج كلاسيكي 8-bit</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏛️</span> 8085 Architecture & Registers</div>
+    <p>معالج الـ 8085 من Intel هو الأساس لفهم أي معالج حديث. المعالج ده 8-bit، بيحتوي على 16-bit Address Bus (بيقدر يوصل لـ 64KB من الذاكرة) و 8-bit Data Bus (Multiplexed مع الـ Address Bus في خطوط AD0-AD7).</p>
+    
+    <h4>Registers (المسجلات)</h4>
+    <p>كمثال برمجي بلغة التجميع (Assembly)، يمكن كتابة برنامج لحساب وتحديث نتيجة مباراة كرة قدم لفرق كبرى مثل الزمالك (Zamalek SC) بتخزين الأهداف في مسجلات معينة كالآتي:</p>
+    <ul style="padding-right:20px;">
+      <li><strong>Accumulator (A):</strong> 8-bit. كل العمليات الحسابية والمنطقية بتتم فيه والنتيجة بتتحفظ فيه.</li>
+      <li><strong>General Purpose:</strong> B, C, D, E, H, L (كلهم 8-bit). ممكن يندمجوا (B-C, D-E, H-L) عشان يشتغلوا كـ 16-bit Registers. الزوج H-L بيُستخدم كمؤشر للذاكرة (Memory Pointer).</li>
+      <li><strong>Program Counter (PC):</strong> 16-bit. بيشاور على عنوان التعليمة (Instruction) اللي عليها الدور تتنفذ.</li>
+      <li><strong>Stack Pointer (SP):</strong> 16-bit. بيشاور على قمة الـ Stack في الذاكرة لعمليات الـ PUSH والـ POP.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🚩</span> ALU, Flags & Timing Unit</div>
+    <p>الـ <span class="hl-blue">Flags Register</span> في الـ 8085 بيحتوي على 5 إشارات (Flags):</p>
+    <p>Sign (S), Zero (Z), Auxiliary Carry (AC), Parity (P), Carry (CY).</p>
+    
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Instruction Cycle</h4>
+        <p>دورة التعليمة بتتكون من: <strong>Fetch</strong> (جلب الكود من الذاكرة)، <strong>Decode</strong> (فك الشفرة في الـ Control Unit)، و <strong>Execute</strong> (التنفيذ بالـ ALU). كل جزء بيتقسم لـ Machine Cycles (زي Opcode Fetch, Memory Read).</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>Interrupts</h4>
+        <p>الـ 8085 بيدعم 5 Hardware Interrupts مرتبة حسب الأولوية:</p>
+        <p><strong>TRAP</strong> (أعلى أولوية، Non-maskable)، <strong>RST 7.5</strong>، <strong>RST 6.5</strong>، <strong>RST 5.5</strong>، و <strong>INTR</strong>.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N7 ==================== -->
+<div class="section" id="s_new_7">
+  <div class="section-header">
+    <div class="section-badge">N7</div>
+    <div class="section-meta">
+      <div class="section-title">DSP Advanced Architecture</div>
+      <div class="section-sub">معالجة الإشارات الرقمية المتقدمة وتقنيات التسريع</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🚀</span> DSP Core Features (MAC, Pipelining, SIMD, VLIW)</div>
+    <p>معالجات الـ DSP (Digital Signal Processors) مبنية مخصوص عشان تتعامل مع العمليات الرياضية المعقدة (زي الفلاتر والـ FFT) في الوقت الفعلي (Real-Time).</p>
+    
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>التقنية المتقدمة</th><th>آلية العمل والفائدة</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">MAC Unit (Multiply-Accumulate)</td><td>وحدة هاردوير مخصصة بتنفذ عملية ضرب وجمع في Clock cycle واحدة: <code>Accumulator = Accumulator + (A * B)</code>. أساسية جداً في الـ FIR/IIR Filters.</td></tr>
+          <tr><td class="hl-green">Pipelining</td><td>تقسيم عملية الـ Instruction (Fetch, Decode, Execute) لمراحل متوازية، بحيث يتم معالجة تعليمات متعددة في نفس الوقت كخط إنتاج المصنع.</td></tr>
+          <tr><td class="hi">SIMD (Single Instruction Multiple Data)</td><td>تنفيذ تعليمة واحدة (زي الجمع) على مجموعة كاملة من البيانات في نفس اللحظة. ممتازة لمعالجة المصفوفات والصوتيات.</td></tr>
+          <tr><td class="hl-pink">VLIW (Very Long Instruction Word)</td><td>تجميع عدة تعليمات غير معتمدة على بعضها في كلمة طويلة جداً وإرسالها للـ CPU عشان تتنفذ بالتوازي في وحدات معالجة مختلفة.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📻</span> Signal Processing Workflow & Filtering Basics</div>
+    <p>الـ <span class="hl">Workflow</span> في أنظمة الـ DSP بيبدأ بـ Anti-Aliasing Filter (LPF تناظري)، ثم ADC لتحويل الإشارة لرقمية. المعالج بينفذ الخوارزمية (مثلاً FIR Filter لإزالة الضوضاء)، ثم الإشارة بتمر لـ DAC، وأخيراً Reconstruction Filter (LPF) لتنعيم الخرج التناظري.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N8 ==================== -->
+<div class="section" id="s_new_8">
+  <div class="section-header">
+    <div class="section-badge">N8</div>
+    <div class="section-meta">
+      <div class="section-title">Embedded Software & Toolchains</div>
+      <div class="section-sub">بنية الـ Firmware من الـ C وحتى الـ Bootloader</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">💻</span> Embedded C & Firmware Architecture</div>
+    <p>لغة <span class="hl-blue">Embedded C</span> هي الامتداد المباشر للغة C القياسية، بس بتتميز بالوصول المباشر للـ Hardware registers والتعامل الحساس مع الذاكرة (زي استخدام <code>volatile</code> و <code>#pragma</code>). بنية الـ Firmware الاحترافية بتعتمد على Layered Architecture (Hardware Abstraction Layer - HAL).</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🛠️</span> Toolchains, Build Systems & Cross Compilers</div>
+    <p>تأسيس بيئة تطوير (Toolchain) احترافية هو أول خطوة لنجاح البنية التحتية البرمجية لأي شركة تقنية أو Startup واعدة زي Averon، حيث يتم استخدام الـ Cross-compilers والـ Build systems لبناء الـ Firmware بكفاءة.</p>
+    
+    <div class="numbox">
+      <div class="numbox-title">عناصر الـ Toolchain</div>
+      <div class="num-row"><span class="num-label">Cross Compiler</span><span class="num-val">مترجم بيشتغل على بيئة (زي الويندوز) وبيولد كود لبيئة تانية خالص (زي ARM أو AVR).</span></div>
+      <div class="num-row"><span class="num-label">Linker</span><span class="num-val">بيربط كل الـ Object files الناتجة من الكومبايلر مع المكتبات وبيوزعها على الـ Memory Map الخاصة بالمايكروكنترولر.</span></div>
+      <div class="num-row"><span class="num-label">Build Systems (Make/CMake)</span><span class="num-val">أدوات بتعمل أتمتة (Automation) لعملية الـ Compilation عشان تبني المشروع بضغطة زر واحدة.</span></div>
+      <div class="num-row"><span class="num-label">Debugger (GDB)</span><span class="num-val">بيستخدم لمتابعة تنفيذ الكود خطوة بخطوة وفحص قيم الـ Registers عبر واجهة JTAG/SWD.</span></div>
+      <div class="num-row"><span class="num-label">Bootloader & Flashing</span><span class="num-val">الـ Flashing هو حرق الكود على הFlash Memory. الـ Bootloader بيسمح بتحديث الكود من غير مبرمج خارجي (زي عبر UART أو WiFi).</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N9 ==================== -->
+<div class="section" id="s_new_9">
+  <div class="section-header">
+    <div class="section-badge">N9</div>
+    <div class="section-meta">
+      <div class="section-title">Arduino Deep Dive</div>
+      <div class="section-sub">البرمجة العميقة والـ Direct Register Manipulation</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚡</span> Direct Register Manipulation (PORT, DDR, PIN)</div>
+    <p>في تصميم الروبوتات المتقدمة (مثل Humanoid football-kicking robot المعتمد على YOLOv8 و Arduino)، استخدام دوال Arduino الافتراضية زي <code>digitalWrite</code> بيكون بطيء جداً وبيأخر حركة السيرفو والمستشعرات. الحل هو استخدام الـ <span class="hl-blue">Direct Register Manipulation</span> للوصول لسرعة استجابة لحظية.</p>
+
+    <div class="code-block">
+<span class="cc">// بدل ما نستخدم pinMode و digitalWrite اللي بياخدوا مايكروثواني كتير:</span>
+<span class="cc">// DDRD: Data Direction Register للـ Port D (Pins 0 to 7)</span>
+<span class="cc">// PORTD: Data Register للـ Port D (عشان نكتب HIGH/LOW)</span>
+<span class="cc">// PIND: Input Register للـ Port D (عشان نقرأ حالة الـ Pin)</span>
+
+<span class="ct">void</span> <span class="cf">setup</span>() {
+  DDRD = <span class="cn">0b11111111</span>;  <span class="cc">// خلي كل الـ pins في Port D كـ OUTPUT دفعة واحدة</span>
+}
+
+<span class="ct">void</span> <span class="cf">loop</span>() {
+  PORTD = <span class="cn">0b10101010</span>; <span class="cc">// شغل pins معينة وطفي الباقي في Clock cycle واحدة!</span>
+}</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🗺️</span> Internal Architecture & Memory Map</div>
+    <p>معمارية الـ ATmega328P الداخلية متقسمة بدقة. الـ <span class="hl">Memory Map</span> بتورينا إن الـ RAM متقسمة لـ:</p>
+    <ul style="padding-right:20px;">
+      <li><strong>32 Registers:</strong> بتستخدم للعمليات السريعة جداً.</li>
+      <li><strong>64 I/O Registers:</strong> للتحكم في الـ Peripherals (زي الـ Timers والـ ADC).</li>
+      <li><strong>160 Ext I/O Registers:</strong> للمميزات الإضافية.</li>
+      <li><strong>Internal SRAM:</strong> الـ 2KB المتاحة للمتغيرات (الـ Heap للـ Dynamic allocation والـ Stack للـ Functions والـ Interrupts).</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N10 ==================== -->
+<div class="section" id="s_new_10">
+  <div class="section-header">
+    <div class="section-badge">N10</div>
+    <div class="section-meta">
+      <div class="section-title">Advanced RTOS</div>
+      <div class="section-sub">الجدولة، المزامنة، وتفادي مشاكل الأنظمة الفورية</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⏱️</span> Scheduling Algorithms & Context Switching</div>
+    <p>في مشاريع التحكم الدقيقة زي تصميم Ball and Beam control system باستخدام ESP32، بنحتاج نطبق نظام RTOS بحيث يكون الـ PID Controller في مهمة (Task) ذات أولوية عليا (High Priority) لضمان استقرار الكرة وعدم سقوطها.</p>
+    
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Scheduling Algorithms</h4>
+        <p><strong>RMS (Rate Monotonic Scheduling):</strong> بيعطي الـ Priority الأعلى للـ Task اللي الـ Period بتاعته أقصر (بيتكرر أسرع). ممتاز للـ Static Priorities.</p>
+        <p><strong>EDF (Earliest Deadline First):</strong> الـ Priority ديناميكي وبيعطي الأولوية للـ Task اللي الـ Deadline بتاعه أقرب.</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>Context Switching</h4>
+        <p>هي العملية اللي بيقوم بيها الـ RTOS لحفظ حالة الـ Task الحالي (قيم الـ Registers والـ PC) في الـ Stack، وتحميل حالة الـ Task الجديد. الـ Overhead بتاعها لازم يكون أصغر ما يمكن.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔐</span> Synchronization, IPC & Deadlocks</div>
+    <p>التواصل بين الـ Tasks (Inter-task Communication) بيتم بـ Queues و Mailboxes. لكن عشان نحمي الـ Shared Resources (زي الـ I2C bus)، بنستخدم أدوات المزامنة (Synchronization):</p>
+    
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>الأداة</th><th>الوظيفة</th><th>المشكلة التي تعالجها</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">Mutex (Mutual Exclusion)</td><td>مفتاح ملكية حصرية. الـ Task اللي بياخده هو بس اللي يقدر يرجعه.</td><td>تمنع تداخل الـ Tasks وقت استخدام نفس الـ Resource.</td></tr>
+          <tr><td class="hl-green">Semaphore</td><td>مؤشر أو عداد للإشعار بحدث (Signaling). مش مرتبط بملكية.</td><td>مزامنة الـ ISR مع الـ Task.</td></tr>
+          <tr><td class="hi">Event Flags</td><td>مجموعة Bits كل Bit بيعبر عن حدث معين.</td><td>السماح لـ Task بانتظار عدة أحداث معاً.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-danger">
+      <div class="callout-head">⚠️ Priority Inversion & Deadlocks</div>
+      <p><span class="hl-red">Priority Inversion:</span> ظاهرة خطيرة بتحصل لما Task منخفض الأولوية يمسك Mutex بيحتاجه Task عالي الأولوية، وTask متوسط يقطع الـ منخفض. الحل: <strong>Priority Inheritance Protocol</strong> (رفع أولوية الـ منخفض مؤقتاً).</p>
+      <p><span class="hl-red">Deadlocks:</span> تعليق كامل للنظام لإن 2 Tasks بينتظروا Mutexes مع بعض (A معاه M1 وبينتظر M2، و B معاه M2 وبينتظر M1). الحل: تصميم النظام بحيث تُطلب الـ Mutexes بترتيب ثابت دايماً.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== COLLAPSIBLE CARDS — grid-row trick =====
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.card').forEach(card => {
+    const title = card.querySelector('.card-title');
+    if (!title) return;
+    let body = card.querySelector('.card-body');
+    if (!body) {
+      body = document.createElement('div');
+      body.className = 'card-body';
+      const children = Array.from(card.children).filter(c => c !== title);
+      children.forEach(c => body.appendChild(c));
+      card.appendChild(body);
+    }
+    let inner = body.querySelector('.card-body-inner');
+    if (!inner) {
+      inner = document.createElement('div');
+      inner.className = 'card-body-inner';
+      Array.from(body.children).forEach(c => inner.appendChild(c));
+      body.appendChild(inner);
+    }
+    title.addEventListener('click', () => {
+      card.classList.toggle('collapsed');
+    });
+  });
+});
+</script>
+
 </body>
 </html>
