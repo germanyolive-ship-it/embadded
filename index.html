@@ -643,6 +643,26 @@ tr:hover td { background: rgba(56,189,248,0.03); }
 }
 .footer-title { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: var(--accent); margin-bottom: 8px; font-weight: 800; }
 
+/* ===== EXAM HUB (N38) ===== */
+.exam-hub { background: linear-gradient(180deg, var(--surface2) 0%, var(--surface) 100%); border: 2px solid var(--accent); border-radius: 20px; padding: 30px; margin-top: 40px; box-shadow: 0 10px 30px rgba(56,189,248,0.1); }
+.hub-header { text-align: center; margin-bottom: 30px; }
+.hub-header h3 { color: #fff; font-size: 1.8rem; font-family: 'Syne', sans-serif; margin-bottom: 10px; }
+.hub-header p { color: var(--accent3); font-weight: 600; }
+.tab-container { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 25px; }
+.tab-btn { background: var(--surface3); border: 1px solid var(--border2); color: var(--text); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Cairo', sans-serif; font-weight: 700; transition: all 0.2s; font-size: 0.95rem; }
+.tab-btn:hover { background: var(--surface4); border-color: var(--accent); color: var(--accent); }
+.tab-btn.active { background: var(--accent); color: #000; border-color: var(--accent); }
+.tab-content { display: none; background: var(--code-bg); border-radius: 12px; padding: 25px; border: 1px solid var(--border); }
+.tab-content.active { display: block; animation: fadeInTab 0.4s ease; }
+.mcq-question { margin-bottom: 20px; border-bottom: 1px dashed var(--border2); padding-bottom: 15px; }
+.mcq-question h5 { color: var(--accent4); font-size: 1.05rem; margin-bottom: 12px; line-height: 1.8; }
+.mcq-options label { display: block; margin-bottom: 8px; cursor: pointer; padding: 8px 12px; background: var(--surface2); border-radius: 6px; transition: background 0.2s; }
+.mcq-options label:hover { background: var(--surface3); }
+.reveal-btn { background: transparent; border: 1px solid var(--accent3); color: var(--accent3); padding: 6px 14px; border-radius: 6px; cursor: pointer; margin-top: 10px; font-size: 0.88rem; font-family: 'Cairo', sans-serif; font-weight: 700; transition: all 0.2s; }
+.reveal-btn:hover { background: rgba(52,211,153,0.12); }
+.answer-box { display: none; margin-top: 10px; padding: 12px 16px; background: rgba(52,211,153,0.08); border-right: 3px solid var(--accent3); border-radius: 0 8px 8px 0; color: #fff; font-size: 0.9rem; line-height: 1.9; }
+@keyframes fadeInTab { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
 /* ===== SEARCH BOX ===== */
 .search-wrapper {
   padding: 16px 16px 0;
@@ -1109,6 +1129,14 @@ table { min-width: 400px; }
       <a href="#s_new_28" class="toc-item"><span class="toc-num">N28</span> Threaded IRQ &amp; HR Timers</a>
       <a href="#s_new_29" class="toc-item"><span class="toc-num">N29</span> Audio Processing Case Study</a>
       <a href="#s_new_30" class="toc-item"><span class="toc-num">N30</span> RTOS Design Guidelines</a>
+      <a href="#s_new_31" class="toc-item"><span class="toc-num">N31</span> Embedded Electronics</a>
+      <a href="#s_new_32" class="toc-item"><span class="toc-num">N32</span> Operational Amplifiers</a>
+      <a href="#s_new_33" class="toc-item"><span class="toc-num">N33</span> Advanced ADC/DAC</a>
+      <a href="#s_new_34" class="toc-item"><span class="toc-num">N34</span> Signal Conditioning</a>
+      <a href="#s_new_35" class="toc-item"><span class="toc-num">N35</span> Industrial Instrumentation</a>
+      <a href="#s_new_36" class="toc-item"><span class="toc-num">N36</span> Position Measurement</a>
+      <a href="#s_new_37" class="toc-item"><span class="toc-num">N37</span> FPGA &amp; DSP</a>
+      <a href="#s_new_38" class="toc-item"><span class="toc-num" style="background:var(--accent); color:#000;">N38</span> Exam Preparation Hub</a>
     </div>
   </div>
 </div>
@@ -15656,6 +15684,370 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="num-row"><span class="num-label">4. Mechanics & Build</span><span class="num-val">حدد البنية الميكانيكية، ثم ابدأ في بناء النظام (Build the System) [cite: 2084, 2085].</span></div>
       <div class="num-row"><span class="num-label">5. Modular Testing</span><span class="num-val">اختبر كل وحدة تحكم على حدة (Test controls one at a time) [cite: 2086].</span></div>
     </div>
+  </div>
+</div>
+
+
+<script>
+// Tab Switching Logic — Exam Hub N38
+function openTab(evt, tabId) {
+  var tabContents = document.getElementsByClassName("tab-content");
+  for (var i = 0; i < tabContents.length; i++) {
+    tabContents[i].classList.remove("active");
+  }
+  var tabBtns = document.getElementsByClassName("tab-btn");
+  for (var i = 0; i < tabBtns.length; i++) {
+    tabBtns[i].classList.remove("active");
+  }
+  document.getElementById(tabId).classList.add("active");
+  evt.currentTarget.classList.add("active");
+}
+
+// Reveal Answers Logic — Exam Hub N38
+function revealAnswer(ansId) {
+  var ansBox = document.getElementById(ansId);
+  if (ansBox.style.display === "block") {
+    ansBox.style.display = "none";
+  } else {
+    ansBox.style.display = "block";
+  }
+}
+</script>
+
+<!-- ==================== SECTIONS N31–N38 (Part 5) ==================== -->
+<div class="section" id="s_new_31">
+  <div class="section-header">
+    <div class="section-badge">N31</div>
+    <div class="section-meta">
+      <div class="section-title">Embedded Electronics</div>
+      <div class="section-sub">عناصر أشباه الموصلات، مصادر الطاقة، ومفاتيح الترانزستور</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚡</span> Diodes & Power Management</div>
+    <p>الأساس الإلكتروني لأي نظام مدمج يعتمد على التحكم في مسار وتثبيت الطاقة:</p>
+    <ul style="padding-right:20px;">
+      <li><span class="hl-blue">Diodes (PN Junction):</span> يسمح بمرور التيار في اتجاه واحد. يستخدم في الـ Rectification (تقويم التيار من AC لـ DC) وحماية الدوائر من الـ Reverse Polarity.</li>
+      <li><span class="hl-pink">Zener Diodes:</span> يُصمم ليعمل في منطقة الـ Breakdown بشكل آمن. وظيفته الأساسية هي <strong>Voltage Regulation</strong> وتثبيت الجهد كمرجع (Reference Voltage).</li>
+      <li><span class="hl-green">Power Supplies & Regulators:</span> لتحويل مصدر الطاقة غير المستقر إلى جهد ثابت للـ MCU. تشمل الـ Linear Regulators (مثل 7805، تشتت الحرارة العالية) والـ SMPS (مثل Buck/Boost converters، كفاءة أعلى).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔄</span> Transistors (BJT & MOSFET)</div>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>BJT (Bipolar Junction Transistor)</h4>
+        <p>يُتحكم فيه بواسطة <strong>التيار</strong> (Current-controlled). عند استخدامه كمفتاح (Transistor as Switch)، يجب أن يعمل في منطقتي الـ <span class="hl-red">Cutoff</span> (OFF) والـ <span class="hl-green">Saturation</span> (ON).</p>
+        <p><em>Common Emitter:</em> أشهر توصيلة للـ BJT، توفر تضخيم عالي للجهد والتيار وتقوم بعكس الإشارة (Inverting).</p>
+      </div>
+      <div class="compare-card amber">
+        <h4>MOSFET (Metal-Oxide Semiconductor)</h4>
+        <p>يُتحكم فيه بواسطة <strong>الجهد</strong> (Voltage-controlled). يتميز بمقاومة دخل (Input Impedance) هائلة جداً تقترب من المالانهاية، مما يجعله لا يسحب تياراً من الـ MCU، وهو الخيار المفضل لتشغيل الأحمال العالية.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N32 ==================== -->
+<div class="section" id="s_new_32">
+  <div class="section-header">
+    <div class="section-badge">N32</div>
+    <div class="section-meta">
+      <div class="section-title">Operational Amplifiers (Op-Amps)</div>
+      <div class="section-sub">دوائر التضخيم، المقارنات، والعمليات الحسابية التناظرية</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📐</span> Op-Amp Configurations</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>النوع</th><th>المعادلة والتوصيل</th><th>الاستخدام في الـ Embedded</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">Inverting</td><td>$V_{out} = -V_{in} (R_f / R_{in})$</td><td>تضخيم الإشارة مع عكس الطور ($180^\circ$).</td></tr>
+          <tr><td class="hl-green">Non-Inverting</td><td>$V_{out} = V_{in} (1 + R_f / R_{in})$</td><td>تضخيم الإشارة بدون تغيير الطور، ويوفر Input Impedance عالية جداً.</td></tr>
+          <tr><td class="hl-pink">Summing</td><td>$V_{out} = - (V_1/R_1 + V_2/R_2) R_f$</td><td>جمع إشارات حساسات متعددة أو دمج إشارات صوتية، وهو أساس عمل الـ DAC.</td></tr>
+          <tr><td class="hl">Differential</td><td>$V_{out} = (V_2 - V_1) (R_f / R_1)$</td><td>تضخيم الفرق بين إشارتين. يُستخدم لرفض الشوشرة المشتركة (Common Mode Noise).</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-warn">
+      <div class="callout-head">Instrumentation & Comparator</div>
+      <p><span class="hl-amber">Instrumentation Amp:</span> يتكون من 3 Op-Amps. يمتاز بـ CMRR خرافي ومقاومة دخل عالية جداً. يستخدم طبياً (ECG) وفي الـ Load Cells حيث تكون الإشارة بالمايكروفولت.</p>
+      <p><span class="hl-red">Comparator:</span> يعمل في الـ Open-Loop (بدون Feedback). يقارن جهد الدخل بجهد مرجعي ويُخرج 0 أو 1 (HIGH/LOW). يُستخدم لرقمنة الإشارة قبل الـ MCU.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N33 ==================== -->
+<div class="section" id="s_new_33">
+  <div class="section-header">
+    <div class="section-badge">N33</div>
+    <div class="section-meta">
+      <div class="section-title">Advanced ADC/DAC</div>
+      <div class="section-sub">معماريات التحويل الرقمي والتناظري ومصادر الأخطاء</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🔢</span> ADC Architectures & Sample/Hold</div>
+    <p>قبل دخول الإشارة للـ ADC، يجب أن تمر بدائرة <span class="hl-blue">Sample & Hold (S&H)</span>، وهي عبارة عن مفتاح إلكتروني ومكثف يحتفظ بقيمة الجهد ثابتة أثناء عملية التحويل لضمان الدقة.</p>
+    
+    <div class="numbox">
+      <div class="numbox-title">تقنيات الـ ADC (من الأسرع للأبطأ)</div>
+      <div class="num-row"><span class="num-label">1. Flash ADC</span><span class="num-val">الأسرع، ينجز التحويل في Clock واحدة باستخدام $2^n - 1$ من المقارنات. مكلف ويستهلك طاقة.</span></div>
+      <div class="num-row"><span class="num-label">2. Tracking ADC</span><span class="num-val">يتتبع الإشارة باستخدام عداد (Up/Down Counter). سريع للإشارات البطيئة التغير.</span></div>
+      <div class="num-row"><span class="num-label">3. SAR ADC</span><span class="num-val">الأشهر (موجود في المايكروكنترولرات). يستخدم خوارزمية Binary Search، يأخذ $n$ Clicks لتحويل $n$-bits.</span></div>
+      <div class="num-row"><span class="num-label">4. Counter ADC</span><span class="num-val">بسيط يعتمد على عداد تصاعدي ومقارن، وقت التحويل يتغير حسب قيمة الإشارة.</span></div>
+      <div class="num-row"><span class="num-label">5. Dual Slope ADC</span><span class="num-val">بطيء جداً لكنه الأدق والأكثر مقاومة للضوضاء (يلغي تشويش 50/60Hz). يُستخدم في أجهزة الـ Multimeter.</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚠️</span> ADC & DAC Errors</div>
+    <p>أخطاء التحويل يمكن أن تكون ناتجة عن الدائرة أو طبيعة التحويل:</p>
+    <ul style="padding-right:20px;">
+      <li><strong>Quantization Error:</strong> خطأ طبيعي ناتج عن تقريب الإشارة التناظرية لمستويات رقمية (Resolution limit).</li>
+      <li><strong>Offset Error:</strong> عند وجود قيمة رقمية رغم أن الإشارة صفر.</li>
+      <li><strong>Gain Error:</strong> ميل العلاقة بين الإدخال والإخراج يختلف عن الميل المثالي.</li>
+      <li><strong>Non-Linearity:</strong> خطوة التحويل (Step size) ليست متساوية عبر كامل المدى القياسي.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N34 ==================== -->
+<div class="section" id="s_new_34">
+  <div class="section-header">
+    <div class="section-badge">N34</div>
+    <div class="section-meta">
+      <div class="section-title">Signal Conditioning</div>
+      <div class="section-sub">تجهيز الإشارة، الفلترة، العزل، والحماية</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🎛️</span> Conditioning Stages</div>
+    <p>الإشارة الخام من الحساسات (خاصة في المصانع) لا تصلح للمايكروكنترولر مباشرة وتتطلب:</p>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>Scaling & Filtering</h4>
+        <p><strong>Scaling (التدريج):</strong> تضخيم الإشارة الضعيفة (مثلاً من mV إلى 0-5V) باستخدام Op-Amps.</p>
+        <p><strong>Filtering (التنقية):</strong> إزالة الضوضاء. يتم بـ LPF لإزالة الـ High frequency noise، أو استخدام Active Filters (Op-Amps + RC) للحصول على Sharp cut-off.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>Isolation & Shielding</h4>
+        <p><strong>Isolation (العزل):</strong> حماية الـ MCU من الجهود العالية (Spikes) باستخدام <span class="hl">Optocouplers</span> (عزل ضوئي) أو عزل مغناطيسي.</p>
+        <p><strong>Shielding:</strong> حماية الأسلاك من الـ EMI بوضعها داخل قفص فاراداي (Faraday shield) أو استخدام الكابلات المجدولة (Twisted Pairs).</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N35 ==================== -->
+<div class="section" id="s_new_35">
+  <div class="section-header">
+    <div class="section-badge">N35</div>
+    <div class="section-meta">
+      <div class="section-title">Industrial Instrumentation</div>
+      <div class="section-sub">الحساسات الصناعية، خصائصها، وقياس الموائع والحرارة</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏭</span> Sensor vs Transducer & Characteristics</div>
+    <p>الـ <span class="hl">Sensor (الحساس)</span> هو العنصر الذي يستشعر التغير الفيزيائي، بينما الـ <span class="hl-blue">Transducer (المحول)</span> هو النظام الكامل الذي يحول هذه الطاقة إلى إشارة كهربية قابلة للقياس.</p>
+    <p><strong>الخصائص الثابتة (Static Characteristics):</strong> Accuracy (مدى القرب للقيمة الحقيقية)، Precision (تكرارية القراءات لنفس القيمة)، Resolution (أصغر تغير يمكن رصده)، Hysteresis (تغير القراءة عند الصعود مقابل الهبوط).</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🌡️</span> Flow, Pressure, Level & Temp</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>المتغير الفيزيائي</th><th>أمثلة الحساسات الصناعية</th></tr></thead>
+        <tbody>
+          <tr><td class="hl-blue">Flow (التدفق)</td><td>Venturi Tube, Pitot Tube, Turbine flow meter, Electromagnetic flow sensors.</td></tr>
+          <tr><td class="hl-green">Pressure (الضغط)</td><td>Strain Gauges على غشاء (Diaphragm)، Piezoelectric crystals, Bourdon tubes.</td></tr>
+          <tr><td class="hl-pink">Level (المنسوب)</td><td>Ultrasonic (عدم تلامس)، Capacitive probes، Floats.</td></tr>
+          <tr><td class="hl">Temperature</td><td><strong>RTD (PT100):</strong> بلاتين، مقاومة خطية جداً ودقيقة. <strong>Thermistors:</strong> (NTC/PTC) حساسة جداً وتكلفتها أقل.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N36 ==================== -->
+<div class="section" id="s_new_36">
+  <div class="section-header">
+    <div class="section-badge">N36</div>
+    <div class="section-meta">
+      <div class="section-title">Position Measurement</div>
+      <div class="section-sub">تحديد الموضع الدقيق، المشفرات، ومستشعرات القرب</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">📏</span> LVDT & Eddy Current</div>
+    <p><span class="hl-blue">LVDT (Linear Variable Differential Transformer):</span> يتكون من ملف ابتدائي وملفين ثانويين وقلب مغناطيسي متحرك. ممتاز للبيئات الصناعية القاسية لأنه لا يوجد فيه احتكاك مباشر (Frictionless)، ويقيس الإزاحة الخطية بدقة متناهية عبر فرق الجهد بين الملفين الثانويين.</p>
+    <p><span class="hl-amber">Eddy Current Sensors:</span> حساسات تقارب (Proximity) غير تلامسية. تولد مجالاً مغناطيسياً، وعند اقتراب معدن يتولد فيه تيارات دوامية (Eddy currents) تغير من ممانعة الملف، وتستخدم لقياس الاهتزازات أو السماكة.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">⚙️</span> Encoders & Tachometers</div>
+    <p>الـ <span class="hl-green">Encoders</span> تُستخدم لقياس الزاوية الدورانية: الـ <em>Absolute</em> يعطي كوداً فريداً لكل زاوية (لا ينسى الموضع بانقطاع الكهرباء)، والـ <em>Incremental</em> يعطي نبضات (A/B Quadrature) لمعرفة السرعة والاتجاه (يحتاج لـ Homing عند بدء التشغيل).</p>
+    <p>الـ <span class="hl-red">Tachometers</span> تُستخدم لقياس السرعة الزاوية (RPM) وتعمل כמولد DC صغير يعطي جهداً يتناسب طردياً مع السرعة.</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N37 ==================== -->
+<div class="section" id="s_new_37">
+  <div class="section-header">
+    <div class="section-badge">N37</div>
+    <div class="section-meta">
+      <div class="section-title">FPGA & DSP</div>
+      <div class="section-sub">معمارية العتاد المبرمج ومعالجة الإشارات المتقدمة</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🚀</span> DSP & FPGA Basics</div>
+    <div class="compare-grid">
+      <div class="compare-card blue">
+        <h4>DSP (Digital Signal Processor)</h4>
+        <p>معالجات مصممة للعمليات الرياضية الحسابية السريعة (مثل الفلاتر). تعتمد على <strong>Harvard Architecture</strong> ووحدات <span class="hl">MAC (Multiply-Accumulate)</span> لإنجاز الضرب والجمع في نبضة واحدة.</p>
+      </div>
+      <div class="compare-card green">
+        <h4>FPGA (Field Programmable Gate Array)</h4>
+        <p>ليست معالجات تنفذ كوداً متسلسلاً، بل هي "هاردوير يُعاد تشكيله". تتكون من مصفوفة من الـ <strong>CLBs</strong> و الـ <strong>LUTs (Look-Up Tables)</strong> وشبكة توجيه. تمتاز بالـ <span class="hl">True Parallelism</span> (التوازي المطلق).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="card-title-icon">🏗️</span> ASIC vs PLD</div>
+    <p>الـ <span class="hl-red">ASIC (Application-Specific Integrated Circuit)</span>: شريحة تُصنع لغرض واحد فقط. سريعة جداً وتستهلك طاقة أقل، لكن تكلفتها المبدئية (NRE) خرافية ومستحيل تعديلها بعد التصنيع.</p>
+    <p>الـ <span class="hl-amber">PLD (Programmable Logic Device)</span>: أجهزة أبسط من الـ FPGA مثل الـ CPLD. تحتفظ ببرمجتها عند انقطاع الكهرباء (Non-volatile) وتستخدم للدوائر المنطقية الأقل تعقيداً والتوقيتات الحرجة جداً (Predictable timing).</p>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ==================== SECTION N38 : EXAM HUB ==================== -->
+<div class="section" id="s_new_38">
+  <div class="section-header">
+    <div class="section-badge" style="background:var(--accent); color:#000;">N38</div>
+    <div class="section-meta">
+      <div class="section-title">Exam Preparation Hub</div>
+      <div class="section-sub">مركز المراجعة، الأسئلة المتكررة، والمقابلات الشخصية (LMS Section)</div>
+    </div>
+  </div>
+
+  <div class="exam-hub">
+    <div class="hub-header">
+      <h3>🎯 بوابة الإعداد للاختبارات والمقابلات</h3>
+      <p>اختر نوع الأسئلة لاختبار معلوماتك وتثبيت المفاهيم</p>
+    </div>
+
+    <div class="tab-container">
+      <button class="tab-btn active" onclick="openTab(event, 'tab-mcq')">MCQ Bank</button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-tf')">True/False</button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-interview')">Interview Questions</button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-cheat')">Cheat Sheet</button>
+    </div>
+
+    <!-- MCQ TAB -->
+    <div id="tab-mcq" class="tab-content active">
+      <div class="mcq-question">
+        <h5>1. Which ADC architecture is the fastest but consumes the most power and space?</h5>
+        <div class="mcq-options">
+          <label><input type="radio" name="q1"> SAR ADC</label>
+          <label><input type="radio" name="q1"> Dual Slope ADC</label>
+          <label><input type="radio" name="q1"> Flash ADC</label>
+          <label><input type="radio" name="q1"> Counter ADC</label>
+        </div>
+        <button class="reveal-btn" onclick="revealAnswer('ans1')">إظهار الإجابة</button>
+        <div id="ans1" class="answer-box"><strong>الإجابة: Flash ADC</strong><br>لأنه يستخدم مجموعة من المقارنات ($2^n-1$) بالتوازي، مما يتيح له التحويل في Clock Cycle واحدة.</div>
+      </div>
+
+      <div class="mcq-question">
+        <h5>2. To prevent Priority Inversion in RTOS, which protocol is widely used?</h5>
+        <div class="mcq-options">
+          <label><input type="radio" name="q2"> Earliest Deadline First</label>
+          <label><input type="radio" name="q2"> Priority Inheritance Protocol (PIP)</label>
+          <label><input type="radio" name="q2"> Round Robin</label>
+          <label><input type="radio" name="q2"> Rate Monotonic</label>
+        </div>
+        <button class="reveal-btn" onclick="revealAnswer('ans2')">إظهار الإجابة</button>
+        <div id="ans2" class="answer-box"><strong>الإجابة: Priority Inheritance Protocol (PIP)</strong><br>حيث ترث المهمة ذات الأولوية المنخفضة أولوية المهمة العليا لتنهي استخدام الـ Lock بسرعة.</div>
+      </div>
+    </div>
+
+    <!-- True/False TAB -->
+    <div id="tab-tf" class="tab-content">
+      <div class="mcq-question">
+        <h5>1. A MOSFET is a current-controlled device while a BJT is a voltage-controlled device.</h5>
+        <div class="mcq-options">
+          <label><input type="radio" name="tf1"> True</label>
+          <label><input type="radio" name="tf1"> False</label>
+        </div>
+        <button class="reveal-btn" onclick="revealAnswer('ans-tf1')">إظهار الإجابة</button>
+        <div id="ans-tf1" class="answer-box"><strong>False.</strong> العكس صحيح تماماً. الـ MOSFET يتحكم فيه الجهد، والـ BJT يتحكم فيه التيار.</div>
+      </div>
+      <div class="mcq-question">
+        <h5>2. Soft RTOS missing a single deadline will result in total system failure.</h5>
+        <div class="mcq-options">
+          <label><input type="radio" name="tf2"> True</label>
+          <label><input type="radio" name="tf2"> False</label>
+        </div>
+        <button class="reveal-btn" onclick="revealAnswer('ans-tf2')">إظهار الإجابة</button>
+        <div id="ans-tf2" class="answer-box"><strong>False.</strong> النظام الذي يفشل تماماً بتفويت Deadline واحد هو الـ Hard RTOS (مثل أنظمة فرامل السيارات).</div>
+      </div>
+    </div>
+
+    <!-- Interview TAB -->
+    <div id="tab-interview" class="tab-content">
+      <div class="mcq-question">
+        <h5>Q1. Explain the difference between Volatile and <code>volatile</code> in C for Embedded Systems?</h5>
+        <button class="reveal-btn" onclick="revealAnswer('ans-int1')">الإجابة النموذجية (Interview Answer)</button>
+        <div id="ans-int1" class="answer-box">كلمة <code>volatile</code> تخبر الـ Compiler أن هذه الذاكرة قد تتغير في أي وقت من خارج المسار البرمجي المعتاد (مثل بواسطة Interrupt أو Hardware register)، لذلك يمنع الـ Compiler من عمل Optimization وحذف قراءة المتغير. أما Volatile memory فهي الذاكرة التي تفقد بياناتها بانقطاع الكهرباء (مثل RAM).</div>
+      </div>
+      <div class="mcq-question">
+        <h5>Q2. Why do we need Pull-up or Pull-down resistors on switch inputs?</h5>
+        <button class="reveal-btn" onclick="revealAnswer('ans-int2')">الإجابة النموذجية (Interview Answer)</button>
+        <div id="ans-int2" class="answer-box">لمنع حالة الـ <strong>Floating</strong>. إذا تركنا الـ Pin بدون توصيل، سيلتقط ضوضاء (Noise) ويقرأ قيماً عشوائية 0 و 1. المقاومة تضمن حالة واضحة (VCC أو GND) عند عدم ضغط الزر.</div>
+      </div>
+    </div>
+
+    <!-- Cheat Sheet TAB -->
+    <div id="tab-cheat" class="tab-content">
+      <h4 style="color:var(--accent); margin-bottom:15px;">Quick Revision Formulas & Facts</h4>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المفهوم (Concept)</th><th>القانون / الملاحظة (Formula/Note)</th></tr></thead>
+          <tbody>
+            <tr><td class="hl-blue">ADC Resolution</td><td>$V_{ref} / (2^n - 1)$</td></tr>
+            <tr><td class="hl-green">Inverting Op-Amp Gain</td><td>$- R_f / R_{in}$</td></tr>
+            <tr><td class="hl-pink">UART vs SPI vs I2C</td><td>UART (Async, 2-wire), SPI (Sync, 4-wire, fast), I2C (Sync, 2-wire, Addressable)</td></tr>
+            <tr><td class="hl">Harvard vs Von Neumann</td><td>Harvard (Separate data/code buses - fast), Von Neumann (Shared bus - bottleneck)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
